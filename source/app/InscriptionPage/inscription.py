@@ -40,16 +40,12 @@ class InscriptionWindow(tk.Tk):
 
         self.x, self.y = None, None
 
-        self.bind('<ButtonPress-1>', self.mouse_down)
-        self.bind('<B1-Motion>', self.mouse_drag)
-        self.bind('<ButtonRelease-1>', self.mouse_up)
-
         # Design
 
         title_bar = tk.Canvas(self, height=52, width=window_width, background=self.COLOR["entrycolor"], highlightthickness=0)
         title_bar.place(x=0, y=0)
 
-        img = tk.PhotoImage(file=r'../../ressource/img/icon.png').subsample(20)
+        img = tk.PhotoImage(file=r'../../ressource/img/icon.png').subsample(10)
         icons = tk.Label(self, image=img, background=self.COLOR["entrycolor"], bd=0,
                          foreground=self.COLOR["lightgreen"])
         icons.photo = img
@@ -57,16 +53,21 @@ class InscriptionWindow(tk.Tk):
 
         title = tk.Label(self, text="GestMoney", background=self.COLOR["entrycolor"], foreground=self.COLOR["gray"],
                          font=('Roboto', 20, 'bold'))
-        title.place(x=130, y=10)
+        title.place(x=130, y=5)
 
         quit_button = tk.Button(self, text="X", bd=2, background=self.COLOR["entrycolor"],
                                 foreground=self.COLOR["buttontext"], activebackground=self.COLOR["lightgreen"],
                                 activeforeground=self.COLOR["buttontext"], font=('Roboto', 14, 'bold'),
                                 command=self.destroy)
-        quit_button.place(x=390, y=10)
+        quit_button.place(x=390, y=5)
 
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
+
+        # Permettre le mouvement seulement sur la title bar
+        title_bar.bind('<ButtonPress-1>', self.mouse_down)
+        title_bar.bind('<B1-Motion>', self.mouse_drag)
+        title_bar.bind('<ButtonRelease-1>', self.mouse_up)
 
     # Fonction
     def mouse_down(self, event):
