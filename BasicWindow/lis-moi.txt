@@ -1,0 +1,2 @@
+Dans ce fichier nous allons réaliser les bases des fenêtre
+pour ne pas a avoir à ré écrire tout le code tout le temps.
