@@ -34,7 +34,7 @@ class InscriptionWindow(tk.Tk):
 
         window_width, window_height = 431, 473
 
-        self.geometry("431x473")
+        self.geometry("431x473+100+100")
         self.config(background=self.COLOR["lightgreen"])
         self.wm_overrideredirect(True)
 
@@ -45,11 +45,11 @@ class InscriptionWindow(tk.Tk):
         title_bar = tk.Canvas(self, height=52, width=window_width, background=self.COLOR["entrycolor"], highlightthickness=0)
         title_bar.place(x=0, y=0)
 
-        img = tk.PhotoImage(file=r'../../ressource/img/icon.png').subsample(10)
+        img = tk.PhotoImage(file=r'../../ressource/img/icon.png').subsample(11)
         icons = tk.Label(self, image=img, background=self.COLOR["entrycolor"], bd=0,
                          foreground=self.COLOR["lightgreen"])
         icons.photo = img
-        icons.place(x=10, y=0)
+        icons.place(x=10, y=5)
 
         title = tk.Label(self, text="GestMoney", background=self.COLOR["entrycolor"], foreground=self.COLOR["gray"],
                          font=('Roboto', 20, 'bold'))
@@ -59,7 +59,7 @@ class InscriptionWindow(tk.Tk):
                                 foreground=self.COLOR["buttontext"], activebackground=self.COLOR["lightgreen"],
                                 activeforeground=self.COLOR["buttontext"], font=('Roboto', 14, 'bold'),
                                 command=self.destroy)
-        quit_button.place(x=390, y=5)
+        quit_button.place(x=385, y=5, height=40, width=40)
 
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
