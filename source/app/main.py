@@ -17,6 +17,18 @@ def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
     mainWindow.wm_withdraw()
     mainWindow.after(10, mainWindow.wm_deiconify)
 
+def center(win):
+    win.update_idletasks()
+    width = win.winfo_width()
+    frm_width = win.winfo_rootx() - win.winfo_x()
+    win_width = width + 2 * frm_width
+    height = win.winfo_height()
+    titlebar_height = win.winfo_rooty() - win.winfo_y()
+    win_height = height + titlebar_height + frm_width
+    x = win.winfo_screenwidth() // 2 - win_width // 2
+    y = win.winfo_screenheight() // 2 - win_height // 2
+    win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+    win.deiconify()
 
 class MainWindow(tk.Tk):
 
@@ -47,21 +59,33 @@ class MainWindow(tk.Tk):
         Title_bar.bind('<B1-Motion>', self.mouse_drag)
         Title_bar.bind('<ButtonRelease-1>', self.mouse_up)
 
-        imgs = tk.PhotoImage(file=r'../ressource/img/icon.png').subsample(8)
+
+        imgs = tk.PhotoImage(file=r'../ressource/img/icon.png').subsample(11)
         icons = tk.Label(self, image=imgs, background=self.COLOR["entrycolor"], bd=0,
                          foreground=self.COLOR["lightgreen"])
         icons.photo = imgs
         icons.place(x=10, y=0)
 
+        icons.bind('<ButtonPress-1>', self.mouse_down)
+        icons.bind('<B1-Motion>', self.mouse_drag)
+        icons.bind('<ButtonRelease-1>', self.mouse_up)
+
         title = tk.Label(self, text="GestMoney", background=self.COLOR["entrycolor"], foreground=self.COLOR["gray"],
                          font=('Roboto', 20, 'bold'))
         title.place(x=60, y=2)
+
+        title.bind('<ButtonPress-1>', self.mouse_down)
+        title.bind('<B1-Motion>', self.mouse_drag)
+        title.bind('<ButtonRelease-1>', self.mouse_up)
 
         quit_button = tk.Button(self, text="X", bd=2, background=self.COLOR["entrycolor"],
                                 foreground=self.COLOR["buttontext"], activebackground=self.COLOR["entrycolor"],
                                 activeforeground=self.COLOR["buttontext"], font=('Roboto', 14, 'bold'),
                                 command=self.destroy)
         quit_button.place(x=620, y=3, width=45, height=40)
+
+        # Centrer la fenêtre au milieu de l'écran
+        center(self)
 
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
