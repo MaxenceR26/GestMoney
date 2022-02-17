@@ -4,8 +4,9 @@ from ctypes import windll
 from Sys import select_image, set_color, center, set_appwindow
 
 class Main(tk.Tk):
-    def __init__(self):
-        tk.Tk.__init__(self)
+    def __init__(self, window):
+        tk.Tk.__init__(self, window)
+        self.window = window
 
         self.geometry("679x406")
         self.config(background=set_color("lightgreen"))
@@ -28,8 +29,6 @@ class Main(tk.Tk):
         self.basepage = MainWindow(self)
         self.basepage.pack()
 
-
-
     def switch_frame(self, frame_class):
         new_frame = frame_class(self)
         if self._frame is not None:
@@ -50,7 +49,7 @@ class Main(tk.Tk):
         icon.place(x=10, y=0)
 
         quit_button = tk.Button(self.JFrame, text="X", bd=2, background=set_color("entrycolor"),
-                                foreground=set_color("buttontext"), activebackground=set_color("entrycolor"),
+                                foreground=set_color("buttontext"), activebackground=set_color("lightgreen"),
                                 activeforeground=set_color("buttontext"), font=('Roboto', 14, 'bold'),
                                 command=exit)
         quit_button.place(x=620, y=3, width=45, height=40)
@@ -78,5 +77,5 @@ class Main(tk.Tk):
             element.bind('<ButtonRelease-1>', self.mouse_up)
 
 if __name__ == "__main__":
-    app = Main()
+    app = Main(None)
     app.mainloop()

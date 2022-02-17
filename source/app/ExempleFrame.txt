@@ -3,9 +3,9 @@ Ici voici le code à mettre dans un nouveau fichier pour une nouvelle frame :
 import tkinter as tk
 
 class NomDeLaClass(tk.Frame):
-    def __init__(self, root):
-        tk.Frame.__init__(self, root)
-        self.root = root
+    def __init__(self, window):
+        tk.Frame.__init__(self, window)
+        self.window = window
 
 
 Ensuite allez dans le fichier main.py
