@@ -52,31 +52,15 @@ class MainWindow(tk.Tk):
 
         # Design
 
-        Title_bar = tk.Canvas(width=679, height=47, bg=self.COLOR['entrycolor'], highlightthickness=0)
-        Title_bar.pack()
-
-        Title_bar.bind('<ButtonPress-1>', self.mouse_down)
-        Title_bar.bind('<B1-Motion>', self.mouse_drag)
-        Title_bar.bind('<ButtonRelease-1>', self.mouse_up)
-
+        title_bar = tk.Canvas(width=679, height=47, bg=self.COLOR['entrycolor'], highlightthickness=0)
+        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.COLOR["gray"])
+        title_bar.pack()
 
         imgs = tk.PhotoImage(file=r'../ressource/img/icon.png').subsample(11)
-        icons = tk.Label(self, image=imgs, background=self.COLOR["entrycolor"], bd=0,
+        icon = tk.Label(self, image=imgs, background=self.COLOR["entrycolor"], bd=0,
                          foreground=self.COLOR["lightgreen"])
-        icons.photo = imgs
-        icons.place(x=10, y=0)
-
-        icons.bind('<ButtonPress-1>', self.mouse_down)
-        icons.bind('<B1-Motion>', self.mouse_drag)
-        icons.bind('<ButtonRelease-1>', self.mouse_up)
-
-        title = tk.Label(self, text="GestMoney", background=self.COLOR["entrycolor"], foreground=self.COLOR["gray"],
-                         font=('Roboto', 20, 'bold'))
-        title.place(x=60, y=2)
-
-        title.bind('<ButtonPress-1>', self.mouse_down)
-        title.bind('<B1-Motion>', self.mouse_drag)
-        title.bind('<ButtonRelease-1>', self.mouse_up)
+        icon.photo = imgs
+        icon.place(x=10, y=0)
 
         quit_button = tk.Button(self, text="X", bd=2, background=self.COLOR["entrycolor"],
                                 foreground=self.COLOR["buttontext"], activebackground=self.COLOR["entrycolor"],
@@ -89,6 +73,9 @@ class MainWindow(tk.Tk):
 
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
+
+        # Permettre le mouvement seulement sur la title bar
+        self.apply_drag([title_bar, icon])
 
     # Fonction
     def mouse_down(self, event):
@@ -103,6 +90,12 @@ class MainWindow(tk.Tk):
         x0 = self.winfo_x() + deltax
         y0 = self.winfo_y() + deltay
         self.geometry("+%s+%s" % (x0, y0))
+
+    def apply_drag(self, elements):
+        for element in elements:
+            element.bind('<ButtonPress-1>', self.mouse_down)
+            element.bind('<B1-Motion>', self.mouse_drag)
+            element.bind('<ButtonRelease-1>', self.mouse_up)
 
     def update(self):
         self.mainloop()

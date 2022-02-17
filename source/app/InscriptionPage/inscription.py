@@ -20,7 +20,7 @@ def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
 
 class InscriptionWindow(tk.Tk):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         super().__init__()
 
         self.COLOR = {
@@ -42,18 +42,15 @@ class InscriptionWindow(tk.Tk):
 
         # Design
 
-        title_bar = tk.Canvas(self, height=52, width=window_width, background=self.COLOR["entrycolor"], highlightthickness=0)
+        title_bar = tk.Canvas(self, height=52, width=window_width, background=self.COLOR["entrycolor"],
+                              highlightthickness=0)
+        title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.COLOR["gray"])
         title_bar.place(x=0, y=0)
 
-        img = tk.PhotoImage(file=r'../../ressource/img/icon.png').subsample(11)
-        icons = tk.Label(self, image=img, background=self.COLOR["entrycolor"], bd=0,
-                         foreground=self.COLOR["lightgreen"])
-        icons.photo = img
-        icons.place(x=10, y=5)
-
-        title = tk.Label(self, text="GestMoney", background=self.COLOR["entrycolor"], foreground=self.COLOR["gray"],
-                         font=('Roboto', 20, 'bold'))
-        title.place(x=130, y=5)
+        logo = tk.PhotoImage(file=r'../../ressource/img/icon.png').subsample(11)
+        icon = tk.Label(self, image=logo, background=self.COLOR["entrycolor"], bd=0, foreground=self.COLOR["lightgreen"])
+        icon.photo = logo
+        icon.place(x=10, y=5)
 
         quit_button = tk.Button(self, text="X", bd=2, background=self.COLOR["entrycolor"],
                                 foreground=self.COLOR["buttontext"], activebackground=self.COLOR["lightgreen"],
@@ -65,11 +62,9 @@ class InscriptionWindow(tk.Tk):
         self.after(10, lambda: set_appwindow(self))
 
         # Permettre le mouvement seulement sur la title bar
-        title_bar.bind('<ButtonPress-1>', self.mouse_down)
-        title_bar.bind('<B1-Motion>', self.mouse_drag)
-        title_bar.bind('<ButtonRelease-1>', self.mouse_up)
+        self.apply_drag([title_bar, icon])
 
-    # Fonction
+    # Fonctions déplacement fenêtre
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y
 
@@ -82,6 +77,12 @@ class InscriptionWindow(tk.Tk):
         x0 = self.winfo_x() + deltax
         y0 = self.winfo_y() + deltay
         self.geometry("+%s+%s" % (x0, y0))
+
+    def apply_drag(self, elements):
+        for element in elements:
+            element.bind('<ButtonPress-1>', self.mouse_down)
+            element.bind('<B1-Motion>', self.mouse_drag)
+            element.bind('<ButtonRelease-1>', self.mouse_up)
 
     def update(self):
         self.mainloop()
