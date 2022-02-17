@@ -1,72 +1,21 @@
 import tkinter as tk
+from OnLaunch.BasePage import MainWindow
 from ctypes import windll
+from Sys import select_image, set_color, center, set_appwindow
 
-
-def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
-
-    GWL_EXSTYLE = -20
-    WS_EX_APPWINDOW = 0x00040000
-    WS_EX_TOOLWINDOW = 0x00000080
-    # Magic
-    hwnd = windll.user32.GetParent(mainWindow.winfo_id())
-    stylew = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
-    stylew = stylew & ~WS_EX_TOOLWINDOW
-    stylew = stylew | WS_EX_APPWINDOW
-    windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, stylew)
-
-    mainWindow.wm_withdraw()
-    mainWindow.after(10, mainWindow.wm_deiconify)
-
-def center(win):
-    win.update_idletasks()
-    width = win.winfo_width()
-    frm_width = win.winfo_rootx() - win.winfo_x()
-    win_width = width + 2 * frm_width
-    height = win.winfo_height()
-    titlebar_height = win.winfo_rooty() - win.winfo_y()
-    win_height = height + titlebar_height + frm_width
-    x = win.winfo_screenwidth() // 2 - win_width // 2
-    y = win.winfo_screenheight() // 2 - win_height // 2
-    win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
-    win.deiconify()
-
-class MainWindow(tk.Tk):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-
-        self.COLOR = {
-            'lightgreen': '#EAFCEC',
-            'entrycolor': '#89DA92',
-            'buttontext': '#45794A',
-            'gray': '#666666'
-        }
-
-        # Config Window
+class Main(tk.Tk):
+    def __init__(self):
+        tk.Tk.__init__(self)
 
         self.geometry("679x406")
-        self.config(background=self.COLOR["lightgreen"])
+        self.config(background=set_color("lightgreen"))
         self.wm_overrideredirect(True)
-
         self.x, self.y = None, None
+        self.JFrame = None
+        self._frame = None
 
-        # Design
-
-        title_bar = tk.Canvas(width=679, height=47, bg=self.COLOR['entrycolor'], highlightthickness=0)
-        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.COLOR["gray"])
-        title_bar.pack()
-
-        imgs = tk.PhotoImage(file=r'../ressource/img/icon.png').subsample(11)
-        icon = tk.Label(self, image=imgs, background=self.COLOR["entrycolor"], bd=0,
-                         foreground=self.COLOR["lightgreen"])
-        icon.photo = imgs
-        icon.place(x=10, y=0)
-
-        quit_button = tk.Button(self, text="X", bd=2, background=self.COLOR["entrycolor"],
-                                foreground=self.COLOR["buttontext"], activebackground=self.COLOR["entrycolor"],
-                                activeforeground=self.COLOR["buttontext"], font=('Roboto', 14, 'bold'),
-                                command=self.destroy)
-        quit_button.place(x=620, y=3, width=45, height=40)
+        # Titlebar
+        self.widget_title_bar()
 
         # Centrer la fenêtre au milieu de l'écran
         center(self)
@@ -74,10 +23,41 @@ class MainWindow(tk.Tk):
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
 
-        # Permettre le mouvement seulement sur la title bar
+        # Permet d'afficher notre première fenêtre ( Base Page )
+
+        self.basepage = MainWindow(self)
+        self.basepage.pack()
+
+
+
+    def switch_frame(self, frame_class):
+        new_frame = frame_class(self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack()
+
+    def widget_title_bar(self):
+        self.JFrame = tk.Frame(self)
+        title_bar = tk.Canvas(self.JFrame, width=679, height=47, bg=set_color('entrycolor'), highlightthickness=0)
+        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
+        title_bar.pack()
+
+        imgs = tk.PhotoImage(file=select_image("icon.png")).subsample(11)
+        icon = tk.Label(self.JFrame, image=imgs, background=set_color("entrycolor"), bd=0,
+                        foreground=set_color("lightgreen"))
+        icon.photo = imgs
+        icon.place(x=10, y=0)
+
+        quit_button = tk.Button(self.JFrame, text="X", bd=2, background=set_color("entrycolor"),
+                                foreground=set_color("buttontext"), activebackground=set_color("entrycolor"),
+                                activeforeground=set_color("buttontext"), font=('Roboto', 14, 'bold'),
+                                command=exit)
+        quit_button.place(x=620, y=3, width=45, height=40)
+        self.JFrame.pack()
+
         self.apply_drag([title_bar, icon])
 
-    # Fonction
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y
 
@@ -97,9 +77,6 @@ class MainWindow(tk.Tk):
             element.bind('<B1-Motion>', self.mouse_drag)
             element.bind('<ButtonRelease-1>', self.mouse_up)
 
-    def update(self):
-        self.mainloop()
-
-
 if __name__ == "__main__":
-    MainWindow().update()
+    app = Main()
+    app.mainloop()

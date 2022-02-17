@@ -1,0 +1,21 @@
+Ici voici le code à mettre dans un nouveau fichier pour une nouvelle frame :
+
+import tkinter as tk
+
+class NomDeLaClass(tk.Frame):
+    def __init__(self, root):
+        tk.Frame.__init__(self, root)
+        self.root = root
+
+
+Ensuite allez dans le fichier main.py
+puis mettez c'est ligne la :
+
+self.NomQueVousSouhaitez = NomDeLaClass(self)
+self.NomQueVousSouhaitez.pack()
+
+N'oubliez pas d'importer la class !
+Exemple D'importe :
+
+from LeNomDuDossier import LeNomDeLaClass
+

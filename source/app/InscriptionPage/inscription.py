@@ -1,7 +1,6 @@
 import tkinter as tk
 from ctypes import windll
 
-
 def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
 
     GWL_EXSTYLE = -20
