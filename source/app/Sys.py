@@ -1,18 +1,22 @@
 import os
 from ctypes import windll
 
+
 def select_image(name):
     scriptpath = os.path.abspath(__file__)
     scriptdir = os.path.dirname(scriptpath)
     imagepath = os.path.join(scriptdir, f"img\\{name}")
     return imagepath
 
+
 def set_color(color):
     COLOR = {
         'lightgreen': '#EAFCEC',
         'entrycolor': '#89DA92',
         'buttontext': '#45794A',
-        'gray': '#666666'
+        'gray': '#666666',
+        'darkgreen': '#41a04c',
+        'white': '#FFFFFF'
     }
 
     return COLOR[color]
@@ -30,6 +34,7 @@ def center(win):
     y = win.winfo_screenheight() // 2 - win_height // 2
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     win.deiconify()
+
 
 def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
 
