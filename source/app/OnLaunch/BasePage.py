@@ -53,5 +53,5 @@ pour t’aider !
         # Copyright
 
         copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("lightgreen"),
-                                    foreground=set_color("gray"), font=('Roboto', 13))
-        copyright_text.place(x=250, y=325)
+                                    foreground=set_color("gray"), font=('Roboto', 10))
+        copyright_text.place(x=275, y=335)
