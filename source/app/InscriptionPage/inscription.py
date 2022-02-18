@@ -24,7 +24,7 @@ class InscriptionWindow(tk.Frame):
     def __init__(self, window):
         super().__init__(window, width=431, height=473)
 
-        ROBOTO_14 = ('Roboto', 14, 'bold')
+        self.ROBOTO_14 = ('Roboto', 14, 'bold')
 
         self.window = window
 
@@ -35,22 +35,7 @@ class InscriptionWindow(tk.Frame):
 
         # Design
 
-        title_bar = tk.Canvas(self, height=52, width=431, background=set_color("entrycolor"),
-                              highlightthickness=0)
-        title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
-        title_bar.place(x=0, y=0)
-
-        logo = tk.PhotoImage(file=r'../img/icon.png').subsample(11)
-        icon = tk.Label(self, image=logo, background=set_color("entrycolor"), bd=0,
-                        foreground=set_color("lightgreen"))
-        icon.photo = logo
-        icon.place(x=10, y=5)
-
-        quit_button = tk.Button(self, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
-                                relief='groove', foreground=set_color("buttontext"),
-                                activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
-                                font=ROBOTO_14, command=self.window.destroy)
-        quit_button.place(x=385, y=5, height=40, width=40)
+        self.title_bar()
 
         # Les entrées et leurs noms
         self.inputs_canvas = tk.Canvas(self, height=421, width=431, background=set_color("lightgreen"),
@@ -58,21 +43,18 @@ class InscriptionWindow(tk.Frame):
         self.inputs_name()
         self.inputs_entry()
 
-        self.inputs_canvas.place(x=0, y=52)
-
         # Bouton valider
         validate = tk.Button(self.inputs_canvas, text='Valider', bg=set_color('darkgreen'), fg=set_color('entrycolor'),
                              activebackground=set_color('entrycolor'), activeforeground=set_color('darkgreen'),
-                             font=ROBOTO_14, relief='flat', cursor='hand2', bd=0)
+                             font=self.ROBOTO_14, relief='flat', cursor='hand2', bd=0)
         validate.place(x=165, y=330, width=100, height=40)
+
+        self.inputs_canvas.place(x=0, y=52)
 
         # Copyright
         copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("lightgreen"),
                                   foreground=set_color("gray"), font=('Roboto', 13))
         copyright_text.place(x=130, y=450)
-
-        # Permettre le mouvement seulement sur la title bar
-        self.apply_drag([title_bar, icon])
 
     # Fonctions déplacement fenêtre
     def mouse_down(self, event):
@@ -121,6 +103,26 @@ class InscriptionWindow(tk.Frame):
         money = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
                          font=('Roboto', 12, 'bold'), fg='#FFFFFF')
         money.place(x=114, y=271, height=29, width=204)
+
+    def title_bar(self):
+        title_bar = tk.Canvas(self, height=52, width=431, background=set_color("entrycolor"),
+                              highlightthickness=0)
+        title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
+        title_bar.place(x=0, y=0)
+
+        logo = tk.PhotoImage(file=r'../img/icon.png').subsample(11)
+        icon = tk.Label(self, image=logo, background=set_color("entrycolor"), bd=0,
+                        foreground=set_color("lightgreen"))
+        icon.photo = logo
+        icon.place(x=10, y=5)
+
+        quit_button = tk.Button(self, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
+                                relief='groove', foreground=set_color("buttontext"),
+                                activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
+                                font=self.ROBOTO_14, command=self.window.destroy)
+        quit_button.place(x=385, y=5, height=40, width=40)
+
+        self.apply_drag([title_bar, icon])
 
 
 if __name__ == '__main__':
