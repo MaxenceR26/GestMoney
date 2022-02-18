@@ -3,6 +3,7 @@ from OnLaunch.BasePage import MainWindow
 from ctypes import windll
 from Sys import select_image, set_color, center, set_appwindow
 
+
 class Main(tk.Tk):
     def __init__(self, window):
         tk.Tk.__init__(self, window)
@@ -48,11 +49,11 @@ class Main(tk.Tk):
         icon.photo = imgs
         icon.place(x=10, y=0)
 
-        quit_button = tk.Button(self.JFrame, text="X", bd=2, background=set_color("entrycolor"),
-                                foreground=set_color("buttontext"), activebackground=set_color("lightgreen"),
-                                activeforeground=set_color("buttontext"), font=('Roboto', 14, 'bold'),
-                                command=exit)
-        quit_button.place(x=620, y=3, width=45, height=40)
+        quit_button = tk.Button(self.JFrame, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
+                                relief='groove', foreground=set_color("buttontext"),
+                                activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
+                                font=('Roboto', 14, 'bold'), command=exit)
+        quit_button.place(x=620, y=3, width=40, height=40)
         self.JFrame.pack()
 
         self.apply_drag([title_bar, icon])
@@ -75,6 +76,7 @@ class Main(tk.Tk):
             element.bind('<ButtonPress-1>', self.mouse_down)
             element.bind('<B1-Motion>', self.mouse_drag)
             element.bind('<ButtonRelease-1>', self.mouse_up)
+
 
 if __name__ == "__main__":
     app = Main(None)

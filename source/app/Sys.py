@@ -15,7 +15,7 @@ def set_color(color):
         'entrycolor': '#89DA92',
         'buttontext': '#45794A',
         'gray': '#666666',
-        'darkgreen': '#41a04c',
+        'darkgreen': '#45794A',
         'white': '#FFFFFF'
     }
 
