@@ -3,6 +3,7 @@ from ctypes import windll
 from source.app.Sys import set_color
 
 
+
 def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
 
     GWL_EXSTYLE = -20

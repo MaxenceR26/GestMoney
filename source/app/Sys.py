@@ -16,7 +16,8 @@ def set_color(color):
         'buttontext': '#45794A',
         'gray': '#666666',
         'darkgreen': '#45794A',
-        'white': '#FFFFFF'
+        'white': '#FFFFFF',
+        'buttonactive': '#57885c'
     }
 
     return COLOR[color]
