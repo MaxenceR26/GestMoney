@@ -96,7 +96,7 @@ class InscriptionWindow(tk.Frame):
 
         logo = tk.PhotoImage(file=r'../img/icon.png').subsample(11)
         icon = tk.Label(self, image=logo, background=set_color("entrycolor"), bd=0,
-                        foreground=set_color("lightgreen"))
+                         foreground=set_color("lightgreen"))
         icon.photo = logo
         icon.place(x=10, y=5)
 
