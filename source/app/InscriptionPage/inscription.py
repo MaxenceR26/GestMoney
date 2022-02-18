@@ -1,23 +1,6 @@
 import tkinter as tk
 from ctypes import windll
-from source.app.Sys import set_color
-
-
-
-def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
-
-    GWL_EXSTYLE = -20
-    WS_EX_APPWINDOW = 0x00040000
-    WS_EX_TOOLWINDOW = 0x00000080
-    # Magic
-    hwnd = windll.user32.GetParent(mainWindow.winfo_id())
-    stylew = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
-    stylew = stylew & ~WS_EX_TOOLWINDOW
-    stylew = stylew | WS_EX_APPWINDOW
-    windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, stylew)
-
-    mainWindow.wm_withdraw()
-    mainWindow.after(10, mainWindow.wm_deiconify)
+from source.app.Sys import set_color, set_appwindow
 
 
 class InscriptionWindow(tk.Frame):
@@ -46,8 +29,8 @@ class InscriptionWindow(tk.Frame):
 
         # Bouton valider
         validate = tk.Button(self.inputs_canvas, text='Valider', bg=set_color('darkgreen'), fg=set_color('entrycolor'),
-                             activebackground=set_color('entrycolor'), activeforeground=set_color('darkgreen'),
-                             font=self.ROBOTO_14, relief='flat', cursor='hand2', bd=0)
+                             activebackground=set_color('buttonactive'), activeforeground=set_color('entrycolor'),
+                             font=self.ROBOTO_14, relief='flat', cursor='hand2', bd=0, command=lambda: print(self.mdp.get()))
         validate.place(x=165, y=330, width=100, height=40)
 
         self.inputs_canvas.place(x=0, y=52)
@@ -85,25 +68,25 @@ class InscriptionWindow(tk.Frame):
                                            fill=set_color("darkgreen"), anchor='w')
 
     def inputs_entry(self):
-        user_id = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
+        self.user_id = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
                            font=('Roboto', 12, 'bold'), fg='#FFFFFF')
-        user_id.place(x=114, y=35, height=29, width=204)
+        self.user_id.place(x=114, y=35, height=29, width=204)
 
-        email = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
+        self.email = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
                          font=('Roboto', 12, 'bold'), fg='#FFFFFF')
-        email.place(x=114, y=94, height=29, width=204)
+        self.email.place(x=114, y=94, height=29, width=204)
 
-        mdp = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
+        self.mdp = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
                        font=('Roboto', 12, 'bold'), fg='#FFFFFF', show='*')
-        mdp.place(x=114, y=153, height=29, width=204)
+        self.mdp.place(x=114, y=153, height=29, width=204)
 
-        mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
+        self.mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
                                font=('Roboto', 12, 'bold'), fg='#FFFFFF', show='*')
-        mdp_confirm.place(x=114, y=212, height=29, width=204)
+        self.mdp_confirm.place(x=114, y=212, height=29, width=204)
 
-        money = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
+        self.money = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
                          font=('Roboto', 12, 'bold'), fg='#FFFFFF')
-        money.place(x=114, y=271, height=29, width=204)
+        self.money.place(x=114, y=271, height=29, width=204)
 
     def title_bar(self):
         title_bar = tk.Canvas(self, height=52, width=431, background=set_color("entrycolor"),
