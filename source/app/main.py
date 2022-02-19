@@ -1,7 +1,8 @@
 import tkinter as tk
-from OnLaunch.BasePage import MainWindow
+from OnLaunch.BasePage import ConnectionFrame
 from ctypes import windll
 from Sys import select_image, set_color, center, set_appwindow
+from InscriptionPage.inscription import InscriptionFrame
 
 
 class Main(tk.Tk):
@@ -27,15 +28,25 @@ class Main(tk.Tk):
 
         # Permet d'afficher notre première fenêtre ( Base Page )
 
-        self.basepage = MainWindow(self)
-        self.basepage.pack()
-
-    def switch_frame(self, frame_class):
-        new_frame = frame_class(self)
-        if self._frame is not None:
-            self._frame.destroy()
-        self._frame = new_frame
+        self._frame = ConnectionFrame(self)
         self._frame.pack()
+
+    def switch_frame(self, frame_name):
+
+        if frame_name == 'InscriptionFrame':
+            self.JFrame.destroy(), self._frame.destroy()
+            self.geometry('431x473')
+            self._frame = InscriptionFrame(self)
+            self._frame.pack()
+
+        elif frame_name == 'MainFrame':
+            self.widget_title_bar()
+
+        else:
+            self.JFrame.destroy(), self._frame.destroy()
+            self.widget_title_bar()
+            self._frame = ConnectionFrame(self)
+            self._frame.pack()
 
     def widget_title_bar(self):
         self.JFrame = tk.Frame(self)

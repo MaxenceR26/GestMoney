@@ -2,7 +2,7 @@ import tkinter as tk
 from source.app.Sys import set_color, set_appwindow, center
 
 
-class InscriptionWindow(tk.Frame):
+class InscriptionFrame(tk.Frame):
 
     def __init__(self, window):
         super().__init__(window, width=431, height=473)
@@ -94,7 +94,7 @@ class InscriptionWindow(tk.Frame):
         title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
         title_bar.place(x=0, y=0)
 
-        logo = tk.PhotoImage(file=r'../img/icon.png').subsample(11)
+        logo = tk.PhotoImage(file=r'img/icon.png').subsample(11)
         icon = tk.Label(self, image=logo, background=set_color("entrycolor"), bd=0,
                         foreground=set_color("lightgreen"))
         icon.photo = logo
@@ -115,6 +115,6 @@ if __name__ == '__main__':
     window.wm_overrideredirect(True)
     window.after(10, lambda: set_appwindow(window))
     center(window)
-    frame = InscriptionWindow(window)
+    frame = InscriptionFrame(window)
     frame.pack()
     window.mainloop()

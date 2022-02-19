@@ -2,7 +2,7 @@ import tkinter as tk
 from Sys import set_color
 
 
-class MainWindow(tk.Frame):
+class ConnectionFrame(tk.Frame):
     def __init__(self, window):
         tk.Frame.__init__(self, window, width=700, height=500, bg=set_color("lightgreen"))
         self.window = window
@@ -11,7 +11,7 @@ class MainWindow(tk.Frame):
         # Design de la page de base quand on lance l'application
 
         welcometext = tk.Label(self, text="""
-        
+
 Bienvenue sur GestMoney
 
 Tu cherches à gérer tes comptes
@@ -19,7 +19,7 @@ mais tu n’y arrive pas ?
 
 Alors GestMoney est la 
 pour t’aider !
-        
+
         """, background=set_color("lightgreen"), foreground=set_color("gray"), font=('Roboto', 16))
         welcometext.place(x=30, y=10)
 
@@ -42,16 +42,20 @@ pour t’aider !
         # Bouton de connexion / Création de compte
 
         connexion_button = tk.Button(self, text="Connexion", background=set_color("darkgreen"), foreground="#fff",
-                                     activebackground=set_color("buttonactive"),activeforeground="#fff", font=('Roboto', 13), bd=0)
+                                     activebackground=set_color("buttonactive"), activeforeground="#fff",
+                                     font=('Roboto', 13), bd=0)
         connexion_button.place(x=472, y=210, width=126, height=30)
 
-        inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"), foreground=set_color("buttontext"),
-                                     activebackground=set_color("lightgreen"), activeforeground=set_color("buttonactive"),
-                                     font=('Roboto', 10, 'bold'), bd=0)
+        inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"),
+                                       foreground=set_color("buttontext"),
+                                       activebackground=set_color("lightgreen"),
+                                       activeforeground=set_color("buttonactive"),
+                                       font=('Roboto', 10, 'bold'), bd=0,
+                                       command=lambda: window.switch_frame('InscriptionFrame'))
         inscription_button.place(x=474, y=245, width=122, height=30)
 
         # Copyright
 
         copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("lightgreen"),
-                                    foreground=set_color("gray"), font=('Roboto', 10))
+                                  foreground=set_color("gray"), font=('Roboto', 10))
         copyright_text.place(x=275, y=335)
