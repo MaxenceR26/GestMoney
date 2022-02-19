@@ -5,15 +5,13 @@ from ctypes import windll
 def select_image(name):
     scriptpath = os.path.abspath(__file__)
     scriptdir = os.path.dirname(scriptpath)
-    imagepath = os.path.join(scriptdir, f"ressource\\img\\{name}")
-    return imagepath
+    return os.path.join(scriptdir, f"ressource\\img\\{name}")
 
 
 def set_color(color):
     COLOR = {
         'lightgreen': '#EAFCEC',
         'entrycolor': '#89DA92',
-        'buttontext': '#45794A',
         'gray': '#666666',
         'darkgreen': '#45794A',
         'white': '#FFFFFF',

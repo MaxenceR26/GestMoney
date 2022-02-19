@@ -78,11 +78,11 @@ class InscriptionFrame(tk.Frame):
         icon = tk.Label(title_bar, image=logo, background=set_color("entrycolor"), bd=0,
                         foreground=set_color("lightgreen"))
         icon.photo = logo
-        icon.place(x=10, y=5)
+        icon.place(x=5, y=5)
 
         quit_button = tk.Button(title_bar, text="X", background=set_color("entrycolor"), cursor='hand2',
-                                relief='groove', foreground=set_color("buttontext"),
-                                activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
+                                relief='groove', foreground=set_color("darkgreen"),
+                                activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"),
                                 font=self.ROBOTO_14, command=self.window.destroy)
         quit_button.place(x=385, y=5, height=40, width=40)
 

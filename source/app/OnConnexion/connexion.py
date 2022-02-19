@@ -26,14 +26,14 @@ pour t’aider !
         # Gestion de demande identifiants et mot de passe
 
         identifiant_text = tk.Label(self, text="Identifiant", background=set_color("lightgreen"),
-                                    foreground=set_color("buttontext"), font=('Roboto', 14))
+                                    foreground=set_color("darkgreen"), font=('Roboto', 14))
         identifiant_text.place(x=450, y=60)
 
         identifiant_entry = tk.Entry(self, background=set_color("entrycolor"), bd=0, font=('Roboto', 12, 'bold'), fg='#FFFFFF')
         identifiant_entry.place(x=435, y=90, width=204, height=29)
 
         motdepasse_text = tk.Label(self, text="Mot de passe", background=set_color("lightgreen"),
-                                   foreground=set_color("buttontext"), font=('Roboto', 14))
+                                   foreground=set_color("darkgreen"), font=('Roboto', 14))
         motdepasse_text.place(x=450, y=130)
 
         motdepasse_entry = tk.Entry(self, background=set_color("entrycolor"), font=('Roboto', 12, 'bold'), fg='#FFFFFF',
@@ -48,7 +48,7 @@ pour t’aider !
         connexion_button.place(x=472, y=210, width=126, height=30)
 
         inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"),
-                                       foreground=set_color("buttontext"),
+                                       foreground=set_color("darkgreen"),
                                        activebackground=set_color("lightgreen"),
                                        activeforeground=set_color("buttonactive"),
                                        font=('Roboto', 10, 'bold'), bd=0,

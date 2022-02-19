@@ -3,6 +3,7 @@ from source.app.OnConnexion.connexion import ConnectionFrame
 from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
 from BasePage.baseframe import BaseFrame
+from BasePage.creditmoney import CreditFrame
 
 
 class Main(tk.Tk):
@@ -17,8 +18,9 @@ class Main(tk.Tk):
         center(self)
         self.wm_overrideredirect(True)
         self.x, self.y = None, None
-        self.JFrame = None
-        self._frame = None
+        self.title_frame = None
+        self.main_frame = None
+        self.active_frame = None
 
         # Titlebar
         self.widget_title_bar()
@@ -28,49 +30,58 @@ class Main(tk.Tk):
 
         # Permet d'afficher notre première fenêtre ( Base Page )
 
-        self._frame = ConnectionFrame(self)
-        self._frame.pack()
+        self.active_frame = ConnectionFrame(self)
+        self.active_frame.pack()
 
     def switch_frame(self, frame_name):
 
         if frame_name == 'InscriptionFrame':
-            self.JFrame.destroy(), self._frame.destroy()
+            self.title_frame.destroy(), self.active_frame.destroy()
             self.geometry('431x473')
-            self._frame = InscriptionFrame(self)
-            self._frame.pack()
+            self.active_frame = InscriptionFrame(self)
+            self.active_frame.pack()
             center(self)
 
         elif frame_name == 'BasePage':
-            self.JFrame.destroy(), self._frame.destroy()
+            self.title_frame.destroy(), self.active_frame.destroy()
             self.geometry('1110x664')
-            self._frame = BaseFrame(self)
-            self._frame.pack()
+            self.main_frame = BaseFrame(self)
+            self.main_frame.pack()
             center(self)
 
-        else:
-            self.JFrame.destroy(), self._frame.destroy()
+        elif frame_name == 'CreditPage':
+            self.active_frame.destroy()
+            self.geometry('1110x664')
+            self.active_frame = CreditFrame(self)
+            self.active_frame.place(x=0, y=80)
+            center(self)
+
+        elif frame_name == 'ConnexionPage':
+            self.title_frame.destroy(), self.active_frame.destroy(), self.main_frame.destroy()
+            self.geometry("679x406")
             self.widget_title_bar()
-            self._frame = ConnectionFrame(self)
-            self._frame.pack()
+            self.active_frame = ConnectionFrame(self)
+            self.active_frame.pack()
+            center(self)
 
     def widget_title_bar(self):
-        self.JFrame = tk.Frame(self)
-        title_bar = tk.Canvas(self.JFrame, width=679, height=47, bg=set_color('entrycolor'), highlightthickness=0)
+        self.title_frame = tk.Frame(self)
+        title_bar = tk.Canvas(self.title_frame, width=679, height=47, bg=set_color('entrycolor'), highlightthickness=0)
         title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
         title_bar.pack()
 
         imgs = tk.PhotoImage(file=select_image("icon.png")).subsample(11)
-        icon = tk.Label(self.JFrame, image=imgs, background=set_color("entrycolor"), bd=0,
+        icon = tk.Label(self.title_frame, image=imgs, background=set_color("entrycolor"), bd=0,
                         foreground=set_color("lightgreen"))
         icon.photo = imgs
-        icon.place(x=10, y=0)
+        icon.place(x=5, y=0)
 
-        quit_button = tk.Button(self.JFrame, text="X", background=set_color("entrycolor"), cursor='hand2',
-                                relief='groove', foreground=set_color("buttontext"),
-                                activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
+        quit_button = tk.Button(self.title_frame, text="X", background=set_color("entrycolor"), cursor='hand2',
+                                relief='groove', foreground=set_color("darkgreen"),
+                                activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"),
                                 font=('Roboto', 14, 'bold'), command=exit)
         quit_button.place(x=620, y=3, width=40, height=40)
-        self.JFrame.pack()
+        self.title_frame.pack()
 
         self.apply_drag([title_bar, icon])
 
