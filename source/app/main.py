@@ -47,14 +47,18 @@ class Main(tk.Tk):
             self.geometry('1110x664')
             self.main_frame = BaseFrame(self)
             self.main_frame.pack()
+            self.switch_frame('HomePage')
             center(self)
+
+        elif frame_name == 'HomePage':
+            self.active_frame.destroy()
+            self.active_frame = tk.Frame(self, width=853, height=584, bg='#000000')
+            self.active_frame.place(x=0, y=80)
 
         elif frame_name == 'CreditPage':
             self.active_frame.destroy()
-            self.geometry('1110x664')
             self.active_frame = CreditFrame(self)
             self.active_frame.place(x=0, y=80)
-            center(self)
 
         elif frame_name == 'ConnexionPage':
             self.title_frame.destroy(), self.active_frame.destroy(), self.main_frame.destroy()
