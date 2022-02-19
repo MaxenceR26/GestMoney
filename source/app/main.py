@@ -38,6 +38,7 @@ class Main(tk.Tk):
             self.geometry('431x473')
             self._frame = InscriptionFrame(self)
             self._frame.pack()
+            center(self)
 
         elif frame_name == 'MainFrame':
             self.widget_title_bar()

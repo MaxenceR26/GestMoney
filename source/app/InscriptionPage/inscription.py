@@ -40,26 +40,6 @@ class InscriptionFrame(tk.Frame):
                                   foreground=set_color("gray"), font=('Roboto', 10))
         copyright_text.place(x=155, y=450)
 
-    # Fonctions déplacement fenêtre
-    def mouse_down(self, event):
-        self.x, self.y = event.x, event.y
-
-    def mouse_up(self, event):
-        self.x, self.y = None, None
-
-    def mouse_drag(self, event):
-        deltax = event.x - self.x
-        deltay = event.y - self.y
-        x0 = self.window.winfo_x() + deltax
-        y0 = self.window.winfo_y() + deltay
-        self.window.geometry("+%s+%s" % (x0, y0))
-
-    def apply_drag(self, elements):
-        for element in elements:
-            element.bind('<ButtonPress-1>', self.mouse_down)
-            element.bind('<B1-Motion>', self.mouse_drag)
-            element.bind('<ButtonRelease-1>', self.mouse_up)
-
     def inputs_name(self):
         names = ['Identifiant', 'E-mail', 'Mot de passe', 'Confirmation mot de passe', 'Montant actuel']
 
@@ -94,7 +74,7 @@ class InscriptionFrame(tk.Frame):
         title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
         title_bar.place(x=0, y=0)
 
-        logo = tk.PhotoImage(file=r'img/icon.png').subsample(11)
+        logo = tk.PhotoImage(file=r'img\icon.png').subsample(11)
         icon = tk.Label(self, image=logo, background=set_color("entrycolor"), bd=0,
                         foreground=set_color("lightgreen"))
         icon.photo = logo
@@ -106,7 +86,7 @@ class InscriptionFrame(tk.Frame):
                                 font=self.ROBOTO_14, command=self.window.destroy)
         quit_button.place(x=385, y=5, height=40, width=40)
 
-        self.apply_drag([title_bar, icon])
+        self.window.apply_drag([title_bar, icon])
 
 
 if __name__ == '__main__':
