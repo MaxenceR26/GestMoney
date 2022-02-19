@@ -3,7 +3,7 @@ from source.app.OnConnexion.connexion import ConnectionFrame
 from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
 from BasePage.baseframe import BaseFrame
-from BasePage.creditmoney import CreditFrame
+from BasePage.creditframe import CreditFrame
 
 
 class Main(tk.Tk):
