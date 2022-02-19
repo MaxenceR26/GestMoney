@@ -5,7 +5,7 @@ from ctypes import windll
 def select_image(name):
     scriptpath = os.path.abspath(__file__)
     scriptdir = os.path.dirname(scriptpath)
-    imagepath = os.path.join(scriptdir, f"img\\{name}")
+    imagepath = os.path.join(scriptdir, f"ressource\\img\\{name}")
     return imagepath
 
 

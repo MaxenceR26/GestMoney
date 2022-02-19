@@ -44,7 +44,7 @@ pour t’aider !
 
         connexion_button = tk.Button(self, text="Connexion", background=set_color("darkgreen"), foreground="#fff",
                                      activebackground=set_color("buttonactive"), activeforeground="#fff",
-                                     font=('Roboto', 13), bd=0)
+                                     font=('Roboto', 13), bd=0, command=lambda: window.switch_frame('BasePage'))
         connexion_button.place(x=472, y=210, width=126, height=30)
 
         inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"),

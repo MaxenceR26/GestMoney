@@ -13,7 +13,7 @@ class Main(tk.Tk):
         self.geometry("679x406")
         self.config(background=set_color("lightgreen"))
         self.title('GestMoney')
-        self.iconbitmap(r'img\icon.ico')
+        self.iconbitmap(select_image('icon.ico'))
         center(self)
         self.wm_overrideredirect(True)
         self.x, self.y = None, None

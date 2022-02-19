@@ -1,5 +1,5 @@
 import tkinter as tk
-from source.app.Sys import set_color
+from source.app.Sys import set_color, select_image
 
 
 class InscriptionFrame(tk.Frame):
@@ -74,7 +74,7 @@ class InscriptionFrame(tk.Frame):
         title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=set_color("gray"))
         title_bar.place(x=0, y=0)
 
-        logo = tk.PhotoImage(file=r'img\icon.png').subsample(11)
+        logo = tk.PhotoImage(file=select_image("icon.png")).subsample(11)
         icon = tk.Label(title_bar, image=logo, background=set_color("entrycolor"), bd=0,
                         foreground=set_color("lightgreen"))
         icon.photo = logo
