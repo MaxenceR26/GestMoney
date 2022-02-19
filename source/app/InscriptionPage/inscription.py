@@ -29,8 +29,8 @@ class InscriptionFrame(tk.Frame):
         # Bouton valider
         validate = tk.Button(self.inputs_canvas, text='Valider', bg=set_color('darkgreen'), fg=set_color('entrycolor'),
                              activebackground=set_color('buttonactive'), activeforeground=set_color('entrycolor'),
-                             font=self.ROBOTO_14, relief='flat', cursor='hand2',
-                             bd=0, command=lambda: self.window.switch_frame('BasePage'))
+                             font=self.ROBOTO_14, relief='flat', cursor='hand2',bd=0,
+                             command=lambda: self.window.switch_frame('BasePage'))
         validate.place(x=165, y=345, width=100, height=40)
 
         self.inputs_canvas.place(x=0, y=52)
@@ -80,7 +80,7 @@ class InscriptionFrame(tk.Frame):
         icon.photo = logo
         icon.place(x=10, y=5)
 
-        quit_button = tk.Button(title_bar, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
+        quit_button = tk.Button(title_bar, text="X", background=set_color("entrycolor"), cursor='hand2',
                                 relief='groove', foreground=set_color("buttontext"),
                                 activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
                                 font=self.ROBOTO_14, command=self.window.destroy)

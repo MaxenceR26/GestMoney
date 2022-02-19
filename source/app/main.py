@@ -14,6 +14,7 @@ class Main(tk.Tk):
         self.config(background=set_color("lightgreen"))
         self.title('GestMoney')
         self.iconbitmap(r'img\icon.ico')
+        center(self)
         self.wm_overrideredirect(True)
         self.x, self.y = None, None
         self.JFrame = None
@@ -21,9 +22,6 @@ class Main(tk.Tk):
 
         # Titlebar
         self.widget_title_bar()
-
-        # Centrer la fenêtre au milieu de l'écran
-        center(self)
 
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
@@ -67,7 +65,7 @@ class Main(tk.Tk):
         icon.photo = imgs
         icon.place(x=10, y=0)
 
-        quit_button = tk.Button(self.JFrame, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
+        quit_button = tk.Button(self.JFrame, text="X", background=set_color("entrycolor"), cursor='hand2',
                                 relief='groove', foreground=set_color("buttontext"),
                                 activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
                                 font=('Roboto', 14, 'bold'), command=exit)
