@@ -1,7 +1,8 @@
 import tkinter as tk
-from source.app.OnConnection.connexion import ConnectionFrame
+from source.app.OnConnexion.connexion import ConnectionFrame
 from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
+from BasePage.baseframe import BaseFrame
 
 
 class Main(tk.Tk):
@@ -11,6 +12,8 @@ class Main(tk.Tk):
 
         self.geometry("679x406")
         self.config(background=set_color("lightgreen"))
+        self.title('GestMoney')
+        self.iconbitmap(r'img\icon.ico')
         self.wm_overrideredirect(True)
         self.x, self.y = None, None
         self.JFrame = None
@@ -39,8 +42,12 @@ class Main(tk.Tk):
             self._frame.pack()
             center(self)
 
-        elif frame_name == 'MainFrame':
-            self.widget_title_bar()
+        elif frame_name == 'BasePage':
+            self.JFrame.destroy(), self._frame.destroy()
+            self.geometry('1110x664')
+            self._frame = BaseFrame(self)
+            self._frame.pack()
+            center(self)
 
         else:
             self.JFrame.destroy(), self._frame.destroy()

@@ -1,5 +1,5 @@
 import tkinter as tk
-from source.app.Sys import set_color, set_appwindow, center
+from source.app.Sys import set_color
 
 
 class InscriptionFrame(tk.Frame):
@@ -30,7 +30,7 @@ class InscriptionFrame(tk.Frame):
         validate = tk.Button(self.inputs_canvas, text='Valider', bg=set_color('darkgreen'), fg=set_color('entrycolor'),
                              activebackground=set_color('buttonactive'), activeforeground=set_color('entrycolor'),
                              font=self.ROBOTO_14, relief='flat', cursor='hand2',
-                             bd=0, command=lambda: print(self.mdp.get()))
+                             bd=0, command=lambda: self.window.switch_frame('BasePage'))
         validate.place(x=165, y=345, width=100, height=40)
 
         self.inputs_canvas.place(x=0, y=52)
@@ -41,7 +41,7 @@ class InscriptionFrame(tk.Frame):
         copyright_text.place(x=155, y=450)
 
     def inputs_name(self):
-        names = ['Identifiant', 'E-mail', 'Mot de passe', 'Confirmation mot de passe', 'Montant actuel']
+        names = ['Identifiant', 'E-mail', 'Mot de passe', 'Confirmation mot de passe', 'Somme actuel']
 
         for i in range(5):
             self.inputs_canvas.create_text(114, (i*59)+50, text=names[i], font=('Roboto', 13, 'bold'),
@@ -49,23 +49,23 @@ class InscriptionFrame(tk.Frame):
 
     def inputs_entry(self):
         self.user_id = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
-                                font=('Roboto', 12, 'bold'), fg='#FFFFFF')
+                                font=('Roboto', 12, 'bold'), fg='white')
         self.user_id.place(x=114, y=60, height=29, width=204)
 
         self.email = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
-                              font=('Roboto', 12, 'bold'), fg='#FFFFFF')
+                              font=('Roboto', 12, 'bold'), fg='white')
         self.email.place(x=114, y=119, height=29, width=204)
 
         self.mdp = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
-                            font=('Roboto', 12, 'bold'), fg='#FFFFFF', show='*')
+                            font=('Roboto', 12, 'bold'), fg='white', show='*')
         self.mdp.place(x=114, y=178, height=29, width=204)
 
         self.mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
-                                    font=('Roboto', 12, 'bold'), fg='#FFFFFF', show='*')
+                                    font=('Roboto', 12, 'bold'), fg='white', show='*')
         self.mdp_confirm.place(x=114, y=237, height=29, width=204)
 
         self.money = tk.Entry(self.inputs_canvas, bd=0, bg=set_color('entrycolor'),
-                              font=('Roboto', 12, 'bold'), fg='#FFFFFF')
+                              font=('Roboto', 12, 'bold'), fg='white')
         self.money.place(x=114, y=296, height=29, width=204)
 
     def title_bar(self):
@@ -75,26 +75,15 @@ class InscriptionFrame(tk.Frame):
         title_bar.place(x=0, y=0)
 
         logo = tk.PhotoImage(file=r'img\icon.png').subsample(11)
-        icon = tk.Label(self, image=logo, background=set_color("entrycolor"), bd=0,
+        icon = tk.Label(title_bar, image=logo, background=set_color("entrycolor"), bd=0,
                         foreground=set_color("lightgreen"))
         icon.photo = logo
         icon.place(x=10, y=5)
 
-        quit_button = tk.Button(self, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
+        quit_button = tk.Button(title_bar, text="X", bd=2, background=set_color("entrycolor"), cursor='hand2',
                                 relief='groove', foreground=set_color("buttontext"),
                                 activebackground=set_color("lightgreen"), activeforeground=set_color("buttontext"),
                                 font=self.ROBOTO_14, command=self.window.destroy)
         quit_button.place(x=385, y=5, height=40, width=40)
 
         self.window.apply_drag([title_bar, icon])
-
-
-if __name__ == '__main__':
-    window = tk.Tk()
-    window.geometry(f"431x473")
-    window.wm_overrideredirect(True)
-    window.after(10, lambda: set_appwindow(window))
-    center(window)
-    frame = InscriptionFrame(window)
-    frame.pack()
-    window.mainloop()
