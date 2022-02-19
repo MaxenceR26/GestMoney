@@ -1,5 +1,5 @@
 import tkinter as tk
-from Sys import set_color
+from source.app.Sys import set_color
 
 
 class ConnectionFrame(tk.Frame):
@@ -29,14 +29,15 @@ pour t’aider !
                                     foreground=set_color("buttontext"), font=('Roboto', 14))
         identifiant_text.place(x=450, y=60)
 
-        identifiant_entry = tk.Entry(self, background=set_color("entrycolor"), foreground='#000000', bd=0)
+        identifiant_entry = tk.Entry(self, background=set_color("entrycolor"), bd=0, font=('Roboto', 12, 'bold'), fg='#FFFFFF')
         identifiant_entry.place(x=435, y=90, width=204, height=29)
 
         motdepasse_text = tk.Label(self, text="Mot de passe", background=set_color("lightgreen"),
                                    foreground=set_color("buttontext"), font=('Roboto', 14))
         motdepasse_text.place(x=450, y=130)
 
-        motdepasse_entry = tk.Entry(self, background=set_color("entrycolor"), foreground='#000000', bd=0)
+        motdepasse_entry = tk.Entry(self, background=set_color("entrycolor"), font=('Roboto', 12, 'bold'), fg='#FFFFFF',
+                                    bd=0, show='*')
         motdepasse_entry.place(x=435, y=160, width=204, height=29)
 
         # Bouton de connexion / Création de compte

@@ -1,6 +1,5 @@
 import tkinter as tk
-from OnLaunch.BasePage import ConnectionFrame
-from ctypes import windll
+from source.app.OnConnection.connexion import ConnectionFrame
 from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
 
