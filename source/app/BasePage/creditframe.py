@@ -9,10 +9,9 @@ class CreditFrame(tk.Frame):
         super().__init__(window, width=853, height=584)
         self.window = window
 
-        self.canvas = tk.Canvas(self, height=853, width=853, background=set_color('lightgreen'),
-                                highlightthickness=0)
+        self.canvas = tk.Canvas(self, height=853, width=853, background=set_color('lightgreen'), highlightthickness=0)
 
-        self.canvas.create_text(426.5, 30, text="Créditer le compte", font=('Roboto', 30, 'bold'),
+        self.canvas.create_text(426.5, 50, text="Créditer le compte", font=('Roboto', 30, 'bold'),
                                 fill=set_color("darkgreen"))
 
         self.create_inputs()
