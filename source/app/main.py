@@ -4,6 +4,8 @@ from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
 from BasePage.baseframe import BaseFrame
 from BasePage.creditframe import CreditFrame
+from BasePage.homeframe import HomeFrame
+from source.app.BasePage.debitframe import DebitFrame
 
 
 class Main(tk.Tk):
@@ -52,7 +54,12 @@ class Main(tk.Tk):
 
         elif frame_name == 'HomePage':
             self.active_frame.destroy()
-            self.active_frame = tk.Frame(self, width=853, height=584, bg='#000000')
+            self.active_frame = HomeFrame(self)
+            self.active_frame.place(x=0, y=80)
+
+        elif frame_name == 'DebitPage':
+            self.active_frame.destroy()
+            self.active_frame = DebitFrame(self)
             self.active_frame.place(x=0, y=80)
 
         elif frame_name == 'CreditPage':
