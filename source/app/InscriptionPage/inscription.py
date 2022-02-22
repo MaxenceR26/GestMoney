@@ -29,7 +29,7 @@ class InscriptionFrame(tk.Frame):
         # Bouton valider
         validate = tk.Button(self.inputs_canvas, text='Valider', bg=set_color('darkgreen'), fg=set_color('entrycolor'),
                              activebackground=set_color('buttonactive'), activeforeground=set_color('entrycolor'),
-                             font=self.ROBOTO_14, relief='flat', cursor='hand2',bd=0,
+                             font=self.ROBOTO_14, relief='flat', cursor='hand2', bd=0,
                              command=lambda: self.window.switch_frame('BasePage'))
         validate.place(x=165, y=345, width=100, height=40)
 

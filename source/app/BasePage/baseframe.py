@@ -5,14 +5,14 @@ from source.app.Sys import set_color, select_image
 
 
 def create_buttons(frame):
-    valid_button = tk.Button(frame, text="Valider", background=set_color("lightgreen"),
+    valid_button = tk.Button(frame, text="Valider", background=set_color("lightgreen"), cursor='hand2',
                              foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'), relief="groove",
                              activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"))
     valid_button.place(x=100, y=420, width=211, height=84)
 
-    annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'), foreground='red',
-                               font=('Roboto', 16, 'bold'), relief='groove', activeforeground='red', text='Annuler',
-                               activebackground=set_color('lightgreen'), background=set_color('lightgreen'), )
+    annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'), activeforeground='red',
+                               font=('Roboto', 16, 'bold'), foreground='red', activebackground=set_color('lightgreen'),
+                               background=set_color('lightgreen'), relief='groove', cursor='hand2', text='Annuler')
     annuler_button.place(x=550, y=420, width=211, height=84)
 
 
@@ -38,18 +38,18 @@ class BaseFrame(tk.Frame):
         canvas.pack(side=tk.RIGHT)
 
         credit_button = tk.Button(self, text="Créditer l'argent", font=('Roboto', 14), fg='white', bd=0,
-                                  activeforeground='white', activebackground=set_color("buttonactive"),
+                                  activeforeground='white', activebackground=set_color("buttonactive"), cursor='hand2',
                                   bg=set_color("darkgreen"), command=lambda: self.window.switch_frame('CreditPage'))
         credit_button.place(x=880, y=290, width=201, height=33)
 
-        debit_button = tk.Button(self, text="Débiter de l'argent", font=('Roboto', 14), fg='white',
+        debit_button = tk.Button(self, text="Débiter de l'argent", font=('Roboto', 14), fg='white', cursor='hand2',
                                  bg=set_color("darkgreen"), bd=0, activebackground=set_color("buttonactive"),
                                  activeforeground='white', command=lambda: self.window.switch_frame('DebitFrame'))
         debit_button.place(x=880, y=440, width=201, height=33)
 
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg='white', activeforeground='white',
                                 bg=set_color("darkgreen"), bd=0, activebackground=set_color("buttonactive"),
-                                command=lambda: self.window.switch_frame('ConnexionPage'))
+                                command=lambda: self.window.switch_frame('ConnexionPage'), cursor='hand2')
         deco_button.place(x=880, y=575, width=206, height=49)
 
     def title_bar(self):

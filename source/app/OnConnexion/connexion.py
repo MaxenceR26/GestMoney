@@ -42,17 +42,15 @@ pour t’aider !
 
         # Bouton de connexion / Création de compte
 
-        connexion_button = tk.Button(self, text="Connexion", background=set_color("darkgreen"), foreground="#fff",
-                                     activebackground=set_color("buttonactive"), activeforeground="#fff",
+        connexion_button = tk.Button(self, text="Connexion", background=set_color("darkgreen"), activeforeground="#fff",
+                                     activebackground=set_color("buttonactive"), foreground="#fff", cursor='hand2',
                                      font=('Roboto', 13), bd=0, command=lambda: window.switch_frame('BasePage'))
         connexion_button.place(x=472, y=210, width=126, height=30)
 
         inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"),
-                                       foreground=set_color("darkgreen"),
-                                       activebackground=set_color("lightgreen"),
-                                       activeforeground=set_color("buttonactive"),
-                                       font=('Roboto', 10, 'bold'), bd=0,
-                                       command=lambda: window.switch_frame('InscriptionFrame'))
+                                       foreground=set_color("darkgreen"), activebackground=set_color("lightgreen"),
+                                       activeforeground=set_color("buttonactive"), font=('Roboto', 10, 'bold'), bd=0,
+                                       command=lambda: window.switch_frame('InscriptionFrame'), cursor='hand2')
         inscription_button.place(x=474, y=245, width=122, height=30)
 
         # Copyright
