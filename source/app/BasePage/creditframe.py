@@ -39,28 +39,28 @@ class CreditFrame(tk.Frame):
         cb_checkbutton = tk.Checkbutton(self, text='CB', background=set_color("lightgreen"),
                                         foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
                                         highlightthickness=0, bd=0, activebackground=set_color("lightgreen"),
-                                        activeforeground=set_color("darkgreen"), command=lambda: self.uncheck_button(0))
+                                        activeforeground=set_color("darkgreen"), command=lambda: self.uncheck_buttons(0))
         cb_checkbutton.place(x=470, y=280)
 
         espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=set_color("lightgreen"), bd=0,
                                             foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
                                             activebackground=set_color("lightgreen"), highlightthickness=0,
                                             activeforeground=set_color("darkgreen"),
-                                            command=lambda: self.uncheck_button(1))
+                                            command=lambda: self.uncheck_buttons(1))
         espece_checkbutton.place(x=545, y=280)
 
         cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=set_color("lightgreen"), bd=0,
                                             foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
                                             activebackground=set_color("lightgreen"), highlightthickness=0,
                                             activeforeground=set_color("darkgreen"),
-                                            command=lambda: self.uncheck_button(2))
+                                            command=lambda: self.uncheck_buttons(2))
         cheque_checkbutton.place(x=660, y=280)
 
         self.check_buttons = [cb_checkbutton, espece_checkbutton, cheque_checkbutton]
 
         create_buttons(self)
 
-    def uncheck_button(self, exception):
+    def uncheck_buttons(self, exception):
         for button in self.check_buttons:
             if button != self.check_buttons[exception]:
                 button.deselect()
