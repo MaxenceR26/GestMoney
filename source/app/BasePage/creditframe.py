@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from source.app.Sys import set_color
+from source.app.BasePage.baseframe import create_buttons
 
 
 class CreditFrame(tk.Frame):
@@ -56,13 +57,4 @@ class CreditFrame(tk.Frame):
                                             activeforeground=set_color("darkgreen"))
         Cheque_checkbutton.place(x=660, y=280)
 
-        valid_button = tk.Button(self, text="Valider", background=set_color('lightgreen'),
-                                 foreground=set_color('darkgreen'), font=('Roboto', 16, 'bold'), relief='groove',
-                                 activebackground=set_color('lightgreen'), activeforeground=set_color("darkgreen"))
-        valid_button.place(x=100, y=400, width=211, height=84)
-
-        annuler_button = tk.Button(self, text="Annuler", background=set_color('lightgreen'), foreground="red",
-                                   font=('Roboto', 16, 'bold'), relief='groove',
-                                   activebackground=set_color("lightgreen"),
-                                   activeforeground="red", command=lambda: self.window.switch_frame('HomePage'))
-        annuler_button.place(x=550, y=400, width=211, height=84)
+        create_buttons(self)

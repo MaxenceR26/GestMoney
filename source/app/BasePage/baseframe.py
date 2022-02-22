@@ -4,6 +4,18 @@ from source.app.BasePage.parameter import ParametreWindow
 from source.app.Sys import set_color, select_image
 
 
+def create_buttons(frame):
+    valid_button = tk.Button(frame, text="Valider", background=set_color("lightgreen"),
+                             foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'), relief="groove",
+                             activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"))
+    valid_button.place(x=100, y=420, width=211, height=84)
+
+    annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'), foreground='red',
+                               font=('Roboto', 16, 'bold'), relief='groove', activeforeground='red', text='Annuler',
+                               activebackground=set_color('lightgreen'), background=set_color('lightgreen'), )
+    annuler_button.place(x=550, y=420, width=211, height=84)
+
+
 class BaseFrame(tk.Frame):
 
     def __init__(self, window):
@@ -64,3 +76,4 @@ class BaseFrame(tk.Frame):
         profile_btn.place(x=955, y=10)
 
         self.window.apply_drag([title_bar, icon])
+

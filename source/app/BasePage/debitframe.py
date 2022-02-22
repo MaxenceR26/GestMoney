@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from source.app.Sys import set_color
+from source.app.BasePage.baseframe import create_buttons
 
 
 class DebitFrame(tk.Frame):
@@ -23,7 +24,7 @@ class DebitFrame(tk.Frame):
                                 fill=set_color('darkgreen'), anchor='w')
         self.canvas.create_text(470, 130, text='Montant', font=('Roboto', 18), fill=set_color('darkgreen'), anchor='w')
         self.canvas.create_text(470, 250, text='Date', font=('Roboto', 18), fill=set_color('darkgreen'), anchor='w')
-        self.canvas.create_text(50, 360, text='Moyen de paiement', font=('Roboto', 18),
+        self.canvas.create_text(50, 355, text='Moyen de paiement', font=('Roboto', 18),
                                 fill=set_color('darkgreen'), anchor='w')
 
         self.amount = tk.Entry(self.canvas, bg=set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
@@ -58,12 +59,4 @@ class DebitFrame(tk.Frame):
                                             activeforeground=set_color("darkgreen"))
         cheque_checkbutton.place(x=515, y=340)
 
-        valid_button = tk.Button(self, text="Valider", background=set_color("lightgreen"),
-                                 foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'), relief="groove",
-                                 activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"))
-        valid_button.place(x=100, y=420, width=211, height=84)
-
-        annuler_button = tk.Button(self, command=lambda: self.window.switch_frame('HomePage'), foreground='red',
-                                   font=('Roboto', 16, 'bold'), relief='groove', activeforeground='red', text='Annuler',
-                                   activebackground=set_color('lightgreen'), background=set_color('lightgreen'),)
-        annuler_button.place(x=550, y=420, width=211, height=84)
+        create_buttons(self)
