@@ -80,7 +80,6 @@ class Main(tk.Tk):
             self.active_frame = DebitFrame(self)
             self.active_frame.place(x=0, y=80)
 
-    DebitFrame
     def widget_title_bar(self):
         self.title_frame = tk.Frame(self)
         title_bar = tk.Canvas(self.title_frame, width=679, height=47, bg=set_color('entrycolor'), highlightthickness=0)

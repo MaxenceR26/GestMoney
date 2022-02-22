@@ -13,6 +13,6 @@ class HomeFrame(tk.Frame):
                                         highlightthickness=0)
 
         self.history_canvas.create_text(426.5, 50, text="Historique des transactions", font=('Roboto', 20, 'bold'),
-                                fill=set_color("darkgreen"))
+                                        fill=set_color("darkgreen"))
 
         self.history_canvas.pack()

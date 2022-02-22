@@ -39,24 +39,31 @@ class DebitFrame(tk.Frame):
         self.date = tk.Entry(self.canvas, bg=set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
         self.date.place(x=470, y=270, width=330, height=46)
 
-        cb_checkbutton = tk.Checkbutton(self, text='CB', highlightthickness=0, bd=0,
-                                        background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                        activebackground=set_color("lightgreen"), font=('Roboto', 16, 'bold'),
-                                        activeforeground=set_color("darkgreen")
-                                        )
+        cb_checkbutton = tk.Checkbutton(self, text='CB', background=set_color("lightgreen"),
+                                        foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
+                                        highlightthickness=0, bd=0, activebackground=set_color("lightgreen"),
+                                        activeforeground=set_color("darkgreen"), command=lambda: self.uncheck_button(0))
         cb_checkbutton.place(x=310, y=340)
 
-        espece_checkbutton = tk.Checkbutton(self, text='Espèce', highlightthickness=0, bd=0,
-                                            background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                            font=('Roboto', 16, 'bold'), activebackground=set_color("lightgreen"),
-                                            activeforeground=set_color("darkgreen")
-                                            )
+        espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=set_color("lightgreen"), bd=0,
+                                            foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
+                                            activebackground=set_color("lightgreen"), highlightthickness=0,
+                                            activeforeground=set_color("darkgreen"),
+                                            command=lambda: self.uncheck_button(1))
         espece_checkbutton.place(x=392, y=340)
 
-        cheque_checkbutton = tk.Checkbutton(self, text='Chèque', highlightthickness=0, bd=0,
-                                            background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                            font=('Roboto', 16, 'bold'), activebackground=set_color("lightgreen"),
-                                            activeforeground=set_color("darkgreen"))
+        cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=set_color("lightgreen"), bd=0,
+                                            foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
+                                            activebackground=set_color("lightgreen"), highlightthickness=0,
+                                            activeforeground=set_color("darkgreen"),
+                                            command=lambda: self.uncheck_button(2))
         cheque_checkbutton.place(x=515, y=340)
 
+        self.check_buttons = [cb_checkbutton, espece_checkbutton, cheque_checkbutton]
+
         create_buttons(self)
+
+    def uncheck_button(self, exception):
+        for button in self.check_buttons:
+            if button != self.check_buttons[exception]:
+                button.deselect()
