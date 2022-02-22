@@ -23,6 +23,9 @@ class CreditFrame(tk.Frame):
                                 fill=set_color('darkgreen'), anchor='w')
         self.canvas.create_text(470, 130, text='Date', font=('Roboto', 18), fill=set_color('darkgreen'), anchor='w')
 
+        self.canvas.create_text(470, 250, text='Moyen de paiement', font=('Roboto', 18),
+                                fill=set_color('darkgreen'), anchor='w')
+
         self.amount = tk.Entry(self.canvas, bg=set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
         self.amount.place(x=50, y=150, width=330, height=46)
 
@@ -32,31 +35,34 @@ class CreditFrame(tk.Frame):
         self.date = tk.Entry(self.canvas, bg=set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
         self.date.place(x=470, y=150, width=330, height=46)
 
-        Cb_checkbutton = tk.Checkbutton(self, text='CB', onvalue=1, offvalue=0, background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                        font=('Roboto', 16, 'bold'), highlightthickness=0, bd=0,
+        Cb_checkbutton = tk.Checkbutton(self, text='CB', background=set_color("lightgreen"),
+                                        foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
+                                        highlightthickness=0, bd=0,
                                         activebackground=set_color("lightgreen"),
                                         activeforeground=set_color("darkgreen")
                                         )
-        Cb_checkbutton.place(x=480, y=280)
+        Cb_checkbutton.place(x=470, y=280)
 
-        Espece_checkbutton = tk.Checkbutton(self, text='Espèce', onvalue=1, offvalue=0, background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                            font=('Roboto', 16, 'bold'), highlightthickness=0, bd=0,
-                                            activebackground=set_color("lightgreen"),
+        Espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=set_color("lightgreen"), bd=0,
+                                            foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
+                                            activebackground=set_color("lightgreen"), highlightthickness=0,
                                             activeforeground=set_color("darkgreen")
                                             )
-        Espece_checkbutton.place(x=555, y=280)
+        Espece_checkbutton.place(x=545, y=280)
 
-        Cheque_checkbutton = tk.Checkbutton(self, text='Chèque', onvalue=1, offvalue=0, background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                            font=('Roboto', 16, 'bold'), highlightthickness=0, bd=0, activebackground=set_color("lightgreen"),
+        Cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=set_color("lightgreen"), bd=0,
+                                            foreground=set_color("darkgreen"), font=('Roboto', 16, 'bold'),
+                                            activebackground=set_color("lightgreen"), highlightthickness=0,
                                             activeforeground=set_color("darkgreen"))
-        Cheque_checkbutton.place(x=670, y=280)
+        Cheque_checkbutton.place(x=660, y=280)
 
-        valid_button = tk.Button(self, text="Valider", background=set_color("lightgreen"), foreground=set_color("darkgreen"),
-                                 font=('Roboto', 16, 'bold'), relief="ridge", activebackground=set_color("lightgreen"),
-                                 activeforeground=set_color("darkgreen"))
-        valid_button.place(x=100, y=400, width=211,height=84)
+        valid_button = tk.Button(self, text="Valider", background=set_color('lightgreen'),
+                                 foreground=set_color('darkgreen'), font=('Roboto', 16, 'bold'), relief='groove',
+                                 activebackground=set_color('lightgreen'), activeforeground=set_color("darkgreen"))
+        valid_button.place(x=100, y=400, width=211, height=84)
 
-        annuler_button = tk.Button(self, text="Annuler", background=set_color("lightgreen"),
-                                 foreground="red", font=('Roboto', 16, 'bold'), relief="ridge", activebackground=set_color("lightgreen"),
-                                 activeforeground="red", command=lambda: self.window.switch_frame('HomePage'))
+        annuler_button = tk.Button(self, text="Annuler", background=set_color('lightgreen'), foreground="red",
+                                   font=('Roboto', 16, 'bold'), relief='groove',
+                                   activebackground=set_color("lightgreen"),
+                                   activeforeground="red", command=lambda: self.window.switch_frame('HomePage'))
         annuler_button.place(x=550, y=400, width=211, height=84)

@@ -22,7 +22,7 @@ class BaseFrame(tk.Frame):
         canvas.create_line(1000, 300, -10, 300, fill=set_color("lightgreen"))
         canvas.create_line(1000, 450, -10, 450, fill=set_color("lightgreen"))
         canvas.create_text(128.5, 50, text="Argent", font=('Roboto', 20, 'bold'), fill='white')
-        canvas.create_text(128.5, 90, text="105400", font=('Roboto', 14), fill='white')
+        canvas.create_text(128.5, 90, text="10400 €", font=('Roboto', 14), fill='white')
         canvas.pack(side=tk.RIGHT)
 
         credit_button = tk.Button(self, text="Créditer l'argent", font=('Roboto', 14), fg='white', bd=0,
