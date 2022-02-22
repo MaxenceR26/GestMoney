@@ -32,7 +32,7 @@ class BaseFrame(tk.Frame):
 
         debit_button = tk.Button(self, text="Débiter de l'argent", font=('Roboto', 14), fg='white',
                                  bg=set_color("darkgreen"), bd=0, activebackground=set_color("buttonactive"),
-                                 activeforeground='white', command=lambda: self.window.switch_frame('HomePage'))
+                                 activeforeground='white', command=lambda: self.window.switch_frame('DebitFrame'))
         debit_button.place(x=880, y=440, width=201, height=33)
 
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg='white', activeforeground='white',
