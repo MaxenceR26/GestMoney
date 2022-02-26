@@ -1,0 +1,14 @@
+{
+    "Alban": {
+        "id": "Alban",
+        "email": "alban@gmail.com",
+        "mdp": "000000",
+        "money": "20"
+    },
+    "Michel": {
+        "id": "Michel",
+        "email": "michal@yahoo.fr",
+        "mdp": "michel1",
+        "money": "30"
+    }
+}

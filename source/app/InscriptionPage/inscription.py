@@ -1,5 +1,6 @@
 import tkinter as tk
 from source.app.Sys import set_color, select_image
+import json
 
 
 class InscriptionFrame(tk.Frame):
@@ -26,11 +27,14 @@ class InscriptionFrame(tk.Frame):
         self.inputs_name()
         self.inputs_entry()
 
+        # Affichage erreurs
+        self.error_canvas = tk.Canvas(self, height=40, width=431, background=set_color("lightgreen"),
+                                      highlightthickness=0)
+
         # Bouton valider
         validate = tk.Button(self.inputs_canvas, text='Valider', bg=set_color('darkgreen'), fg=set_color('entrycolor'),
                              activebackground=set_color('buttonactive'), activeforeground=set_color('entrycolor'),
-                             font=self.ROBOTO_14, relief='flat', cursor='hand2', bd=0,
-                             command=lambda: self.window.switch_frame('BasePage'))
+                             font=self.ROBOTO_14, relief='flat', cursor='hand2', bd=0, command=self.create_account)
         validate.place(x=165, y=345, width=100, height=40)
 
         self.inputs_canvas.place(x=0, y=52)
@@ -87,3 +91,53 @@ class InscriptionFrame(tk.Frame):
         quit_button.place(x=385, y=5, height=40, width=40)
 
         self.window.apply_drag([title_bar, icon])
+
+    def show_error(self, text):
+        self.error_canvas.destroy()
+        self.error_canvas = tk.Canvas(self, height=40, width=431, background=set_color("lightgreen"),
+                                      highlightthickness=0)
+        self.error_canvas.create_text(215, 20, text=text, font=('Roboto', 12), fill='red')
+
+        self.error_canvas.place(x=0, y=52)
+
+    def create_account(self):
+        id = self.user_id.get()
+        email = self.email.get()
+        mdp = self.mdp.get()
+        mdp_confirm = self.mdp_confirm.get()
+        money = self.money.get()
+
+        user = {
+            'id': id,
+            'email': email,
+            'mdp': mdp,
+            'money': money
+        }
+
+        if '' in user.values():
+            self.show_error('Veuillez remplir toutes les cases')
+
+        elif not id.isalpha():
+            self.show_error("L'identifiant ne doit contenir que des lettres")
+
+        elif '@' not in email and '.' not in email:
+            self.show_error('E-mail invalide')
+
+        elif not 6 <= len(mdp) <= 20:
+            self.show_error('Le mot de passe doit faire entre 6 et 20 aractères')
+
+        elif mdp != mdp_confirm:
+            self.show_error('Confirmation du mot de passe invalide')
+
+        elif not money.isdigit():
+            self.show_error('Montant actuel invalide')
+
+        else:
+            with open('InscriptionPage/users.json', 'r') as f:
+                data = json.load(f)
+                data[id] = user
+
+            with open('InscriptionPage/users.json', 'w') as f:
+                json.dump(data, f, indent=4)
+
+            self.window.switch_frame('BasePage')
