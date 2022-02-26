@@ -45,7 +45,7 @@ class InscriptionFrame(tk.Frame):
         copyright_text.place(x=155, y=450)
 
     def inputs_name(self):
-        names = ['Identifiant', 'E-mail', 'Mot de passe', 'Confirmation mot de passe', 'Somme actuel']
+        names = ['Identifiant', 'E-mail', 'Mot de passe', 'Confirmation mot de passe', 'Montant actuel']
 
         for i in range(5):
             self.inputs_canvas.create_text(114, (i*59)+50, text=names[i], font=('Roboto', 13, 'bold'),
@@ -114,11 +114,18 @@ class InscriptionFrame(tk.Frame):
             'money': money
         }
 
+        with open('InscriptionPage/users.json', 'r') as f:
+            data = json.load(f)
+            data[id] = user
+
         if '' in user.values():
             self.show_error('Veuillez remplir toutes les cases')
 
         elif not id.isalpha():
             self.show_error("L'identifiant ne doit contenir que des lettres")
+
+        elif id in data:
+            self.show_error('Cet identifiant est déjà utilisé')
 
         elif '@' not in email and '.' not in email:
             self.show_error('E-mail invalide')
@@ -133,10 +140,6 @@ class InscriptionFrame(tk.Frame):
             self.show_error('Montant actuel invalide')
 
         else:
-            with open('InscriptionPage/users.json', 'r') as f:
-                data = json.load(f)
-                data[id] = user
-
             with open('InscriptionPage/users.json', 'w') as f:
                 json.dump(data, f, indent=4)
 
