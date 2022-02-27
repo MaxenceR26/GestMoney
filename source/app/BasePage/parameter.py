@@ -8,33 +8,35 @@ class ParametreWindow(tk.Tk):
         tk.Tk.__init__(self)
 
         self.geometry("238x290")
-        self.config(bg=set_color("lightgreen"))
+        self.config(bg=set_color("entrycolor"))
         self.wm_overrideredirect(True)
+        self.iconbitmap(select_image('icon.ico'))
         self.title_bar()
+        self.title("GestMoney | Paramètre")
         center(self)
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
 
     def title_bar(self):
-        title_bar = tk.Canvas(self, width=238, height=48, bg=set_color('entrycolor'), highlightthickness=0)
-        title_bar.create_text(120, 25, text="GestMoney", font=('Roboto', 15, 'bold'), fill=set_color("gray"))
+        title_bar = tk.Canvas(self, width=238, height=48, bg=set_color('darkgreen'), highlightthickness=0)
+        title_bar.create_text(120, 25, text="GestMoney", font=('Roboto', 15, 'bold'), fill="white")
         title_bar.pack()
 
         imgs = tk.PhotoImage(master=self, file=select_image("parametre.png")).subsample(12)
-        icon = tk.Label(self, image=imgs, background=set_color("entrycolor"), bd=0,
-                        foreground=set_color("lightgreen"))
+        icon = tk.Label(self, image=imgs, background=set_color("darkgreen"), bd=0,
+                        foreground=set_color("entrycolor"))
         icon.photo = imgs
         icon.place(x=5, y=2)
 
-        quit_button = tk.Button(self, text="X", background=set_color("entrycolor"), cursor='hand2',
-                                relief='groove', foreground=set_color("darkgreen"),
-                                activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"),
+        quit_button = tk.Button(self, text="X", background=set_color("darkgreen"), cursor='hand2',
+                                relief='groove', foreground=set_color("lightgreen"),
+                                activebackground=set_color("darkgreen"), activeforeground=set_color("lightgreen"),
                                 font=('Roboto', 15, 'bold'), command=self.destroy)
         quit_button.place(x=190, y=4, width=40, height=40)
 
         profile_img = tk.PhotoImage(master=self, file=select_image("profile-base.png")).subsample(14)
-        profile_btn = tk.Button(self, image=profile_img, background=set_color('entrycolor'), cursor='hand2',
-                                activebackground=set_color('entrycolor'), bd=0)
+        profile_btn = tk.Button(self, image=profile_img, background=set_color('darkgreen'), cursor='hand2',
+                                activebackground=set_color('darkgreen'), bd=0)
         profile_btn.photo = profile_img
         profile_btn.place(x=955, y=10)
 
