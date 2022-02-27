@@ -101,30 +101,29 @@ class InscriptionFrame(tk.Frame):
         self.error_canvas.place(x=0, y=52)
 
     def create_account(self):
-        id = self.user_id.get()
+        identifiant = self.user_id.get()
         email = self.email.get()
         mdp = self.mdp.get()
         mdp_confirm = self.mdp_confirm.get()
         money = self.money.get()
 
         user = {
-            'id': id,
+            'id': identifiant,
             'email': email,
             'mdp': mdp,
             'money': money
         }
 
-        with open('InscriptionPage/users.json', 'r') as f:
+        with open(r'..\..\data\users.json', 'r') as f:
             data = json.load(f)
-            data[id] = user
 
         if '' in user.values():
             self.show_error('Veuillez remplir toutes les cases')
 
-        elif not id.isalpha():
+        elif not identifiant.isalpha():
             self.show_error("L'identifiant ne doit contenir que des lettres")
 
-        elif id in data:
+        elif identifiant in data:
             self.show_error('Cet identifiant est déjà utilisé')
 
         elif '@' not in email and '.' not in email:
@@ -140,7 +139,8 @@ class InscriptionFrame(tk.Frame):
             self.show_error('Montant actuel invalide')
 
         else:
-            with open('InscriptionPage/users.json', 'w') as f:
+            with open(r'..\..\data\users.json', 'w') as f:
+                data[identifiant] = user
                 json.dump(data, f, indent=4)
 
             self.window.switch_frame('BasePage')

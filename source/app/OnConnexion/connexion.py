@@ -1,3 +1,4 @@
+import json
 import tkinter as tk
 from source.app.Sys import set_color
 
@@ -29,16 +30,17 @@ pour t’aider !
                                     foreground=set_color("darkgreen"), font=('Roboto', 14))
         identifiant_text.place(x=450, y=60)
 
-        identifiant_entry = tk.Entry(self, background=set_color("entrycolor"), bd=0, font=('Roboto', 12, 'bold'), fg='#FFFFFF')
-        identifiant_entry.place(x=435, y=90, width=204, height=29)
+        self.identifiant_entry = tk.Entry(self, background=set_color("entrycolor"), bd=0,
+                                          font=('Roboto', 12, 'bold'), fg='#FFFFFF')
+        self.identifiant_entry.place(x=435, y=90, width=204, height=29)
 
         motdepasse_text = tk.Label(self, text="Mot de passe", background=set_color("lightgreen"),
                                    foreground=set_color("darkgreen"), font=('Roboto', 14))
         motdepasse_text.place(x=450, y=130)
 
-        motdepasse_entry = tk.Entry(self, background=set_color("entrycolor"), font=('Roboto', 12, 'bold'), fg='#FFFFFF',
-                                    bd=0, show='*')
-        motdepasse_entry.place(x=435, y=160, width=204, height=29)
+        self.motdepasse_entry = tk.Entry(self, background=set_color("entrycolor"), font=('Roboto', 12, 'bold'),
+                                         fg='#FFFFFF', bd=0, show='*')
+        self.motdepasse_entry.place(x=435, y=160, width=204, height=29)
 
         # Bouton de connexion / Création de compte
 
@@ -50,7 +52,7 @@ pour t’aider !
         inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"),
                                        foreground=set_color("darkgreen"), activebackground=set_color("lightgreen"),
                                        activeforeground=set_color("buttonactive"), font=('Roboto', 10, 'bold'), bd=0,
-                                       command=lambda: window.switch_frame('InscriptionFrame'), cursor='hand2')
+                                       command=self.connect(), cursor='hand2')
         inscription_button.place(x=474, y=245, width=122, height=30)
 
         # Copyright
@@ -58,3 +60,29 @@ pour t’aider !
         copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("lightgreen"),
                                   foreground=set_color("gray"), font=('Roboto', 10))
         copyright_text.place(x=275, y=335)
+
+        # Affichage erreurs
+        self.error_canvas = tk.Canvas(self, height=40, width=431, background=set_color("lightgreen"),
+                                      highlightthickness=0)
+
+    def show_error(self, text):
+        self.error_canvas.destroy()
+        self.error_canvas = tk.Canvas(self, height=40, width=431, background=set_color("lightgreen"),
+                                      highlightthickness=0)
+        self.error_canvas.create_text(215, 20, text=text, font=('Roboto', 12), fill='red')
+
+        self.error_canvas.place(x=0, y=52)
+
+    def connect(self):
+        id = self.identifiant_entry
+        mdp = self.motdepasse_entry
+
+        with open(r'..\..\data\users.json', 'r') as f:
+            data = json.load(f)
+            print(type(data))
+
+        #for user in data.values():
+        #    if user['id'] == id:
+        #        pass
+
+        self.window.switch_frame('InscriptionFrame')
