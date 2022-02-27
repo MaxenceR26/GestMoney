@@ -46,13 +46,13 @@ pour t’aider !
 
         connexion_button = tk.Button(self, text="Connexion", background=set_color("darkgreen"), activeforeground="#fff",
                                      activebackground=set_color("buttonactive"), foreground="#fff", cursor='hand2',
-                                     font=('Roboto', 13), bd=0, command=lambda: window.switch_frame('BasePage'))
+                                     font=('Roboto', 13), bd=0, command=self.connect)
         connexion_button.place(x=472, y=210, width=126, height=30)
 
         inscription_button = tk.Button(self, text="Créez mon compte", background=set_color("lightgreen"),
                                        foreground=set_color("darkgreen"), activebackground=set_color("lightgreen"),
                                        activeforeground=set_color("buttonactive"), font=('Roboto', 10, 'bold'), bd=0,
-                                       command=self.connect(), cursor='hand2')
+                                       command=lambda: self.window.switch_frame('InscriptionFrame'), cursor='hand2')
         inscription_button.place(x=474, y=245, width=122, height=30)
 
         # Copyright
@@ -67,22 +67,26 @@ pour t’aider !
 
     def show_error(self, text):
         self.error_canvas.destroy()
-        self.error_canvas = tk.Canvas(self, height=40, width=431, background=set_color("lightgreen"),
+        self.error_canvas = tk.Canvas(self, height=60, width=300, background=set_color("lightgreen"),
                                       highlightthickness=0)
-        self.error_canvas.create_text(215, 20, text=text, font=('Roboto', 12), fill='red')
+        self.error_canvas.create_text(130, 40, text=text, font=('Roboto', 11), fill='red')
 
-        self.error_canvas.place(x=0, y=52)
+        self.error_canvas.place(x=400, y=0)
 
     def connect(self):
-        id = self.identifiant_entry
-        mdp = self.motdepasse_entry
+        entry_id = self.identifiant_entry.get()
+        mdp = self.motdepasse_entry.get()
 
         with open(r'..\..\data\users.json', 'r') as f:
-            data = json.load(f)
-            print(type(data))
+            users = json.load(f)
 
-        #for user in data.values():
-        #    if user['id'] == id:
-        #        pass
+        for user in users.values():
+            if user['id'] == entry_id and user['mdp'] == mdp:
+                self.window.switch_frame('BasePage')
+                return
 
-        self.window.switch_frame('InscriptionFrame')
+        if entry_id not in [user['id'] for user in users.values()]:
+            self.show_error("Identifiant incorrect")
+
+        else:
+            self.show_error("Mot de passe incorrect")
