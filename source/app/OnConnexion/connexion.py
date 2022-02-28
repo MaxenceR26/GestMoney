@@ -1,6 +1,6 @@
 import json
 import tkinter as tk
-from source.app.Sys import set_color
+from source.app.Sys import set_color, select_image
 
 
 class ConnectionFrame(tk.Frame):
@@ -55,6 +55,37 @@ pour t’aider !
                                        command=lambda: self.window.switch_frame('InscriptionFrame'), cursor='hand2')
         inscription_button.place(x=474, y=245, width=122, height=30)
 
+        # Rapid connection
+
+        rapid_connect_text = tk.Label(self, text="Reconnecte-toi rapidement...", background=set_color("lightgreen"),
+                                   foreground=set_color("darkgreen"), font=('Roboto', 11, 'bold'))
+        rapid_connect_text.place(x=20, y=245)
+
+        profile_img = tk.PhotoImage(file=select_image("profile-base.png")).subsample(16)
+
+        # One
+
+        profile_one = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
+                                activebackground=set_color('lightgreen'), command= lambda: print("1"))
+        profile_one.photo = profile_img
+        profile_one.place(x=20, y=280)
+
+        # Two
+
+        profile_two = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
+                                activebackground=set_color('lightgreen'), command=lambda: print("2"))
+        profile_two.photo = profile_img
+        profile_two.place(x=105, y=280)
+
+        # Three
+
+        profile_three = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
+                                activebackground=set_color('lightgreen'), command=lambda: print("3"))
+        profile_three.photo = profile_img
+        profile_three.place(x=190, y=280)
+
+
+
         # Copyright
 
         copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("lightgreen"),
@@ -82,6 +113,7 @@ pour t’aider !
 
         for user in users.values():
             if user['id'] == entry_id and user['mdp'] == mdp:
+                self.window.user_connected = user['email']
                 self.window.switch_frame('BasePage')
                 return
 

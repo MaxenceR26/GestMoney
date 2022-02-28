@@ -21,6 +21,7 @@ class Main(tk.Tk):
         self.wm_overrideredirect(True)
         self.x, self.y = None, None
         self.title_frame = None
+        self.user_connected = None
         self.main_frame = None
         self.active_frame = None
 
