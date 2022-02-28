@@ -1,8 +1,12 @@
 {
     "Alban": {
         "id": "Alban",
-        "email": "albanurt@gmail.com",
+        "email": "alban@gmail.com",
         "mdp": "000000",
         "money": "20"
+    },
+    "Admin": {
+        "id": "",
+        "mdp": ""
     }
 }

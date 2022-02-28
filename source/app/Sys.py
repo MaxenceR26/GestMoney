@@ -11,6 +11,7 @@ def select_image(name):
 def set_color(color):
     COLOR = {
         'lightgreen': '#EAFCEC',
+        'green': '#77AB7D',
         'entrycolor': '#89DA92',
         'gray': '#666666',
         'darkgreen': '#45794A',
