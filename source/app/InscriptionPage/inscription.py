@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from data.data import add_user_in_activity_recent
+from data.data import add_user_in_activity_recent, get_users
 from source.app.Sys import set_color, select_image
 import json
 
@@ -116,8 +116,7 @@ class InscriptionFrame(tk.Frame):
             'money': money
         }
 
-        with open(r'..\..\data\users.json', 'r') as f:
-            data = json.load(f)
+        users = get_users()
 
         if '' in user.values():
             self.show_error('Veuillez remplir toutes les cases')
@@ -125,7 +124,7 @@ class InscriptionFrame(tk.Frame):
         elif not identifiant.isalpha():
             self.show_error("L'identifiant ne doit contenir que des lettres")
 
-        elif identifiant in data:
+        elif identifiant in users:
             self.show_error('Cet identifiant est déjà utilisé')
 
         elif '@' not in email and '.' not in email:
@@ -142,8 +141,8 @@ class InscriptionFrame(tk.Frame):
 
         else:
             with open(r'..\..\data\users.json', 'w') as f:
-                data[identifiant] = user
-                json.dump(data, f, indent=4)
+                users[identifiant] = user
+                json.dump(users, f, indent=4)
 
             self.window.user_connected = user['email']
             add_user_in_activity_recent(user['id'])
