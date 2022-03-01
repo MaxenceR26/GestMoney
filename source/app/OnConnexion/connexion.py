@@ -68,7 +68,7 @@ pour t’aider !
         # One
 
         profile_one = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
-                                activebackground=set_color('lightgreen'), command=lambda: print("1"))
+                                activebackground=set_color('lightgreen'), command=lambda: self.fill_entry(0))
         profile_one.photo = profile_img
         profile_one.place(x=20, y=280)
 
@@ -89,7 +89,7 @@ pour t’aider !
         # Two
 
         profile_two = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
-                                activebackground=set_color('lightgreen'), command=lambda: print("2"))
+                                activebackground=set_color('lightgreen'), command=lambda: self.fill_entry(1))
         profile_two.photo = profile_img
         profile_two.place(x=105, y=280)
 
@@ -110,7 +110,7 @@ pour t’aider !
         # Three
 
         profile_three = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
-                                  activebackground=set_color('lightgreen'), command=lambda: print("3"))
+                                  activebackground=set_color('lightgreen'), command=lambda: self.fill_entry(2))
         profile_three.photo = profile_img
         profile_three.place(x=190, y=280)
 
@@ -119,11 +119,11 @@ pour t’aider !
 
         if len(get_recent_user(2)) == 3:
             profile_three_text.place(x=203, y=330)
-        elif 3 < len(get_recent_user(2)) < 5:
+        elif len(get_recent_user(2)) < 5:
             profile_three_text.place(x=200, y=330)
-        elif 5 <= len(get_recent_user(2)) < 6:
+        elif len(get_recent_user(2)) < 6:
             profile_three_text.place(x=198, y=330)
-        elif 6 <= len(get_recent_user(2)) < 7:
+        elif len(get_recent_user(2)) < 7:
             profile_three_text.place(x=196, y=330)
         elif len(get_recent_user(2)) == 7:
             profile_three_text.place(x=193, y=330)
@@ -165,3 +165,8 @@ pour t’aider !
 
         else:
             self.show_error("Mot de passe incorrect")
+
+    def fill_entry(self, index):
+        self.identifiant_entry.delete(0, 10000000)
+        self.identifiant_entry.insert(0, get_recent_user(index))
+        self.motdepasse_entry.focus_set()
