@@ -1,5 +1,7 @@
 import json
 import tkinter as tk
+
+from data.data import add_user_in_activity_recent, get_recent_user
 from source.app.Sys import set_color, select_image
 
 
@@ -58,7 +60,7 @@ pour t’aider !
         # Rapid connection
 
         rapid_connect_text = tk.Label(self, text="Reconnecte-toi rapidement...", background=set_color("lightgreen"),
-                                   foreground=set_color("darkgreen"), font=('Roboto', 11, 'bold'))
+                                      foreground=set_color("darkgreen"), font=('Roboto', 11, 'bold'))
         rapid_connect_text.place(x=20, y=245)
 
         profile_img = tk.PhotoImage(file=select_image("profile-base.png")).subsample(16)
@@ -66,9 +68,23 @@ pour t’aider !
         # One
 
         profile_one = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
-                                activebackground=set_color('lightgreen'), command= lambda: print("1"))
+                                activebackground=set_color('lightgreen'), command=lambda: print("1"))
         profile_one.photo = profile_img
         profile_one.place(x=20, y=280)
+
+        profile_one_text = tk.Label(self, text=get_recent_user(0), background=set_color("lightgreen"),
+                                    foreground="#666666", font=('Roboto', 9))
+
+        if len(get_recent_user(0)) == 3:
+            profile_one_text.place(x=30, y=330)
+        elif 3 < len(get_recent_user(0)) < 5:
+            profile_one_text.place(x=27, y=330)
+        elif 5 <= len(get_recent_user(0)) < 6:
+            profile_one_text.place(x=27, y=330)
+        elif 6 <= len(get_recent_user(0)) < 7:
+            profile_one_text.place(x=26, y=330)
+        elif len(get_recent_user(0)) == 7:
+            profile_one_text.place(x=23, y=330)
 
         # Two
 
@@ -77,14 +93,40 @@ pour t’aider !
         profile_two.photo = profile_img
         profile_two.place(x=105, y=280)
 
+        profile_two_text = tk.Label(self, text=get_recent_user(1), background=set_color("lightgreen"),
+                                    foreground="#666666", font=('Roboto', 9))
+
+        if len(get_recent_user(1)) == 3:
+            profile_two_text.place(x=117, y=330)
+        elif 3 < len(get_recent_user(1)) < 5:
+            profile_two_text.place(x=115, y=330)
+        elif 5 <= len(get_recent_user(1)) < 6:
+            profile_two_text.place(x=113, y=330)
+        elif 6 <= len(get_recent_user(1)) < 7:
+            profile_two_text.place(x=110, y=330)
+        elif len(get_recent_user(1)) == 7:
+            profile_two_text.place(x=108, y=330)
+
         # Three
 
         profile_three = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
-                                activebackground=set_color('lightgreen'), command=lambda: print("3"))
+                                  activebackground=set_color('lightgreen'), command=lambda: print("3"))
         profile_three.photo = profile_img
         profile_three.place(x=190, y=280)
 
+        profile_three_text = tk.Label(self, text=get_recent_user(2), background=set_color("lightgreen"),
+                                      foreground="#666666", font=('Roboto', 9))
 
+        if len(get_recent_user(2)) == 3:
+            profile_three_text.place(x=203, y=330)
+        elif 3 < len(get_recent_user(2)) < 5:
+            profile_three_text.place(x=200, y=330)
+        elif 5 <= len(get_recent_user(2)) < 6:
+            profile_three_text.place(x=198, y=330)
+        elif 6 <= len(get_recent_user(2)) < 7:
+            profile_three_text.place(x=196, y=330)
+        elif len(get_recent_user(2)) == 7:
+            profile_three_text.place(x=193, y=330)
 
         # Copyright
 
@@ -114,6 +156,7 @@ pour t’aider !
         for user in users.values():
             if user['id'] == entry_id and user['mdp'] == mdp:
                 self.window.user_connected = user['email']
+                add_user_in_activity_recent(user['id'])
                 self.window.switch_frame('BasePage')
                 return
 

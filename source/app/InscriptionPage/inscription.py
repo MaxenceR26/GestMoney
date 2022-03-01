@@ -1,4 +1,6 @@
 import tkinter as tk
+
+from data.data import add_user_in_activity_recent
 from source.app.Sys import set_color, select_image
 import json
 
@@ -143,4 +145,6 @@ class InscriptionFrame(tk.Frame):
                 data[identifiant] = user
                 json.dump(data, f, indent=4)
 
+            self.window.user_connected = user['email']
+            add_user_in_activity_recent(user['id'])
             self.window.switch_frame('BasePage')

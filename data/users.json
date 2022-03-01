@@ -5,12 +5,34 @@
         "mdp": "000000",
         "money": "20"
     },
-
+    "jean": {
+        "id": "jean",
+        "email": "jean@gmail.com",
+        "mdp": "000000",
+        "money": "20"
+    },
+    "jeanaa": {
+        "id": "jeanaa",
+        "email": "jean@gmail.com",
+        "mdp": "000000",
+        "money": "20"
+    },
     "Admin": {
-        "id": "",
+        "id": "admin",
         "email": "Admin@gmail.com",
         "mdp": "",
         "money": "20"
+    },
+    "Olivier": {
+        "id": "Olivier",
+        "email": "olivier@yahoo.fr",
+        "mdp": "000000",
+        "money": "2000"
+    },
+    "JeanPierreFourras": {
+        "id": "JeanPierreFourras",
+        "email": "JeanPierreFourras@gmail.com",
+        "mdp": "000000",
+        "money": "2"
     }
-
 }
