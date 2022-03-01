@@ -1,3 +1,4 @@
+import json
 import os
 from ctypes import windll
 
@@ -6,6 +7,7 @@ def select_image(name):
     scriptpath = os.path.abspath(__file__)
     scriptdir = os.path.dirname(scriptpath)
     return os.path.join(scriptdir, f"ressource\\img\\{name}")
+
 
 
 def set_color(color):

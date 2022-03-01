@@ -1,4 +1,5 @@
 import json
+import os
 
 
 def add_user_in_activity_recent(user):
@@ -24,3 +25,9 @@ def get_recent_user(number):
 def get_users():
     with open(r'..\..\data\users.json', 'r') as f:
         return json.load(f)
+
+def select_image_user(name):
+    with open(r'..\..\data\users.json', 'r') as f:
+        data = json.load(f)
+
+    return data[name]['image']

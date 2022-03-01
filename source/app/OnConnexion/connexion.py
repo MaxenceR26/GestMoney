@@ -1,7 +1,7 @@
 import json
 import tkinter as tk
 
-from data.data import add_user_in_activity_recent, get_recent_user
+from data.data import add_user_in_activity_recent, get_recent_user, select_image_user
 from source.app.Sys import set_color, select_image
 
 
@@ -63,13 +63,13 @@ pour t’aider !
                                       foreground=set_color("darkgreen"), font=('Roboto', 11, 'bold'))
         rapid_connect_text.place(x=20, y=245)
 
-        profile_img = tk.PhotoImage(file=select_image("profile-base.png")).subsample(16)
+
 
         # One
-
-        profile_one = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
+        profile_img_one = tk.PhotoImage(file=select_image_user(get_recent_user(0))).subsample(16)
+        profile_one = tk.Button(self, image=profile_img_one, background=set_color('lightgreen'), cursor='hand2', bd=0,
                                 activebackground=set_color('lightgreen'), command=lambda: self.fill_entry(0))
-        profile_one.photo = profile_img
+        profile_one.photo = profile_img_one
         profile_one.place(x=20, y=280)
 
         profile_one_text = tk.Label(self, text=get_recent_user(0), background=set_color("lightgreen"),
@@ -87,10 +87,10 @@ pour t’aider !
             profile_one_text.place(x=23, y=330)
 
         # Two
-
-        profile_two = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
+        profile_img_two = tk.PhotoImage(file=select_image_user(get_recent_user(1))).subsample(16)
+        profile_two = tk.Button(self, image=profile_img_two, background=set_color('lightgreen'), cursor='hand2', bd=0,
                                 activebackground=set_color('lightgreen'), command=lambda: self.fill_entry(1))
-        profile_two.photo = profile_img
+        profile_two.photo = profile_img_two
         profile_two.place(x=105, y=280)
 
         profile_two_text = tk.Label(self, text=get_recent_user(1), background=set_color("lightgreen"),
@@ -108,10 +108,10 @@ pour t’aider !
             profile_two_text.place(x=108, y=330)
 
         # Three
-
-        profile_three = tk.Button(self, image=profile_img, background=set_color('lightgreen'), cursor='hand2', bd=0,
+        profile_img_three = tk.PhotoImage(file=select_image_user(get_recent_user(2))).subsample(16)
+        profile_three = tk.Button(self, image=profile_img_three, background=set_color('lightgreen'), cursor='hand2', bd=0,
                                   activebackground=set_color('lightgreen'), command=lambda: self.fill_entry(2))
-        profile_three.photo = profile_img
+        profile_three.photo = profile_img_three
         profile_three.place(x=190, y=280)
 
         profile_three_text = tk.Label(self, text=get_recent_user(2), background=set_color("lightgreen"),
@@ -156,6 +156,7 @@ pour t’aider !
         for user in users.values():
             if user['id'] == entry_id and user['mdp'] == mdp:
                 self.window.user_connected = user['email']
+                self.window.user_connected_name = user['id']
                 add_user_in_activity_recent(user['id'])
                 self.window.switch_frame('BasePage')
                 return

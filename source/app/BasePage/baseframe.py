@@ -1,5 +1,6 @@
 import tkinter as tk
 
+from data.data import select_image_user
 from source.app.BasePage.parameter import ParametreWindow
 from source.app.Sys import set_color, select_image
 
@@ -69,9 +70,9 @@ class BaseFrame(tk.Frame):
                                 font=('Roboto', 20, 'bold'), command=exit)
         quit_button.place(x=1040, y=10, width=60, height=60)
 
-        profile_img = tk.PhotoImage(file=select_image("profile-base.png")).subsample(14)
+        profile_img = tk.PhotoImage(file=select_image_user(self.window.user_connected_name)).subsample(14)
         profile_btn = tk.Button(self, image=profile_img, background=set_color('entrycolor'), cursor='hand2', bd=0,
-                                activebackground=set_color('entrycolor'), command=lambda: ParametreWindow().update())
+                                activebackground=set_color('entrycolor'), command=lambda: ParametreWindow(self.window.user_connected_name).update())
         profile_btn.photo = profile_img
         profile_btn.place(x=955, y=10)
 
