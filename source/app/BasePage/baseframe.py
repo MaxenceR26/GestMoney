@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from data.data import select_image_user
+from data.data import select_image_user, _return_money
 from source.app.BasePage.parameter import ParametreWindow
 from source.app.Sys import set_color, select_image
 
@@ -35,7 +35,7 @@ class BaseFrame(tk.Frame):
         canvas.create_line(1000, 300, -10, 300, fill=set_color("lightgreen"))
         canvas.create_line(1000, 450, -10, 450, fill=set_color("lightgreen"))
         canvas.create_text(128.5, 50, text="Argent", font=('Roboto', 20, 'bold'), fill='white')
-        canvas.create_text(128.5, 90, text="10400 €", font=('Roboto', 14), fill='white')
+        canvas.create_text(128.5, 90, text=_return_money(self.window.user_connected_name), font=('Roboto', 14), fill='white')
         canvas.pack(side=tk.RIGHT)
 
         credit_button = tk.Button(self, text="Créditer l'argent", font=('Roboto', 14), fg='white', bd=0,
@@ -72,7 +72,7 @@ class BaseFrame(tk.Frame):
 
         profile_img = tk.PhotoImage(file=select_image_user(self.window.user_connected_name)).subsample(9)
         profile_btn = tk.Button(self, image=profile_img, background=set_color('entrycolor'), cursor='hand2', bd=0,
-                                activebackground=set_color('entrycolor'), command=lambda: ParametreWindow(self.window.user_connected_name).update())
+                                activebackground=set_color('entrycolor'), command=lambda: ParametreWindow(self.window.user_connected_name, self.window.user_connected).update())
         profile_btn.photo = profile_img
         profile_btn.place(x=955, y=10)
 

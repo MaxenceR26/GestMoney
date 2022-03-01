@@ -50,7 +50,7 @@ class InscriptionFrame(tk.Frame):
         names = ['Identifiant', 'E-mail', 'Mot de passe', 'Confirmation mot de passe', 'Montant actuel']
 
         for i in range(5):
-            self.inputs_canvas.create_text(114, (i*59)+50, text=names[i], font=('Roboto', 13, 'bold'),
+            self.inputs_canvas.create_text(114, (i * 59) + 50, text=names[i], font=('Roboto', 13, 'bold'),
                                            fill=set_color("darkgreen"), anchor='w')
 
     def inputs_entry(self):
@@ -108,12 +108,14 @@ class InscriptionFrame(tk.Frame):
         mdp = self.mdp.get()
         mdp_confirm = self.mdp_confirm.get()
         money = self.money.get()
+        image = "ressource\\img\\profile-base.png"
 
         user = {
             'id': identifiant,
             'email': email,
             'mdp': mdp,
-            'money': money
+            'money': money,
+            'image': image
         }
 
         users = get_users()
@@ -146,4 +148,4 @@ class InscriptionFrame(tk.Frame):
 
             self.window.user_connected = user['email']
             add_user_in_activity_recent(user['id'])
-            self.window.switch_frame('BasePage')
+            self.window.switch_frame('ConnexionPage')

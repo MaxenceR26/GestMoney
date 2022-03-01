@@ -26,9 +26,14 @@ def get_users():
     with open(r'..\..\data\users.json', 'r') as f:
         return json.load(f)
 
+def _return_money(user):
+    with open(r'..\..\data\users.json', 'r+') as file:
+        data = json.load(file)
+
+    return data[user]['money']
 
 def select_image_user(name):
     with open(r'..\..\data\users.json', 'r') as f:
         data = json.load(f)
 
-    return data[name]['image'] if data[name]['image'] != '' else r'ressource\img\profile-base.png'
+    return data[name]['image']

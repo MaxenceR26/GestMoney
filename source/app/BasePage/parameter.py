@@ -9,9 +9,10 @@ from tkinter import filedialog as fd
 
 
 class ParametreWindow(tk.Tk):
-    def __init__(self, user):
+    def __init__(self, user, email):
         tk.Tk.__init__(self)
 
+        self.email = email
         self.user = user
         self.geometry("238x290")
         self.config(bg=set_color("entrycolor"))
@@ -55,6 +56,27 @@ class ParametreWindow(tk.Tk):
                                 foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
                                 activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
         open_button.place(x=72, y=115)
+
+        identifiant_text = tk.Label(self, text="Identifiant", background=set_color("entrycolor"),
+                                    foreground=set_color("darkgreen"), font=('Roboto', 12))
+        identifiant_text.place(x=40, y=150)
+
+        id_text = tk.Label(self, text=self.user, background=set_color("darkgreen"),
+                              foreground="white", font=('Roboto', 12))
+        id_text.place(x=16, y=175, width=200)
+
+        email_text = tk.Label(self, text="Email", background=set_color("entrycolor"),
+                                   foreground=set_color("darkgreen"), font=('Roboto', 12))
+        email_text.place(x=40, y=210)
+
+        email_text = tk.Label(self, text=self.email, background=set_color("darkgreen"),
+                              foreground="white", font=('Roboto', 12))
+        email_text.place(x=16, y=235, width=200)
+
+        # Copyright
+        copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("entrycolor"),
+                                  foreground=set_color("gray"), font=('Roboto', 10))
+        copyright_text.place(x=55, y=266)
 
     def title_bar(self):
         title_bar = tk.Canvas(self, width=238, height=48, bg=set_color('darkgreen'), highlightthickness=0)
