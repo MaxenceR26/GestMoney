@@ -70,7 +70,7 @@ class BaseFrame(tk.Frame):
                                 font=('Roboto', 20, 'bold'), command=exit)
         quit_button.place(x=1040, y=10, width=60, height=60)
 
-        profile_img = tk.PhotoImage(file=select_image_user(self.window.user_connected_name)).subsample(14)
+        profile_img = tk.PhotoImage(file=select_image_user(self.window.user_connected_name)).subsample(9)
         profile_btn = tk.Button(self, image=profile_img, background=set_color('entrycolor'), cursor='hand2', bd=0,
                                 activebackground=set_color('entrycolor'), command=lambda: ParametreWindow(self.window.user_connected_name).update())
         profile_btn.photo = profile_img

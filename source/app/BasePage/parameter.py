@@ -6,7 +6,7 @@ from data.data import select_image_user
 from source.app.Sys import set_color, select_image, set_appwindow, center
 
 from tkinter import filedialog as fd
-from tkinter.messagebox import showinfo
+
 
 class ParametreWindow(tk.Tk):
     def __init__(self, user):
@@ -16,7 +16,7 @@ class ParametreWindow(tk.Tk):
         self.geometry("238x290")
         self.config(bg=set_color("entrycolor"))
         self.wm_overrideredirect(True)
-        self.iconbitmap(select_image('icon.ico'))
+        self.iconbitmap(select_image('parametre.ico'))
         self.title_bar()
         self.title("GestMoney | Paramètre")
 
@@ -45,13 +45,15 @@ class ParametreWindow(tk.Tk):
             json.dump(data, file, indent=4)
 
     def widgets(self):
-        profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user)).subsample(14)
+        profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user)).subsample(9)
 
         profile = tk.Label(self, image=profile_img, background=set_color('entrycolor'), bd=0)
         profile.photo = profile_img
         profile.pack(ipady=10)
 
-        open_button = tk.Button(self, text="Modifier la photo", background=set_color("entrycolor"), foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"), activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
+        open_button = tk.Button(self, text="Modifier la photo", background=set_color("entrycolor"),
+                                foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
+                                activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
         open_button.place(x=72, y=115)
 
     def title_bar(self):
@@ -79,9 +81,6 @@ class ParametreWindow(tk.Tk):
 
         self.apply_drag([title_bar, icon])
 
-    def update(self):
-        self.mainloop()
-
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y
 
@@ -100,7 +99,3 @@ class ParametreWindow(tk.Tk):
             element.bind('<ButtonPress-1>', self.mouse_down)
             element.bind('<B1-Motion>', self.mouse_drag)
             element.bind('<ButtonRelease-1>', self.mouse_up)
-
-
-if __name__ == '__main__':
-    ParametreWindow().mainloop()

@@ -3,30 +3,28 @@
         "id": "Alban",
         "email": "alban@gmail.com",
         "mdp": "000000",
-        "image": "ressource\\img\\profile-base.png",
+        "image": "",
         "money": "20"
     },
     "jean": {
         "id": "jean",
         "email": "jean@gmail.com",
         "mdp": "000000",
-        "image": "ressource\\img\\profile-base.png",
+        "image": "",
         "money": "20"
     },
     "jeanaa": {
         "id": "jeanaa",
         "email": "jean@gmail.com",
         "mdp": "000000",
-        "image": "ressource\\img\\profile-base.png",
+        "image": "",
         "money": "20"
     },
     "admin": {
         "id": "admin",
         "email": "Admin@gmail.com",
         "mdp": "",
-        "image": [
-            "C:/Users/33662/Downloads/2835-skam-man-in-black-and-gray-zip-up-hoodie-png-clipart-removebg-preview.png"
-        ],
+        "image": "",
         "money": "20"
     },
     "Olivier": {
