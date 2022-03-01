@@ -23,7 +23,20 @@ class HomeFrame(tk.Frame):
         canvas.create_line(1000, 0, -10, 0, fill=set_color("lightgreen"))
         canvas.create_line(1000, 520, -10, 520, fill=set_color("lightgreen"))
 
-        canvas.create_text(128.5, 555, text=self.window.user_connected, font=('Roboto', 13),
-                                        fill="white")
+        canvas.create_text(128.5, 30, text='Rechercher', font=('Roboto', 17), fill="white")
+        canvas.create_text(30, 100, text='Date', font=('Roboto', 17), fill="white", anchor='w')
+        canvas.create_text(30, 175, text='Magasin', font=('Roboto', 17), fill="white", anchor='w')
 
-        canvas.place(x=0,y=0)
+        self.date_entry = tk.Entry(self, background=set_color("darkgreen"), bd=0,
+                                   font=('Roboto', 15, 'bold'), fg='#FFFFFF')
+        self.date_entry.place(x=20, y=120, width=200, height=32)
+
+        self.magasin_entry = tk.Entry(self, background=set_color("darkgreen"), bd=0,
+                                      font=('Roboto', 15, 'bold'), fg='#FFFFFF')
+        self.magasin_entry.place(x=20, y=195, width=200, height=32)
+
+        # E-mail utilisateur actuel
+        canvas.create_text(128.5, 555, text=self.window.user_connected, font=('Roboto', 13),
+                           fill="white")
+
+        canvas.place(x=0, y=0)
