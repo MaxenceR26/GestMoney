@@ -21,6 +21,12 @@ class ParametreWindow(tk.Tk):
         self.title_bar()
         self.title("GestMoney | Paramètre")
 
+        self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user)).subsample(9)
+
+        self.profile = tk.Label(self, image=self.profile_img, background=set_color('entrycolor'), bd=0)
+        self.profile.photo = self.profile_img
+        self.profile.pack(ipady=10)
+
         self.widgets()
         center(self)
         # Permet de voir l'icon dans notre barre des taches
@@ -29,13 +35,21 @@ class ParametreWindow(tk.Tk):
     def select_files(self):
         filetypes = (
             ('Type', '*.png'),
-            ('Type', '*.jpg')
         )
 
         filenames = fd.askopenfilenames(
-            title='Open files',
+            title='GestMoney | Open files',
             initialdir='/',
             filetypes=filetypes)
+
+        self.profile_img = tk.PhotoImage(master=self, file=filenames).subsample(9)
+        self.profile.photo = self.profile_img
+        self.profile.configure(image=self.profile_img)
+
+        image_show = tk.Label(self, text="/!\ Attention l'image s'actualisera \nau redémarrage de l'application !", background=set_color("entrycolor"),
+                                foreground="red", font=('Roboto', 8, 'bold'))
+        image_show.place(x=25, y=138)
+
 
         with open(r'..\..\data\users.json', 'r+') as file:
             data = json.load(file)
@@ -46,11 +60,6 @@ class ParametreWindow(tk.Tk):
             json.dump(data, file, indent=4)
 
     def widgets(self):
-        profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user)).subsample(9)
-
-        profile = tk.Label(self, image=profile_img, background=set_color('entrycolor'), bd=0)
-        profile.photo = profile_img
-        profile.pack(ipady=10)
 
         open_button = tk.Button(self, text="Modifier la photo", background=set_color("entrycolor"),
                                 foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),

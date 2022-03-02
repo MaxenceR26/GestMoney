@@ -36,4 +36,7 @@ def select_image_user(name):
     with open(r'..\..\data\users.json', 'r') as f:
         data = json.load(f)
 
-    return data[name]['image']
+    try:
+        return data[name]['image']
+    except KeyError as e:
+        return "ressource\\img\\profile-base.png"

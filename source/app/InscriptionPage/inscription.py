@@ -148,4 +148,4 @@ class InscriptionFrame(tk.Frame):
 
             self.window.user_connected = user['email']
             add_user_in_activity_recent(user['id'])
-            self.window.switch_frame('ConnexionPage')
+            self.window.switch_frame('ConnexionPage', False)

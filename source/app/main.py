@@ -37,7 +37,7 @@ class Main(tk.Tk):
         self.active_frame = ConnectionFrame(self)
         self.active_frame.pack()
 
-    def switch_frame(self, frame_name):
+    def switch_frame(self, frame_name, boolean: bool = None):
 
         if frame_name == 'InscriptionFrame':
             self.title_frame.destroy(), self.active_frame.destroy()
@@ -70,7 +70,10 @@ class Main(tk.Tk):
             self.active_frame.place(x=0, y=80)
 
         elif frame_name == 'ConnexionPage':
-            self.title_frame.destroy(), self.active_frame.destroy(), self.main_frame.destroy()
+            if boolean:
+                self.title_frame.destroy(), self.active_frame.destroy(), self.main_frame.destroy()
+            else:
+                self.active_frame.destroy()
             self.geometry("679x406")
             self.widget_title_bar()
             self.active_frame = ConnectionFrame(self)
