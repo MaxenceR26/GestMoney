@@ -1,11 +1,12 @@
 import json
 import os
 import tkinter as tk
+import cv2
 
 from data.data import select_image_user
 from source.app.Sys import set_color, select_image, set_appwindow, center
 
-from tkinter import filedialog as fd
+from tkinter import filedialog as fd, messagebox
 
 
 class ParametreWindow(tk.Tk):
@@ -42,25 +43,32 @@ class ParametreWindow(tk.Tk):
             initialdir='/',
             filetypes=filetypes)
 
-        self.profile_img = tk.PhotoImage(master=self, file=filenames).subsample(9)
-        self.profile.photo = self.profile_img
-        self.profile.configure(image=self.profile_img)
+        img = cv2.imread(filenames[0], cv2.IMREAD_UNCHANGED)
 
-        image_show = tk.Label(self, text="/!\ Attention l'image s'actualisera \nau redémarrage de l'application !", background=set_color("entrycolor"),
-                                foreground="red", font=('Roboto', 8, 'bold'))
-        image_show.place(x=25, y=138)
+        width = img.shape[1]
+        height = img.shape[0]
 
+        if width and height == 500:
+            self.profile_img = tk.PhotoImage(master=self, file=filenames).subsample(9)
+            self.profile.photo = self.profile_img
+            self.profile.configure(image=self.profile_img)
 
-        with open(r'..\..\data\users.json', 'r+') as file:
-            data = json.load(file)
+            image_show = tk.Label(self, text="/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
+                                  background=set_color("entrycolor"),
+                                  foreground="red", font=('Roboto', 8, 'bold'))
+            image_show.place(x=25, y=138)
 
-            data[self.user]["image"] = filenames
+            with open(r'..\..\data\users.json', 'r+') as file:
+                data = json.load(file)
 
-        with open(r'..\..\data\users.json', 'w') as file:
-            json.dump(data, file, indent=4)
+                data[self.user]["image"] = filenames
+
+            with open(r'..\..\data\users.json', 'w') as file:
+                json.dump(data, file, indent=4)
+        else:
+            messagebox.showerror("GestMoney | Erreur","S'il vous plait veuillez mettre une image de taille : 500x500")
 
     def widgets(self):
-
         open_button = tk.Button(self, text="Modifier la photo", background=set_color("entrycolor"),
                                 foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
                                 activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
@@ -71,11 +79,11 @@ class ParametreWindow(tk.Tk):
         identifiant_text.place(x=40, y=150)
 
         id_text = tk.Label(self, text=self.user, background=set_color("darkgreen"),
-                              foreground="white", font=('Roboto', 12))
+                           foreground="white", font=('Roboto', 12))
         id_text.place(x=16, y=175, width=200)
 
         email_text = tk.Label(self, text="Email", background=set_color("entrycolor"),
-                                   foreground=set_color("darkgreen"), font=('Roboto', 12))
+                              foreground=set_color("darkgreen"), font=('Roboto', 12))
         email_text.place(x=40, y=210)
 
         email_text = tk.Label(self, text=self.email, background=set_color("darkgreen"),
