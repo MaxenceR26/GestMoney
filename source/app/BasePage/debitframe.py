@@ -2,7 +2,7 @@ import tkinter as tk
 
 from source.app.Sys import set_color
 from source.app.BasePage.baseframe import create_buttons, date_valid
-from data.data import add_transaction
+from data.data import add_debit
 
 
 class DebitFrame(tk.Frame):
@@ -104,7 +104,7 @@ class DebitFrame(tk.Frame):
                 if var.get() == 1:
                     transaction['methode'] = methods_names[self.check_vars.index(var)]
 
-            add_transaction(self.window.user_id, transaction)
+            add_debit(self.window.user_id, transaction)
 
             self.window.switch_frame('BasePage')
 

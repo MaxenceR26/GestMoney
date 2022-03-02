@@ -1,33 +1,14 @@
 {
-    "Admin": [
-        {
-            "market": "Auchan",
-            "buy_type": "Pommes",
-            "amount": -5,
-            "date": "02/03/22",
-            "methode": "especes"
-        },
-        {
-            "market": "Auchan",
-            "buy_type": "Fraises",
-            "amount": -5,
-            "date": "02/05/22",
-            "methode": "cb"
-        },
-        {
-            "origin": "Salaire",
-            "amount": 1200,
-            "date": "01/03/22",
-            "methode": "virement"
-        }
-    ],
-    "Alban": [
-        {
-            "market": "Auchan",
-            "buy_type": "Pommes",
-            "amount": -4,
-            "date": "20/02/22",
-            "methode": "cb"
-        }
-    ]
+    "Admin": {
+        "credit": [],
+        "debit": [
+            {
+                "market": "Auchan",
+                "buy_type": "pommes",
+                "amount": -5,
+                "date": "02/02/22",
+                "methode": "cb"
+            }
+        ]
+    }
 }
