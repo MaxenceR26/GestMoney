@@ -46,10 +46,9 @@ class ParametreWindow(tk.Tk):
         self.profile.photo = self.profile_img
         self.profile.configure(image=self.profile_img)
 
-        image_show = tk.Label(self, text="/!\ Attention l'image s'actualisera \nau redémarrage de l'application !", background=set_color("entrycolor"),
-                                foreground="red", font=('Roboto', 8, 'bold'))
+        image_show = tk.Label(self, text="/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
+                              background=set_color("entrycolor"), foreground="red", font=('Roboto', 8, 'bold'))
         image_show.place(x=25, y=138)
-
 
         with open(r'..\..\data\users.json', 'r+') as file:
             data = json.load(file)
@@ -60,7 +59,6 @@ class ParametreWindow(tk.Tk):
             json.dump(data, file, indent=4)
 
     def widgets(self):
-
         open_button = tk.Button(self, text="Modifier la photo", background=set_color("entrycolor"),
                                 foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
                                 activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
@@ -70,17 +68,20 @@ class ParametreWindow(tk.Tk):
                                     foreground=set_color("darkgreen"), font=('Roboto', 12))
         identifiant_text.place(x=40, y=150)
 
-        id_text = tk.Label(self, text=self.user, background=set_color("darkgreen"),
-                              foreground="white", font=('Roboto', 12))
-        id_text.place(x=16, y=175, width=200)
+        self.id_entry = tk.Entry(self, background=set_color("darkgreen"), bd=0,
+                                 font=('Roboto', 12), fg='#FFFFFF')
+        self.id_entry.insert(0, self.user)
+        self.id_entry.configure(justify='center')
+        self.id_entry.place(x=16, y=175, width=204, height=25)
 
         email_text = tk.Label(self, text="Email", background=set_color("entrycolor"),
-                                   foreground=set_color("darkgreen"), font=('Roboto', 12))
+                              foreground=set_color("darkgreen"), font=('Roboto', 12))
         email_text.place(x=40, y=210)
 
-        email_text = tk.Label(self, text=self.email, background=set_color("darkgreen"),
-                              foreground="white", font=('Roboto', 12))
-        email_text.place(x=16, y=235, width=200)
+        self.email_entry = tk.Entry(self, background=set_color("darkgreen"), bd=0,
+                                    font=('Roboto', 12), fg='#FFFFFF')
+        self.email_entry.insert(0, self.email)
+        self.email_entry.place(x=16, y=235, width=204, height=25)
 
         # Copyright
         copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("entrycolor"),

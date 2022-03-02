@@ -1,20 +1,9 @@
 {
-    "admin": {
-        "id": "admin",
-        "email": "admin@gestmoney.fr",
+    "Admin": {
+        "id": "Admin",
+        "email": "admin@gmail.com",
         "mdp": "",
-        "money": "254785",
-        "image": [
-            "C:/Users/33662/OneDrive/Bureau/user-icon-6.png"
-        ]
-    },
-    "Maxence": {
-        "id": "Maxence",
-        "email": "maxence@gmail.com",
-        "mdp": "000000",
-        "money": "1000",
-        "image": [
-            "C:/Users/33662/OneDrive/Bureau/user-icon-6.png"
-        ]
+        "money": "20",
+        "image": "ressource\\img\\profile-base.png"
     }
 }
