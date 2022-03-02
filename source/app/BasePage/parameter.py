@@ -1,5 +1,4 @@
 import json
-import os
 import tkinter as tk
 import cv2
 
@@ -15,7 +14,7 @@ class ParametreWindow(tk.Tk):
 
         self.email = email
         self.user = user
-        self.geometry("238x290")
+        self.geometry("238x480")
         self.config(bg=set_color("entrycolor"))
         self.wm_overrideredirect(True)
         self.iconbitmap(select_image('parametre.ico'))
@@ -24,11 +23,10 @@ class ParametreWindow(tk.Tk):
 
         self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user)).subsample(9)
 
+        self.widgets()
         self.profile = tk.Label(self, image=self.profile_img, background=set_color('entrycolor'), bd=0)
         self.profile.photo = self.profile_img
         self.profile.pack(ipady=10)
-
-        self.widgets()
         center(self)
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
@@ -53,7 +51,7 @@ class ParametreWindow(tk.Tk):
             self.profile.photo = self.profile_img
             self.profile.configure(image=self.profile_img)
 
-            image_show = tk.Label(self, text="/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
+            image_show = tk.Label(self, text=r"/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
                                   background=set_color("entrycolor"),
                                   foreground="red", font=('Roboto', 8, 'bold'))
             image_show.place(x=25, y=138)
@@ -66,38 +64,60 @@ class ParametreWindow(tk.Tk):
             with open(r'..\..\data\users.json', 'w') as file:
                 json.dump(data, file, indent=4)
         else:
-            messagebox.showerror("GestMoney | Erreur","S'il vous plait veuillez mettre une image de taille : 500x500")
+            messagebox.showerror("GestMoney | Erreur", "S'il vous plait veuillez mettre une image de taille : 500x500")
 
     def widgets(self):
-
-        open_button = tk.Button(self, text="Modifier la photo", background=set_color("entrycolor"),
+        global_canvas = tk.Canvas(self, height=self.winfo_height() - 48, width=self.winfo_width(),
+                                  background=set_color("entrycolor"), highlightthickness=0)
+        open_button = tk.Button(global_canvas, text="Modifier la photo", background=set_color("entrycolor"),
                                 foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
                                 activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
-        open_button.place(x=72, y=115)
+        open_button.place(x=65, y=70)
 
-        identifiant_text = tk.Label(self, text="Identifiant", background=set_color("entrycolor"),
-                                    foreground=set_color("darkgreen"), font=('Roboto', 12))
-        identifiant_text.place(x=40, y=150)
+        global_canvas.create_text(self.winfo_width() / 2, 110, text="Identifiant",
+                                  fill=set_color("darkgreen"), font=('Roboto', 12))
 
-        self.id_entry = tk.Entry(self, background=set_color("darkgreen"), bd=0,
-                                 font=('Roboto', 12), fg='#FFFFFF')
+        self.id_entry = tk.Entry(global_canvas, background=set_color("darkgreen"),
+                                 bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.id_entry.insert(0, self.user)
         self.id_entry.configure(justify='center')
-        self.id_entry.place(x=16, y=175, width=204, height=25)
+        self.id_entry.place(x=16, y=125, width=204, height=25)
 
-        email_text = tk.Label(self, text="Email", background=set_color("entrycolor"),
-                              foreground=set_color("darkgreen"), font=('Roboto', 12))
-        email_text.place(x=40, y=210)
+        global_canvas.create_text(self.winfo_width() / 2, 170, text="Email",
+                                  fill=set_color("darkgreen"), font=('Roboto', 12))
 
-        self.email_entry = tk.Entry(self, background=set_color("darkgreen"), bd=0,
-                                    font=('Roboto', 12), fg='#FFFFFF')
+        self.email_entry = tk.Entry(global_canvas, background=set_color("darkgreen"),
+                                    bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.email_entry.insert(0, self.email)
-        self.email_entry.place(x=16, y=235, width=204, height=25)
+        self.email_entry.configure(justify='center')
+        self.email_entry.place(x=16, y=185, width=204, height=25)
+
+        global_canvas.create_text(self.winfo_width() / 2, 230, text="Mot de passe",
+                                  fill=set_color("darkgreen"), font=('Roboto', 12))
+
+        self.mdp_entry = tk.Entry(global_canvas, background=set_color("darkgreen"), bd=0,
+                                  font=('Roboto', 12), fg='#FFFFFF', show='*')
+        self.mdp_entry.configure(justify='center')
+        self.mdp_entry.place(x=16, y=245, width=204, height=25)
+
+        global_canvas.create_text(self.winfo_width() / 2, 290, text="Confirmation mot de passe",
+                                  fill=set_color("darkgreen"), font=('Roboto', 12))
+
+        self.confirm_mdp_entry = tk.Entry(global_canvas, background=set_color("darkgreen"), bd=0,
+                                          font=('Roboto', 12), fg='#FFFFFF', show='*')
+        self.confirm_mdp_entry.configure(justify='center')
+        self.confirm_mdp_entry.place(x=16, y=305, width=204, height=25)
+
+        valid_changes = tk.Button(global_canvas, text="Valider les changements", background=set_color("darkgreen"),
+                                  activeforeground="#fff", activebackground=set_color("buttonactive"), bd=0,
+                                  foreground="#fff", cursor='hand2', font=('Roboto', 13), command=self.valid_changes)
+        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=350, width=185, height=40)
 
         # Copyright
-        copyright_text = tk.Label(self, text="© 2022 GestMoney", background=set_color("entrycolor"),
-                                  foreground=set_color("gray"), font=('Roboto', 10))
-        copyright_text.place(x=55, y=266)
+        global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
+                                  fill=set_color("gray"), font=('Roboto', 10))
+
+        global_canvas.place(x=0, y=48)
 
     def title_bar(self):
         title_bar = tk.Canvas(self, width=238, height=48, bg=set_color('darkgreen'), highlightthickness=0)
@@ -123,6 +143,9 @@ class ParametreWindow(tk.Tk):
         profile_btn.place(x=955, y=10)
 
         self.apply_drag([title_bar, icon])
+
+    def valid_changes(self):
+        self.destroy()
 
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y
