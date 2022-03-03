@@ -36,7 +36,7 @@ class HomeFrame(tk.Frame):
         self.magasin_entry.place(x=20, y=195, width=200, height=32)
 
         # E-mail utilisateur actuel
-        canvas.create_text(128.5, 555, text=self.window.user_connected, font=('Roboto', 13),
+        canvas.create_text(128.5, 555, text=self.window.user_email, font=('Roboto', 13),
                            fill="white")
 
         canvas.place(x=0, y=0)

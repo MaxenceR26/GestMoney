@@ -5,5 +5,12 @@
         "mdp": "",
         "money": "20",
         "image": "ressource\\img\\profile-base.png"
+    },
+    "Albane": {
+        "id": "Albane",
+        "email": "alban@gmail.com",
+        "mdp": "000000",
+        "money": "20",
+        "image": "ressource\\img\\profile-base.png"
     }
 }

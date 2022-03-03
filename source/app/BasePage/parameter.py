@@ -2,18 +2,17 @@ import json
 import tkinter as tk
 import cv2
 
-from data.data import select_image_user
+from data.data import select_image_user, get_user, set_user, get_all_users, update_user_id
 from source.app.Sys import set_color, select_image, set_appwindow, center
 
 from tkinter import filedialog as fd, messagebox
 
 
 class ParametreWindow(tk.Tk):
-    def __init__(self, user, email):
+    def __init__(self, window):
         tk.Tk.__init__(self)
 
-        self.email = email
-        self.user = user
+        self.window = window
         self.geometry("238x480")
         self.config(bg=set_color("entrycolor"))
         self.wm_overrideredirect(True)
@@ -21,12 +20,16 @@ class ParametreWindow(tk.Tk):
         self.title_bar()
         self.title("GestMoney | Paramètre")
 
-        self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user)).subsample(9)
+        self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.window.user_id)).subsample(9)
 
         self.widgets()
         self.profile = tk.Label(self, image=self.profile_img, background=set_color('entrycolor'), bd=0)
         self.profile.photo = self.profile_img
         self.profile.pack(ipady=10)
+
+        # Affichage erreurs
+        self.error_canvas = tk.Canvas(self)
+
         center(self)
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
@@ -59,7 +62,7 @@ class ParametreWindow(tk.Tk):
             with open(r'..\..\data\users.json', 'r+') as file:
                 data = json.load(file)
 
-                data[self.user]["image"] = filenames
+                data[self.window.user_id]["image"] = filenames
 
             with open(r'..\..\data\users.json', 'w') as file:
                 json.dump(data, file, indent=4)
@@ -72,46 +75,46 @@ class ParametreWindow(tk.Tk):
         open_button = tk.Button(global_canvas, text="Modifier la photo", background=set_color("entrycolor"),
                                 foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
                                 activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
-        open_button.place(x=65, y=70)
+        open_button.place(x=67, y=70)
 
-        global_canvas.create_text(self.winfo_width() / 2, 110, text="Identifiant",
+        global_canvas.create_text(self.winfo_width() / 2, 125, text="Identifiant",
                                   fill=set_color("darkgreen"), font=('Roboto', 12))
 
         self.id_entry = tk.Entry(global_canvas, background=set_color("darkgreen"),
                                  bd=0, font=('Roboto', 12), fg='#FFFFFF')
-        self.id_entry.insert(0, self.user)
+        self.id_entry.insert(0, self.window.user_id)
         self.id_entry.configure(justify='center')
-        self.id_entry.place(x=16, y=125, width=204, height=25)
+        self.id_entry.place(x=16, y=140, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 170, text="Email",
+        global_canvas.create_text(self.winfo_width() / 2, 185, text="Email",
                                   fill=set_color("darkgreen"), font=('Roboto', 12))
 
         self.email_entry = tk.Entry(global_canvas, background=set_color("darkgreen"),
                                     bd=0, font=('Roboto', 12), fg='#FFFFFF')
-        self.email_entry.insert(0, self.email)
+        self.email_entry.insert(0, self.window.user_email)
         self.email_entry.configure(justify='center')
-        self.email_entry.place(x=16, y=185, width=204, height=25)
+        self.email_entry.place(x=16, y=200, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 230, text="Mot de passe",
+        global_canvas.create_text(self.winfo_width() / 2, 245, text="Mot de passe",
                                   fill=set_color("darkgreen"), font=('Roboto', 12))
 
         self.mdp_entry = tk.Entry(global_canvas, background=set_color("darkgreen"), bd=0,
                                   font=('Roboto', 12), fg='#FFFFFF', show='*')
         self.mdp_entry.configure(justify='center')
-        self.mdp_entry.place(x=16, y=245, width=204, height=25)
+        self.mdp_entry.place(x=16, y=260, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 290, text="Confirmation mot de passe",
+        global_canvas.create_text(self.winfo_width() / 2, 305, text="Confirmation mot de passe",
                                   fill=set_color("darkgreen"), font=('Roboto', 12))
 
         self.confirm_mdp_entry = tk.Entry(global_canvas, background=set_color("darkgreen"), bd=0,
                                           font=('Roboto', 12), fg='#FFFFFF', show='*')
         self.confirm_mdp_entry.configure(justify='center')
-        self.confirm_mdp_entry.place(x=16, y=305, width=204, height=25)
+        self.confirm_mdp_entry.place(x=16, y=320, width=204, height=25)
 
         valid_changes = tk.Button(global_canvas, text="Valider les changements", background=set_color("darkgreen"),
                                   activeforeground="#fff", activebackground=set_color("buttonactive"), bd=0,
                                   foreground="#fff", cursor='hand2', font=('Roboto', 13), command=self.valid_changes)
-        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=350, width=185, height=40)
+        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=365, width=185, height=40)
 
         # Copyright
         global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
@@ -144,8 +147,52 @@ class ParametreWindow(tk.Tk):
 
         self.apply_drag([title_bar, icon])
 
+    def show_error(self, text):
+        self.error_canvas.destroy()
+        self.error_canvas = tk.Canvas(self, height=20, width=self.winfo_width(), background=set_color("entrycolor"),
+                                      highlightthickness=0)
+        self.error_canvas.create_text(self.winfo_width()/2, 0, text=text, font=('Roboto', 9), fill='red', anchor='n')
+
+        self.error_canvas.place(x=0, y=145)
+
     def valid_changes(self):
-        self.destroy()
+
+        old_user = get_user(self.window.user_id)
+
+        new_id = self.id_entry.get()
+        new_email = self.email_entry.get()
+        new_mdp = self.mdp_entry.get()
+        mdp_confirm = self.confirm_mdp_entry.get()
+
+        new_user = old_user.copy()
+        new_user['id'] = new_id
+        new_user['mdp'] = new_mdp
+        new_user['email'] = new_email
+
+        if '' in new_user.values():
+            self.show_error('Veuillez remplir toutes les cases')
+
+        elif not new_id.isalpha():
+            self.show_error("L'identifiant ne doit contenir que des lettres")
+
+        elif new_id in get_all_users() and new_id != old_user['id']:
+            self.show_error('Cet identifiant est déjà utilisé')
+
+        elif '@' not in new_email and '.' not in new_email:
+            self.show_error('E-mail invalide')
+
+        elif not 6 <= len(new_mdp) <= 20:
+            self.show_error('Le mot de passe doit faire entre 6 et 20 aractères')
+
+        elif new_mdp != mdp_confirm:
+            self.show_error('Confirmation du mot de passe invalide')
+
+        else:
+            set_user(new_id, old_user['id'], new_user)
+            update_user_id(old_user['id'], new_id)
+            self.window.user_id = new_id
+            self.window.user_email = new_email
+            self.destroy()
 
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y

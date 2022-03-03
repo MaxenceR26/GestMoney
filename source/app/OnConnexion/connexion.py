@@ -153,8 +153,8 @@ pour t’aider !
 
         for user in users.values():
             if user['id'] == entry_id and user['mdp'] == mdp:
-                self.window.user_connected = user['email']
-                self.window.user_connected_name = user['id']
+                self.window.user_email = user['email']
+                self.window.user_id = user['id']
                 add_user_in_activity_recent(user['id'])
                 self.window.switch_frame('BasePage')
                 return

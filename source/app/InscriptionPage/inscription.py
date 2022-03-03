@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from data.data import add_user_in_activity_recent, get_users
+from data.data import add_user_in_activity_recent, get_all_users
 from source.app.Sys import set_color, select_image
 import json
 
@@ -118,7 +118,7 @@ class InscriptionFrame(tk.Frame):
             'image': image
         }
 
-        users = get_users()
+        users = get_all_users()
 
         if '' in user.values():
             self.show_error('Veuillez remplir toutes les cases')
@@ -146,6 +146,6 @@ class InscriptionFrame(tk.Frame):
                 users[identifiant] = user
                 json.dump(users, f, indent=4)
 
-            self.window.user_connected = user['email']
+            self.window.user_email = user['email']
             add_user_in_activity_recent(user['id'])
             self.window.switch_frame('ConnexionPage', False)
