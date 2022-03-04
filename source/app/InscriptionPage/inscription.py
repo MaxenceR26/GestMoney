@@ -1,8 +1,7 @@
 import tkinter as tk
 
-from data.data import add_user_in_activity_recent, get_all_users
+from data.data import add_user_in_activity_recent, get_all_users, dump_users
 from source.app.Sys import set_color, select_image
-import json
 
 
 class InscriptionFrame(tk.Frame):
@@ -142,9 +141,9 @@ class InscriptionFrame(tk.Frame):
             self.show_error('Montant actuel invalide')
 
         else:
-            with open(r'..\..\data\users.json', 'w') as f:
-                users[identifiant] = user
-                json.dump(users, f, indent=4)
+            user['money'] = int(user['money'])
+            users[identifiant] = user
+            dump_users(users)
 
             self.window.user_email = user['email']
             add_user_in_activity_recent(user['id'])

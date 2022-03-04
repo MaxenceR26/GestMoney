@@ -27,18 +27,21 @@ def get_all_users():
         return json.load(f)
 
 
+def dump_users(users):
+    with open(r'..\..\data\users.json', 'w') as file:
+        json.dump(users, file, indent=4)
+
+
 def get_user(user_id):
-    with open(r'..\..\data\users.json', 'r') as f:
-        users = json.load(f)
-        return users[user_id]
+    users = get_all_users()
+    return users[user_id]
 
 
 def set_user(user_id, old_id, new_user):
     users = get_all_users()
     del users[old_id]
     users[user_id] = new_user
-    with open(r'..\..\data\users.json', 'w') as file:
-        json.dump(users, file, indent=4)
+    dump_users(users)
 
 
 def update_user_id(old_id, new_id):
@@ -51,10 +54,8 @@ def update_user_id(old_id, new_id):
 
 
 def _return_money(user):
-    with open(r'..\..\data\users.json', 'r+') as file:
-        data = json.load(file)
-
-    return data[user]['money']
+    users = get_all_users()
+    return users[user]['money']
 
 
 def select_image_user(name):
@@ -63,5 +64,11 @@ def select_image_user(name):
 
     try:
         return data[name]['image']
-    except KeyError as e:
+    except KeyError:
         return "ressource\\img\\profile-base.png"
+
+
+def change_money(user_id, amount: int):
+    users = get_all_users()
+    users[user_id]['money'] += amount
+    dump_users(users)
