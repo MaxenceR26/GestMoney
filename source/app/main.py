@@ -23,7 +23,7 @@ class Main(tk.Tk):
         self.title_frame = None
         self.user_email = None
         self.user_id = None
-        self.main_frame = None
+        self.main_frame = tk.Frame()
         self.active_frame = None
 
         # Titlebar
@@ -47,7 +47,7 @@ class Main(tk.Tk):
             center(self)
 
         elif frame_name == 'BasePage':
-            self.title_frame.destroy(), self.active_frame.destroy()
+            self.title_frame.destroy(), self.active_frame.destroy(), self.main_frame.destroy()
             self.geometry('1110x664')
             self.main_frame = BaseFrame(self)
             self.main_frame.pack()

@@ -1,20 +1,32 @@
 import tkinter as tk
+from datetime import datetime
+
 
 from data.data import select_image_user, _return_money
 from source.app.BasePage.parameter import ParametreWindow
 from source.app.Sys import set_color, select_image
 
 
-def create_buttons(frame):
+def create_buttons(frame, valid_function):
     valid_button = tk.Button(frame, text="Valider", background=set_color("lightgreen"), cursor='hand2',
                              foreground=set_color("darkgreen"), font=('Roboto', 18, 'bold'), relief="groove",
-                             activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"))
-    valid_button.place(x=100, y=420, width=211, height=84)
+                             activebackground=set_color("lightgreen"), activeforeground=set_color("darkgreen"),
+                             command=valid_function)
+    valid_button.place(x=100, y=440, width=211, height=84)
 
     annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'), activeforeground='red',
                                font=('Roboto', 18, 'bold'), foreground='red', activebackground=set_color('lightgreen'),
                                background=set_color('lightgreen'), relief='groove', cursor='hand2', text='Annuler')
-    annuler_button.place(x=550, y=420, width=211, height=84)
+    annuler_button.place(x=550, y=440, width=211, height=84)
+
+
+def date_valid(date):
+    try:
+        datetime.strptime(date, '%d/%m/%y')
+        return True
+
+    except ValueError:
+        return False
 
 
 class BaseFrame(tk.Frame):
@@ -77,4 +89,3 @@ class BaseFrame(tk.Frame):
         profile_btn.place(x=955, y=10)
 
         self.window.apply_drag([title_bar, icon])
-

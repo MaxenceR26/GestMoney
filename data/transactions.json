@@ -1,0 +1,27 @@
+{
+    "Admin": [
+        {
+            "market": "Auchan",
+            "buy_type": "Pommes",
+            "amount": -5,
+            "date": "02/03/22",
+            "method": "especes"
+        },
+        {
+            "market": "Auchan",
+            "buy_type": "Fraises",
+            "amount": -5,
+            "date": "02/05/22",
+            "method": "cb"
+        }
+    ],
+    "Alban": [
+        {
+            "market": "Auchan",
+            "buy_type": "Pommes",
+            "amount": -4,
+            "date": "20/02/22",
+            "method": "cb"
+        }
+    ]
+}
