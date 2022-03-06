@@ -5,14 +5,20 @@
             "buy_type": "Pommes",
             "amount": -5,
             "date": "02/03/22",
-            "method": "especes"
+            "methode": "especes"
         },
         {
             "market": "Auchan",
             "buy_type": "Fraises",
             "amount": -5,
             "date": "02/05/22",
-            "method": "cb"
+            "methode": "cb"
+        },
+        {
+            "origin": "Salaire",
+            "amount": 1200,
+            "date": "01/03/22",
+            "methode": "virement"
         }
     ],
     "Alban": [
@@ -21,7 +27,7 @@
             "buy_type": "Pommes",
             "amount": -4,
             "date": "20/02/22",
-            "method": "cb"
+            "methode": "cb"
         }
     ]
 }

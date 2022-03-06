@@ -16,8 +16,7 @@ class DebitFrame(tk.Frame):
         self.canvas.create_text(426.5, 50, text="Débiter le compte", font=('Roboto', 30, 'bold'),
                                 fill=set_color("darkgreen"))
 
-        self.error_canvas = tk.Canvas(self, height=5040, width=self.window.winfo_width(),
-                                      background=set_color("lightgreen"), highlightthickness=0)
+        self.error_canvas = tk.Canvas()
 
         self.create_inputs()
         self.canvas.pack()
@@ -95,7 +94,7 @@ class DebitFrame(tk.Frame):
             self.show_error('Veuillez entrer une date au format dd/mm/yy')
 
         elif 1 not in [var.get() for var in self.check_vars]:
-            self.show_error('Veuillez cocher une case')
+            self.show_error('Veuillez choisir un mode paiement')
 
         else:
             transaction['amount'] = -int(transaction['amount'])
@@ -103,7 +102,7 @@ class DebitFrame(tk.Frame):
 
             for var in self.check_vars:
                 if var.get() == 1:
-                    transaction['method'] = methods_names[self.check_vars.index(var)]
+                    transaction['methode'] = methods_names[self.check_vars.index(var)]
 
             add_transaction(self.window.user_id, transaction)
 
