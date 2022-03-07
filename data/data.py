@@ -122,16 +122,8 @@ def get_debit_trace(user):
         data = json.load(f)
 
     return [
-        str(user_data['amount'])
-        + "€ | "
-        + user_data['market']
-        + " "
-        + user_data['buy_type']
-        + " "
-        + user_data['method']
-        + " "
-        + user_data['date']
-        for user_data in data[user]
+        f"{user_data['amount']}€ | + {user_data['market']} {user_data['buy_type']} {user_data['method']} {user_data['date']}"
+        for user_data in data[user]['debit'] + data[user]['credit']
     ]
 
 

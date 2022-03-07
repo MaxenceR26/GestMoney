@@ -107,7 +107,7 @@ class CreditFrame(tk.Frame):
 
             for var in self.check_vars:
                 if var.get() == 1:
-                    transaction['methode'] = methods_names[self.check_vars.index(var)]
+                    transaction['method'] = methods_names[self.check_vars.index(var)]
 
             add_credit(self.window.user_id, transaction)
 
