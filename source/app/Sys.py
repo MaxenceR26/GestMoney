@@ -12,13 +12,12 @@ def select_image(name):
 
 def set_color(color):
     COLOR = {
-        'lightgreen': '#EAFCEC',
+        'lightblue': '#001242',
         'green': '#77AB7D',
-        'entrycolor': '#89DA92',
-        'gray': '#666666',
-        'darkgreen': '#45794A',
-        'white': '#FFFFFF',
-        'buttonactive': '#57885c'
+        'entrycolor': '#000022',
+        'white': 'white',
+        'pink': '#DC2A58',
+        'buttonactive': '#001242',
     }
 
     return COLOR[color]
