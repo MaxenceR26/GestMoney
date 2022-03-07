@@ -3,14 +3,23 @@
         "id": "Admin",
         "email": "admin@gmail.com",
         "mdp": "",
+        "money": -15490,
+        "image": "ressource\\img\\profile-base.png"
+    },
+    "Albane": {
+        "id": "Albane",
+        "email": "alban@gmail.com",
+        "mdp": "000000",
         "money": 10,
         "image": "ressource\\img\\profile-base.png"
     },
-    "Alban": {
-        "id": "Alban",
-        "email": "alban@gmail.com",
+    "Peps": {
+        "id": "Peps",
+        "email": "pepsleplusbeau@gmail.com",
         "mdp": "000000",
-        "money": 156,
-        "image": "ressource\\img\\profile-base.png"
+        "money": 1318515,
+        "image": [
+            "C:/Users/33662/OneDrive/Bureau/500x500-png-4.png"
+        ]
     }
 }

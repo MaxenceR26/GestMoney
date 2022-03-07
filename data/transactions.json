@@ -13,6 +13,20 @@
             "amount": -5,
             "date": "02/05/22",
             "method": "cb"
+        },
+        {
+            "market": "aaa",
+            "buy_type": "dddd",
+            "amount": -10,
+            "date": "12/05/03",
+            "method": "cheque"
+        },
+        {
+            "market": "Intermarcher",
+            "buy_type": "Bonbon",
+            "amount": -15500,
+            "date": "16/05/22",
+            "method": "cheque"
         }
     ],
     "Alban": [
@@ -21,6 +35,24 @@
             "buy_type": "Pommes",
             "amount": -4,
             "date": "20/02/22",
+            "method": "cb"
+        }
+    ],
+    "Albane": [
+        {
+            "market": "auchan",
+            "buy_type": "carrote",
+            "amount": -10,
+            "date": "26/12/20",
+            "method": "cb"
+        }
+    ],
+    "Peps": [
+        {
+            "market": "superu",
+            "buy_type": "pomme",
+            "amount": -231485,
+            "date": "26/12/04",
             "method": "cb"
         }
     ]

@@ -13,8 +13,8 @@ class ParametreWindow(tk.Tk):
         tk.Tk.__init__(self)
 
         self.window = window
-        self.geometry("238x480")
-        self.config(bg=set_color("entrycolor"))
+        self.geometry("348x420")
+        self.config(bg=set_color("lightgreen"))
         self.wm_overrideredirect(True)
         self.iconbitmap(select_image('parametre.ico'))
         self.title_bar()
@@ -23,7 +23,7 @@ class ParametreWindow(tk.Tk):
         self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.window.user_id)).subsample(9)
 
         self.widgets()
-        self.profile = tk.Label(self, image=self.profile_img, background=set_color('entrycolor'), bd=0)
+        self.profile = tk.Label(self, image=self.profile_img, background=set_color('lightgreen'), bd=0)
         self.profile.photo = self.profile_img
         self.profile.pack(ipady=10)
 
@@ -55,7 +55,7 @@ class ParametreWindow(tk.Tk):
             self.profile.configure(image=self.profile_img)
 
             image_show = tk.Label(self, text=r"/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
-                                  background=set_color("entrycolor"),
+                                  background=set_color("lightgreen"),
                                   foreground="red", font=('Roboto', 8, 'bold'))
             image_show.place(x=25, y=138)
 
@@ -71,9 +71,9 @@ class ParametreWindow(tk.Tk):
 
     def widgets(self):
         global_canvas = tk.Canvas(self, height=self.winfo_height() - 48, width=self.winfo_width(),
-                                  background=set_color("entrycolor"), highlightthickness=0)
-        open_button = tk.Button(global_canvas, text="Modifier la photo", background=set_color("entrycolor"),
-                                foreground=set_color("darkgreen"), bd=0, activebackground=set_color("entrycolor"),
+                                  background=set_color("lightgreen"), highlightthickness=0)
+        open_button = tk.Button(global_canvas, text="Modifier la photo", background=set_color("lightgreen"),
+                                foreground=set_color("darkgreen"), bd=0, activebackground=set_color("lightgreen"),
                                 activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
         open_button.place(x=67, y=70)
 
@@ -103,18 +103,17 @@ class ParametreWindow(tk.Tk):
         self.mdp_entry.configure(justify='center')
         self.mdp_entry.place(x=16, y=260, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 305, text="Confirmation mot de passe",
-                                  fill=set_color("darkgreen"), font=('Roboto', 12))
-
-        self.confirm_mdp_entry = tk.Entry(global_canvas, background=set_color("darkgreen"), bd=0,
-                                          font=('Roboto', 12), fg='#FFFFFF', show='*')
-        self.confirm_mdp_entry.configure(justify='center')
-        self.confirm_mdp_entry.place(x=16, y=320, width=204, height=25)
+        self.change_password = tk.Button(global_canvas, text="Changer le mot de passe",
+                                         bg=set_color("lightgreen"), fg=set_color("darkgreen"),
+                                         activebackground=set_color("lightgreen"),
+                                         activeforeground=set_color("darkgreen"),
+                                         font=('Roboto', 10, 'bold'), bd=0, cursor='hand2')
+        self.change_password.place(x=35, y=285)
 
         valid_changes = tk.Button(global_canvas, text="Valider les changements", background=set_color("darkgreen"),
                                   activeforeground="#fff", activebackground=set_color("buttonactive"), bd=0,
-                                  foreground="#fff", cursor='hand2', font=('Roboto', 13), command=self.valid_changes)
-        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=365, width=185, height=40)
+                                  foreground="#fff", cursor='hand2', font=('Roboto', 11), command=self.valid_changes)
+        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=325, width=185, height=40)
 
         # Copyright
         global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
@@ -123,13 +122,13 @@ class ParametreWindow(tk.Tk):
         global_canvas.place(x=0, y=48)
 
     def title_bar(self):
-        title_bar = tk.Canvas(self, width=238, height=48, bg=set_color('darkgreen'), highlightthickness=0)
+        title_bar = tk.Canvas(self, width=500, height=48, bg=set_color('darkgreen'), highlightthickness=0)
         title_bar.create_text(120, 25, text="GestMoney", font=('Roboto', 15, 'bold'), fill="white")
         title_bar.pack()
 
         imgs = tk.PhotoImage(master=self, file=select_image("parametre.png")).subsample(12)
         icon = tk.Label(self, image=imgs, background=set_color("darkgreen"), bd=0,
-                        foreground=set_color("entrycolor"))
+                        foreground=set_color("lightgreen"))
         icon.photo = imgs
         icon.place(x=5, y=2)
 
@@ -149,9 +148,9 @@ class ParametreWindow(tk.Tk):
 
     def show_error(self, text):
         self.error_canvas.destroy()
-        self.error_canvas = tk.Canvas(self, height=20, width=self.winfo_width(), background=set_color("entrycolor"),
+        self.error_canvas = tk.Canvas(self, height=20, width=self.winfo_width(), background=set_color("lightgreen"),
                                       highlightthickness=0)
-        self.error_canvas.create_text(self.winfo_width()/2, 0, text=text, font=('Roboto', 9), fill='red', anchor='n')
+        self.error_canvas.create_text(self.winfo_width() / 2, 0, text=text, font=('Roboto', 9), fill='red', anchor='n')
 
         self.error_canvas.place(x=0, y=145)
 
@@ -183,9 +182,6 @@ class ParametreWindow(tk.Tk):
 
         elif not 6 <= len(new_mdp) <= 20:
             self.show_error('Le mot de passe doit faire entre 6 et 20 aractères')
-
-        elif new_mdp != mdp_confirm:
-            self.show_error('Confirmation du mot de passe invalide')
 
         else:
             set_user(new_id, old_user['id'], new_user)
