@@ -53,7 +53,7 @@ def update_user_id(old_id, new_id):
         json.dump(data, file, indent=4)
 
 
-def _return_money(user):
+def return_money(user):
     users = get_all_users()
     return users[user]['money']
 

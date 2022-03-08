@@ -9,18 +9,21 @@ def select_image(name):
     return os.path.join(scriptdir, f"ressource\\img\\{name}")
 
 
-
-def set_color(color):
-    COLOR = {
-        'lightblue': '#001242',
-        'green': '#77AB7D',
-        'entrycolor': '#000022',
-        'white': 'white',
-        'pink': '#DC2A58',
-        'buttonactive': '#001242',
+def set_color(theme, color):
+    themes = {
+        'basic': {
+            'lightblue': '#001242',
+            'green': '#77AB7D',
+            'entrycolor': '#000022',
+            'white': 'white',
+            'pink': '#DC2A58',
+            'buttonactive': '#001242',
+            'insert': 'white',
+            'entrytext': 'white'
+                  }
     }
 
-    return COLOR[color]
+    return themes[theme][color]
 
 
 def center(win):

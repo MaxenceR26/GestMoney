@@ -14,7 +14,7 @@ class ParametreWindow(tk.Tk):
 
         self.window = window
         self.geometry("348x420")
-        self.config(bg=set_color("lightgreen"))
+        self.config(bg=self.set_color("lightgreen"))
         self.wm_overrideredirect(True)
         self.iconbitmap(select_image('parametre.ico'))
         self.title_bar()
@@ -23,7 +23,7 @@ class ParametreWindow(tk.Tk):
         self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.window.user_id)).subsample(9)
 
         self.widgets()
-        self.profile = tk.Label(self, image=self.profile_img, background=set_color('lightgreen'), bd=0)
+        self.profile = tk.Label(self, image=self.profile_img, background=self.set_color('lightgreen'), bd=0)
         self.profile.photo = self.profile_img
         self.profile.pack(ipady=10)
 
@@ -55,7 +55,7 @@ class ParametreWindow(tk.Tk):
             self.profile.configure(image=self.profile_img)
 
             image_show = tk.Label(self, text=r"/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
-                                  background=set_color("lightgreen"),
+                                  background=self.set_color("lightgreen"),
                                   foreground="red", font=('Roboto', 8, 'bold'))
             image_show.place(x=25, y=138)
 
@@ -71,76 +71,76 @@ class ParametreWindow(tk.Tk):
 
     def widgets(self):
         global_canvas = tk.Canvas(self, height=self.winfo_height() - 48, width=self.winfo_width(),
-                                  background=set_color("lightgreen"), highlightthickness=0)
-        open_button = tk.Button(global_canvas, text="Modifier la photo", background=set_color("lightgreen"),
-                                foreground=set_color("darkgreen"), bd=0, activebackground=set_color("lightgreen"),
-                                activeforeground=set_color("darkgreen"), cursor='hand2', command=self.select_files)
+                                  background=self.set_color("lightgreen"), highlightthickness=0)
+        open_button = tk.Button(global_canvas, text="Modifier la photo", background=self.set_color("lightgreen"),
+                                foreground=self.set_color("darkgreen"), bd=0, activebackground=self.set_color("lightgreen"),
+                                activeforeground=self.set_color("darkgreen"), cursor='hand2', command=self.select_files)
         open_button.place(x=67, y=70)
 
         global_canvas.create_text(self.winfo_width() / 2, 125, text="Identifiant",
-                                  fill=set_color("darkgreen"), font=('Roboto', 12))
+                                  fill=self.set_color("darkgreen"), font=('Roboto', 12))
 
-        self.id_entry = tk.Entry(global_canvas, background=set_color("darkgreen"),
+        self.id_entry = tk.Entry(global_canvas, background=self.set_color("darkgreen"),
                                  bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.id_entry.insert(0, self.window.user_id)
         self.id_entry.configure(justify='center')
         self.id_entry.place(x=16, y=140, width=204, height=25)
 
         global_canvas.create_text(self.winfo_width() / 2, 185, text="Email",
-                                  fill=set_color("darkgreen"), font=('Roboto', 12))
+                                  fill=self.set_color("darkgreen"), font=('Roboto', 12))
 
-        self.email_entry = tk.Entry(global_canvas, background=set_color("darkgreen"),
+        self.email_entry = tk.Entry(global_canvas, background=self.set_color("darkgreen"),
                                     bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.email_entry.insert(0, self.window.user_email)
         self.email_entry.configure(justify='center')
         self.email_entry.place(x=16, y=200, width=204, height=25)
 
         global_canvas.create_text(self.winfo_width() / 2, 245, text="Mot de passe",
-                                  fill=set_color("darkgreen"), font=('Roboto', 12))
+                                  fill=self.set_color("darkgreen"), font=('Roboto', 12))
 
-        self.mdp_entry = tk.Entry(global_canvas, background=set_color("darkgreen"), bd=0,
+        self.mdp_entry = tk.Entry(global_canvas, background=self.set_color("darkgreen"), bd=0,
                                   font=('Roboto', 12), fg='#FFFFFF', show='*')
         self.mdp_entry.configure(justify='center')
         self.mdp_entry.place(x=16, y=260, width=204, height=25)
 
         self.change_password = tk.Button(global_canvas, text="Changer le mot de passe",
-                                         bg=set_color("lightgreen"), fg=set_color("darkgreen"),
-                                         activebackground=set_color("lightgreen"),
-                                         activeforeground=set_color("darkgreen"),
+                                         bg=self.set_color("lightgreen"), fg=self.set_color("darkgreen"),
+                                         activebackground=self.set_color("lightgreen"),
+                                         activeforeground=self.set_color("darkgreen"),
                                          font=('Roboto', 10, 'bold'), bd=0, cursor='hand2')
         self.change_password.place(x=35, y=285)
 
-        valid_changes = tk.Button(global_canvas, text="Valider les changements", background=set_color("darkgreen"),
-                                  activeforeground="#fff", activebackground=set_color("buttonactive"), bd=0,
+        valid_changes = tk.Button(global_canvas, text="Valider les changements", background=self.set_color("darkgreen"),
+                                  activeforeground="#fff", activebackground=self.set_color("buttonactive"), bd=0,
                                   foreground="#fff", cursor='hand2', font=('Roboto', 11), command=self.valid_changes)
         valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=325, width=185, height=40)
 
         # Copyright
         global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
-                                  fill=set_color("gray"), font=('Roboto', 10))
+                                  fill=self.set_color("gray"), font=('Roboto', 10))
 
         global_canvas.place(x=0, y=48)
 
     def title_bar(self):
-        title_bar = tk.Canvas(self, width=500, height=48, bg=set_color('darkgreen'), highlightthickness=0)
+        title_bar = tk.Canvas(self, width=500, height=48, bg=self.set_color('darkgreen'), highlightthickness=0)
         title_bar.create_text(120, 25, text="GestMoney", font=('Roboto', 15, 'bold'), fill="white")
         title_bar.pack()
 
         imgs = tk.PhotoImage(master=self, file=select_image("parametre.png")).subsample(12)
-        icon = tk.Label(self, image=imgs, background=set_color("darkgreen"), bd=0,
-                        foreground=set_color("lightgreen"))
+        icon = tk.Label(self, image=imgs, background=self.set_color("darkgreen"), bd=0,
+                        foreground=self.set_color("lightgreen"))
         icon.photo = imgs
         icon.place(x=5, y=2)
 
-        quit_button = tk.Button(self, text="X", background=set_color("darkgreen"), cursor='hand2',
-                                relief='groove', foreground=set_color("lightgreen"),
-                                activebackground=set_color("darkgreen"), activeforeground=set_color("lightgreen"),
+        quit_button = tk.Button(self, text="X", background=self.set_color("darkgreen"), cursor='hand2',
+                                relief='groove', foreground=self.set_color("lightgreen"),
+                                activebackground=self.set_color("darkgreen"), activeforeground=self.set_color("lightgreen"),
                                 font=('Roboto', 15, 'bold'), command=self.destroy)
         quit_button.place(x=190, y=4, width=40, height=40)
 
         profile_img = tk.PhotoImage(master=self, file=select_image("profile-base.png")).subsample(14)
-        profile_btn = tk.Button(self, image=profile_img, background=set_color('darkgreen'), cursor='hand2',
-                                activebackground=set_color('darkgreen'), bd=0)
+        profile_btn = tk.Button(self, image=profile_img, background=self.set_color('darkgreen'), cursor='hand2',
+                                activebackground=self.set_color('darkgreen'), bd=0)
         profile_btn.photo = profile_img
         profile_btn.place(x=955, y=10)
 
@@ -148,7 +148,7 @@ class ParametreWindow(tk.Tk):
 
     def show_error(self, text):
         self.error_canvas.destroy()
-        self.error_canvas = tk.Canvas(self, height=20, width=self.winfo_width(), background=set_color("lightgreen"),
+        self.error_canvas = tk.Canvas(self, height=20, width=self.winfo_width(), background=self.set_color("lightgreen"),
                                       highlightthickness=0)
         self.error_canvas.create_text(self.winfo_width() / 2, 0, text=text, font=('Roboto', 9), fill='red', anchor='n')
 
@@ -208,3 +208,6 @@ class ParametreWindow(tk.Tk):
             element.bind('<ButtonPress-1>', self.mouse_down)
             element.bind('<B1-Motion>', self.mouse_drag)
             element.bind('<ButtonRelease-1>', self.mouse_up)
+
+    def set_color(self, color):
+        return set_color(self.window.theme, color)
