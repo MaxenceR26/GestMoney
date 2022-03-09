@@ -11,7 +11,7 @@ class CreditFrame(tk.Frame):
         self.window = window
         super().__init__(window, width=853, height=584)
 
-        self.canvas = tk.Canvas(self, height=853, width=853, background=self.set_color('lightgreen'), highlightthickness=0)
+        self.canvas = tk.Canvas(self, height=853, width=853, background=self.set_color('lightblue'), highlightthickness=0)
         self.error_canvas = tk.Canvas()
 
 
@@ -44,21 +44,15 @@ class CreditFrame(tk.Frame):
         especes_var = tk.IntVar()
         self.check_vars = [virement_var, especes_var, cheque_var]
 
-        vir_checkbutton = tk.Checkbutton(self, text='Virement', background=self.set_color("lightgreen"),
-                                         foreground=self.set_color("darkgreen"), font=('Roboto', 16, 'bold'),
-                                         highlightthickness=0, bd=0, activebackground=self.set_color("lightgreen"),
-                                         activeforeground=self.set_color("darkgreen"), variable=virement_var,
+        vir_checkbutton = tk.Checkbutton(self, text='Virement', background=self.set_color('lightblue'),
+                                         foreground=self.set_color('pink'), font=('Roboto', 16, 'bold'),
+                                         highlightthickness=0, bd=0, activebackground=self.set_color('lightblue'),
+                                         activeforeground=self.set_color('pink'), variable=virement_var,
                                          command=lambda: self.uncheck_buttons(0))
         vir_checkbutton.place(x=460, y=300)
         self.origin = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
         self.origin.place(x=50, y=290, width=330, height=46)
 
-        vir_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color("lightblue"),
-                                        foreground=self.set_color("pink"), font=('Roboto', 16, 'bold'),
-                                        highlightthickness=0, bd=0, activebackground=self.set_color("lightblue"),
-                                        activeforeground=self.set_color("pink"),variable=virement_var,
-                                        command=lambda: self.uncheck_buttons(0))
-        vir_checkbutton.place(x=470, y=300)
 
         espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color("lightblue"), bd=0,
                                             foreground=self.set_color("pink"), font=('Roboto', 16, 'bold'),

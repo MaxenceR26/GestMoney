@@ -1,7 +1,6 @@
 import tkinter as tk
 from datetime import datetime
 
-
 from data.data import select_image_user, return_money
 from source.app.BasePage.parameter import ParametreWindow
 from source.app.Sys import set_color, select_image
@@ -15,7 +14,8 @@ def create_buttons(frame, valid_function):
     valid_button.place(x=100, y=440, width=211, height=84)
 
     annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'), activeforeground='red',
-                               font=('Roboto', 18, 'bold'), foreground='red', activebackground=frame.set_color('lightblue'),
+                               font=('Roboto', 18, 'bold'), foreground='red',
+                               activebackground=frame.set_color('lightblue'),
                                background=frame.set_color('lightblue'), relief='groove', cursor='hand2', text='Annuler')
     annuler_button.place(x=550, y=440, width=211, height=84)
 
@@ -51,21 +51,20 @@ class BaseFrame(tk.Frame):
         canvas.pack(side=tk.RIGHT)
 
         credit_button = tk.Button(self, text="Créditer l'argent", font=('Roboto', 14), fg='white', bd=0,
-                                  activeforeground='white', activebackground=self.set_color("buttonactive"), cursor='hand2',
+                                  activeforeground='white', activebackground=self.set_color("buttonactive"),
+                                  cursor='hand2',
                                   bg=self.set_color("pink"), command=lambda: self.window.switch_frame('CreditPage'))
-        credit_button.place(x=880, y=290, width=201, height=33)
+        credit_button.place(x=1051, y=290, width=201, height=33)
 
         debit_button = tk.Button(self, text="Débiter de l'argent", font=('Roboto', 14), fg='white', cursor='hand2',
                                  bg=self.set_color("pink"), bd=0, activebackground=self.set_color("buttonactive"),
                                  activeforeground='white', command=lambda: self.window.switch_frame('DebitFrame'))
-        debit_button.place(x=880, y=440, width=201, height=33)
+        debit_button.place(x=1051, y=440, width=201, height=33)
 
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg='white', activeforeground='white',
                                 bg=self.set_color("pink"), bd=0, activebackground=self.set_color("buttonactive"),
                                 command=lambda: self.window.switch_frame('ConnexionPage', True), cursor='hand2')
-        deco_button.place(x=880, y=575, width=206, height=49)
-
-
+        deco_button.place(x=1051, y=575, width=206, height=49)
 
     def title_bar(self):
         title_bar = tk.Canvas(self, width=1700, height=80, bg=self.set_color('entrycolor'), highlightthickness=0)
@@ -78,7 +77,6 @@ class BaseFrame(tk.Frame):
         icon.photo = imgs
         icon.place(x=5, y=5)
 
-
         image = tk.PhotoImage(file=select_image('exit_button.png')).subsample(5)
         quit_button = tk.Button(self, image=image, background=self.set_color("entrycolor"), cursor='hand2',
                                 bd=0, foreground=self.set_color("pink"),
@@ -89,7 +87,8 @@ class BaseFrame(tk.Frame):
 
         profile_img = tk.PhotoImage(file=select_image_user(self.window.user_id)).subsample(9)
         profile_btn = tk.Button(self, image=profile_img, background=self.set_color('entrycolor'), cursor='hand2', bd=0,
-                                activebackground=self.set_color('entrycolor'), command=lambda: ParametreWindow(self.window).update())
+                                activebackground=self.set_color('entrycolor'),
+                                command=lambda: ParametreWindow(self.window).update())
         profile_btn.photo = profile_img
         profile_btn.place(x=1110, y=10)
 
