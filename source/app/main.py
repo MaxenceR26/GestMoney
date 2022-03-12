@@ -15,7 +15,7 @@ class Main(tk.Tk):
 
         self.geometry("679x406")
         self.color_theme = 'basic'
-        self.config(background=self.set_color("lightblue"))
+        self.config(background=self.set_color('bg'))
         self.title('GestMoney')
         self.iconbitmap(select_image('icon.ico'))
         center(self)
@@ -33,7 +33,7 @@ class Main(tk.Tk):
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
 
-        # Permet d'afficher notre première fenêtre ( Base Page )
+        # Permet d'afficher notre première fenêtre (Base Page)
 
         self.active_frame = ConnectionFrame(self)
         self.active_frame.pack()
@@ -88,21 +88,22 @@ class Main(tk.Tk):
 
     def widget_title_bar(self):
         self.title_frame = tk.Frame(self)
-        title_bar = tk.Canvas(self.title_frame, width=679, height=47, bg=self.set_color('entrycolor'), highlightthickness=0)
-        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color("white"))
+        title_bar = tk.Canvas(self.title_frame, width=679, height=47,
+                              bg=self.set_color('entrycolor'), highlightthickness=0)
+        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
         title_bar.pack()
 
         imgs = tk.PhotoImage(file=select_image("icon.png")).subsample(11)
-        icon = tk.Label(self.title_frame, image=imgs, background=self.set_color("entrycolor"), bd=0,
-                        foreground=self.set_color("lightblue"))
+        icon = tk.Label(self.title_frame, image=imgs, background=self.set_color('entrycolor'), bd=0,
+                        foreground=self.set_color('bg'))
         icon.photo = imgs
         icon.place(x=5, y=0)
 
         image = tk.PhotoImage(file=select_image('exit_button.png')).subsample(6)
-        quit_button = tk.Button(self, image=image, background=set_color('basic', "entrycolor"), cursor='hand2',
-                                bd=0, foreground=set_color('basic', "pink"),
-                                activebackground=set_color('basic', "entrycolor"),
-                                activeforeground=set_color('basic', "pink"),
+        quit_button = tk.Button(self, image=image, background=self.set_color('entrycolor'), cursor='hand2',
+                                bd=0, foreground=self.set_color('text'),
+                                activebackground=self.set_color('entrycolor'),
+                                activeforeground=self.set_color('text'),
                                 font=('Roboto', 20, 'bold'), command=exit)
         quit_button.photo = image
         quit_button.place(x=620, y=-1, width=50, height=50)

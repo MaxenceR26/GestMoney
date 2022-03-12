@@ -12,14 +12,13 @@ def select_image(name):
 def set_color(theme, color):
     themes = {
         'basic': {
-            'lightblue': '#001242',
+            'bg': '#001242',
             'green': '#77AB7D',
             'entrycolor': '#000022',
-            'white': 'white',
-            'pink': '#DC2A58',
+            'text2': 'white',
+            'text': '#DC2A58',
             'buttonactive': '#001242',
             'onactivebutton': '#050B1C',
-            'insert': 'white',
             'entrytext': 'white'
                   }
     }

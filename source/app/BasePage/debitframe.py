@@ -9,12 +9,12 @@ class DebitFrame(tk.Frame):
 
     def __init__(self, window):
         self.window = window
-        super().__init__(window, width=853, height=584)
+        super().__init__(window, width=853, height=584, bg=self.set_color('bg'))
 
-        self.canvas = tk.Canvas(self, height=853, width=853, background=self.set_color('lightblue'), highlightthickness=0)
+        self.canvas = tk.Canvas(self, height=853, width=853, background=self.set_color('bg'), highlightthickness=0)
 
         self.canvas.create_text(426.5, 50, text="Débiter le compte", font=('Roboto', 30, 'bold'),
-                                fill=self.set_color("pink"))
+                                fill=self.set_color('text'))
 
         self.error_canvas = tk.Canvas()
 
@@ -22,24 +22,28 @@ class DebitFrame(tk.Frame):
         self.canvas.pack()
 
     def create_inputs(self):
-        self.canvas.create_text(50, 150, text='Magasin', font=('Roboto', 18), fill=self.set_color('pink'), anchor='w')
+        self.canvas.create_text(50, 150, text='Magasin', font=('Roboto', 18), fill=self.set_color('text'), anchor='w')
         self.canvas.create_text(50, 270, text='Achat', font=('Roboto', 18),
-                                fill=self.set_color('pink'), anchor='w')
-        self.canvas.create_text(470, 150, text='Montant', font=('Roboto', 18), fill=self.set_color('pink'), anchor='w')
-        self.canvas.create_text(470, 270, text='Date', font=('Roboto', 18), fill=self.set_color('pink'), anchor='w')
+                                fill=self.set_color('text'), anchor='w')
+        self.canvas.create_text(470, 150, text='Montant', font=('Roboto', 18), fill=self.set_color('text'), anchor='w')
+        self.canvas.create_text(470, 270, text='Date', font=('Roboto', 18), fill=self.set_color('text'), anchor='w')
         self.canvas.create_text(50, 375, text='Moyen de paiement', font=('Roboto', 18),
-                                fill=self.set_color('pink'), anchor='w')
+                                fill=self.set_color('text'), anchor='w')
 
-        self.market = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
+        self.market = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+                               insertbackground=self.set_color('entrytext'))
         self.market.place(x=50, y=170, width=330, height=46)
 
-        self.amount = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
+        self.amount = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+                               insertbackground=self.set_color('entrytext'))
         self.amount.place(x=470, y=170, width=330, height=46)
 
-        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
+        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+                                 insertbackground=self.set_color('entrytext'))
         self.buy_type.place(x=50, y=290, width=330, height=46)
 
-        self.date = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0)
+        self.date = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+                             insertbackground=self.set_color('entrytext'))
         self.date.place(x=470, y=290, width=330, height=46)
 
         cheque_var = tk.IntVar()
@@ -47,23 +51,23 @@ class DebitFrame(tk.Frame):
         especes_var = tk.IntVar()
         self.check_vars = [cb_var, especes_var, cheque_var]
 
-        cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color("lightblue"), variable=cb_var,
-                                        foreground=self.set_color("pink"), font=('Roboto', 16, 'bold'),
-                                        highlightthickness=0, bd=0, activebackground=self.set_color("lightblue"),
-                                        activeforeground=self.set_color("pink"), command=lambda: self.uncheck_buttons(0))
+        cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('bg'), variable=cb_var,
+                                        foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
+                                        highlightthickness=0, bd=0, activebackground=self.set_color('bg'),
+                                        activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(0))
         cb_checkbutton.place(x=310, y=360)
 
-        espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color("lightblue"), bd=0,
-                                            foreground=self.set_color("pink"), font=('Roboto', 16, 'bold'),
-                                            activebackground=self.set_color("lightblue"), highlightthickness=0,
-                                            activeforeground=self.set_color("pink"), variable=especes_var,
+        espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color('bg'), bd=0,
+                                            foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
+                                            activebackground=self.set_color('bg'), highlightthickness=0,
+                                            activeforeground=self.set_color('text'), variable=especes_var,
                                             command=lambda: self.uncheck_buttons(1))
         espece_checkbutton.place(x=392, y=360)
 
-        cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=self.set_color("lightblue"), bd=0,
-                                            foreground=self.set_color("pink"), font=('Roboto', 16, 'bold'),
-                                            activebackground=self.set_color("lightblue"), highlightthickness=0,
-                                            activeforeground=self.set_color("pink"), variable=cheque_var,
+        cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=self.set_color('bg'), bd=0,
+                                            foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
+                                            activebackground=self.set_color('bg'), highlightthickness=0,
+                                            activeforeground=self.set_color('text'), variable=cheque_var,
                                             command=lambda: self.uncheck_buttons(2))
         cheque_checkbutton.place(x=515, y=360)
 
@@ -111,7 +115,7 @@ class DebitFrame(tk.Frame):
     def show_error(self, text):
         self.error_canvas.destroy()
         self.error_canvas = tk.Canvas(self, height=50, width=self.window.winfo_width(),
-                                      background=self.set_color("lightblue"), highlightthickness=0)
+                                      background=self.set_color('bg'), highlightthickness=0)
         self.error_canvas.create_text(self.winfo_width() / 2, 25, text=text, font=('Roboto', 14), fill='red')
 
         self.error_canvas.place(x=0, y=80)
