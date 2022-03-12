@@ -98,11 +98,14 @@ class Main(tk.Tk):
         icon.photo = imgs
         icon.place(x=5, y=0)
 
-        quit_button = tk.Button(self.title_frame, text="X", background=self.set_color("entrycolor"), cursor='hand2',
-                                relief='groove', foreground=self.set_color("pink"),
-                                activebackground=self.set_color("lightblue"), activeforeground=self.set_color("pink"),
-                                font=('Roboto', 14, 'bold'), command=exit)
-        quit_button.place(x=620, y=3, width=40, height=40)
+        image = tk.PhotoImage(file=select_image('exit_button.png')).subsample(6)
+        quit_button = tk.Button(self, image=image, background=set_color('basic', "entrycolor"), cursor='hand2',
+                                bd=0, foreground=set_color('basic', "pink"),
+                                activebackground=set_color('basic', "entrycolor"),
+                                activeforeground=set_color('basic', "pink"),
+                                font=('Roboto', 20, 'bold'), command=exit)
+        quit_button.photo = image
+        quit_button.place(x=620, y=-1, width=50, height=50)
         self.title_frame.pack()
 
         self.apply_drag([title_bar, icon])

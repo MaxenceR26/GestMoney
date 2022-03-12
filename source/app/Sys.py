@@ -18,11 +18,11 @@ def set_color(theme, color):
             'white': 'white',
             'pink': '#DC2A58',
             'buttonactive': '#001242',
+            'onactivebutton': '#050B1C',
             'insert': 'white',
             'entrytext': 'white'
                   }
     }
-
     return themes[theme][color]
 
 
