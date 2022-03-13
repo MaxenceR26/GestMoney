@@ -32,7 +32,7 @@ pour t’aider !
                                     foreground=self.set_color('text'), font=('Roboto', 14))
         identifiant_text.place(x=432, y=60)
 
-        self.identifiant_entry = tk.Entry(self, background=self.set_color('entrycolor'), fg=self.set_color('entrytext'),
+        self.identifiant_entry = tk.Entry(self, background=self.set_color('darkbg'), fg=self.set_color('entrytext'),
                                           insertbackground=self.set_color('entrytext'), font=('Roboto', 12, 'bold'), bd=0)
         self.identifiant_entry.place(x=435, y=90, width=204, height=29)
 
@@ -40,15 +40,15 @@ pour t’aider !
                                    foreground=self.set_color('text'), font=('Roboto', 14))
         motdepasse_text.place(x=432, y=130)
 
-        self.motdepasse_entry = tk.Entry(self, background=self.set_color('entrycolor'), font=('Roboto', 12, 'bold'),
+        self.motdepasse_entry = tk.Entry(self, background=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
                                          fg=self.set_color('entrytext'), bd=0, show='*',
                                          insertbackground=self.set_color('entrytext'))
         self.motdepasse_entry.place(x=435, y=160, width=204, height=29)
 
         # Bouton de connexion / Création de compte
 
-        connexion_button = tk.Button(self, text="Connexion", background=self.set_color('entrycolor'),
-                                     foreground=self.set_color('entrytext'), activebackground=self.set_color('entrycolor'),
+        connexion_button = tk.Button(self, text="Connexion", background=self.set_color('darkbg'),
+                                     foreground=self.set_color('entrytext'), activebackground=self.set_color('darkbg'),
                                      cursor='hand2', font=('Roboto', 13), bd=0, command=self.connect)
         connexion_button.place(x=472, y=210, width=126, height=30)
 
@@ -141,7 +141,7 @@ pour t’aider !
         self.error_canvas.destroy()
         self.error_canvas = tk.Canvas(self, height=60, width=300, background=self.set_color('bg'),
                                       highlightthickness=0)
-        self.error_canvas.create_text(130, 40, text=text, font=('Roboto', 11), fill='red')
+        self.error_canvas.create_text(130, 40, text=text, font=('Roboto', 11), fill=self.set_color('error'))
 
         self.error_canvas.place(x=400, y=0)
 

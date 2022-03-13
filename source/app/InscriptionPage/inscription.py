@@ -33,8 +33,8 @@ class InscriptionFrame(tk.Frame):
                                       highlightthickness=0)
 
         # Bouton valider
-        validate = tk.Button(self.inputs_canvas, text='Inscription', bg=self.set_color('entrycolor'), fg=self.set_color('text2'),
-                             activebackground=self.set_color('entrycolor'), activeforeground=self.set_color('text2'),
+        validate = tk.Button(self.inputs_canvas, text='Inscription', bg=self.set_color('darkbg'), fg=self.set_color('text2'),
+                             activebackground=self.set_color('darkbg'), activeforeground=self.set_color('text2'),
                              font=('Roboto', 12), relief='flat', cursor='hand2', bd=0, command=self.create_account)
         validate.place(x=142, y=345, width=150, height=40)
 
@@ -53,40 +53,40 @@ class InscriptionFrame(tk.Frame):
                                            fill=self.set_color('text'), anchor='w')
 
     def inputs_entry(self):
-        self.user_id = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('entrycolor'), font=('Roboto', 12, 'bold'),
+        self.user_id = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
                                 fg=self.set_color('text2'), insertbackground=self.set_color('entrytext'))
         self.user_id.place(x=114, y=60, height=29, width=204)
 
-        self.email = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('entrycolor'), font=('Roboto', 12, 'bold'),
+        self.email = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
                               fg=self.set_color('text2'), insertbackground=self.set_color('entrytext'))
         self.email.place(x=114, y=119, height=29, width=204)
 
-        self.mdp = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('entrycolor'), fg=self.set_color('text2'),
+        self.mdp = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), fg=self.set_color('text2'),
                             font=('Roboto', 12, 'bold'), show='*', insertbackground=self.set_color('entrytext'))
         self.mdp.place(x=114, y=178, height=29, width=204)
 
-        self.mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('entrycolor'),
+        self.mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'),
                                     fg=self.set_color('text2'), font=('Roboto', 12, 'bold'), show='*',
                                     insertbackground=self.set_color('entrytext'))
         self.mdp_confirm.place(x=114, y=237, height=29, width=204)
 
-        self.money = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('entrycolor'), font=('Roboto', 12, 'bold'),
+        self.money = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
                               fg=self.set_color('text2'), insertbackground=self.set_color('entrytext'))
         self.money.place(x=114, y=296, height=29, width=204)
 
     def title_bar(self):
-        title_bar = tk.Canvas(self, height=52, width=431, background=self.set_color("entrycolor"),
+        title_bar = tk.Canvas(self, height=52, width=431, background=self.set_color("darkbg"),
                               highlightthickness=0)
         title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color("text2"))
         title_bar.place(x=0, y=0)
 
         logo = tk.PhotoImage(file=select_image("icon.png")).subsample(11)
-        icon = tk.Label(title_bar, image=logo, background=self.set_color("entrycolor"), bd=0,
+        icon = tk.Label(title_bar, image=logo, background=self.set_color("darkbg"), bd=0,
                         foreground=self.set_color('bg'))
         icon.photo = logo
         icon.place(x=5, y=5)
 
-        quit_button = tk.Button(title_bar, text="X", background=self.set_color("entrycolor"), cursor='hand2',
+        quit_button = tk.Button(title_bar, text="X", background=self.set_color("darkbg"), cursor='hand2',
                                 relief='groove', foreground=self.set_color('text'),
                                 activebackground=self.set_color('bg'), activeforeground=self.set_color('text'),
                                 font=self.ROBOTO_14, command=self.window.destroy)
@@ -98,7 +98,7 @@ class InscriptionFrame(tk.Frame):
         self.error_canvas.destroy()
         self.error_canvas = tk.Canvas(self, height=40, width=431, background=self.set_color('bg'),
                                       highlightthickness=0)
-        self.error_canvas.create_text(215, 20, text=text, font=('Roboto', 12), fill='red')
+        self.error_canvas.create_text(215, 20, text=text, font=('Roboto', 12), fill=self.set_color('error'))
 
         self.error_canvas.place(x=0, y=52)
 

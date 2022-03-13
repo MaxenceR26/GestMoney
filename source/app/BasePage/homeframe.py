@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from data.data import add_debit_trace, get_debit_trace, get_number_of_purchase
+from data.data import get_debit_trace
 from source.app.Sys import set_color
 
 
@@ -31,7 +31,7 @@ class HomeFrame(tk.Frame):
         self.history_canvas.pack()
 
     def left_widgets(self):
-        canvas = tk.Canvas(self, width=257, height=645, bg=self.set_color("entrycolor"), highlightthickness=0)
+        canvas = tk.Canvas(self, width=257, height=645, bg=self.set_color("darkbg"), highlightthickness=0)
         canvas.create_line(1000, 0, -10, 0, fill=self.set_color('bg'))
         canvas.create_line(1000, 520, -10, 520, fill=self.set_color('bg'))
 

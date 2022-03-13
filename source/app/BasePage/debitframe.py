@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from source.app.Sys import set_color
-from source.app.BasePage.baseframe import create_buttons, date_valid
+from source.app.BasePage.baseframe import create_buttons, date_valid, show_error
 from data.data import add_debit
 
 
@@ -30,19 +30,19 @@ class DebitFrame(tk.Frame):
         self.canvas.create_text(50, 375, text='Moyen de paiement', font=('Roboto', 18),
                                 fill=self.set_color('text'), anchor='w')
 
-        self.market = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+        self.market = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
                                insertbackground=self.set_color('entrytext'))
         self.market.place(x=50, y=170, width=330, height=46)
 
-        self.amount = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+        self.amount = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
                                insertbackground=self.set_color('entrytext'))
         self.amount.place(x=470, y=170, width=330, height=46)
 
-        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
                                  insertbackground=self.set_color('entrytext'))
         self.buy_type.place(x=50, y=290, width=330, height=46)
 
-        self.date = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white', bd=0,
+        self.date = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
                              insertbackground=self.set_color('entrytext'))
         self.date.place(x=470, y=290, width=330, height=46)
 
@@ -54,7 +54,8 @@ class DebitFrame(tk.Frame):
         cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('bg'), variable=cb_var,
                                         foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
                                         highlightthickness=0, bd=0, activebackground=self.set_color('bg'),
-                                        activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(0))
+                                        activeforeground=self.set_color('text'),
+                                        command=lambda: self.uncheck_buttons(0))
         cb_checkbutton.place(x=310, y=360)
 
         espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color('bg'), bd=0,
@@ -113,12 +114,7 @@ class DebitFrame(tk.Frame):
             self.window.switch_frame('BasePage')
 
     def show_error(self, text):
-        self.error_canvas.destroy()
-        self.error_canvas = tk.Canvas(self, height=50, width=self.window.winfo_width(),
-                                      background=self.set_color('bg'), highlightthickness=0)
-        self.error_canvas.create_text(self.winfo_width() / 2, 25, text=text, font=('Roboto', 14), fill='red')
-
-        self.error_canvas.place(x=0, y=80)
+        show_error(self, text)
 
     def uncheck_buttons(self, exception):
         for button in self.check_buttons:

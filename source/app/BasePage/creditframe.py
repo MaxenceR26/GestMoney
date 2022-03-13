@@ -2,7 +2,7 @@ import tkinter as tk
 
 from data.data import add_credit
 from source.app.Sys import set_color
-from source.app.BasePage.baseframe import create_buttons, date_valid
+from source.app.BasePage.baseframe import create_buttons, date_valid, show_error
 
 
 class CreditFrame(tk.Frame):
@@ -29,15 +29,15 @@ class CreditFrame(tk.Frame):
         self.canvas.create_text(470, 270, text='Moyen de paiement', font=('Roboto', 18),
                                 fill=self.set_color('text'), anchor='w')
 
-        self.amount = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white',
+        self.amount = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.amount.place(x=50, y=170, width=330, height=46)
 
-        self.origin = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white',
+        self.origin = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.origin.place(x=50, y=290, width=330, height=46)
 
-        self.date = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white',
+        self.date = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
         self.date.place(x=470, y=170, width=330, height=46)
 
@@ -52,7 +52,7 @@ class CreditFrame(tk.Frame):
                                          activeforeground=self.set_color('text'), variable=virement_var,
                                          command=lambda: self.uncheck_buttons(0))
         vir_checkbutton.place(x=460, y=300)
-        self.origin = tk.Entry(self.canvas, bg=self.set_color('entrycolor'), font=('Roboto', 15), fg='white',
+        self.origin = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.origin.place(x=50, y=290, width=330, height=46)
 
@@ -110,12 +110,7 @@ class CreditFrame(tk.Frame):
             self.window.switch_frame('BasePage')
 
     def show_error(self, text):
-        self.error_canvas.destroy()
-        self.error_canvas = tk.Canvas(self, height=50, width=self.window.winfo_width(),
-                                      background=self.set_color("lightgreen"), highlightthickness=0)
-        self.error_canvas.create_text(self.winfo_width() / 2, 25, text=text, font=('Roboto', 14), fill='red')
-
-        self.error_canvas.place(x=0, y=80)
+        show_error(self, text)
 
     def uncheck_buttons(self, exception):
         for button in self.check_buttons:

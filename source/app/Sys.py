@@ -1,4 +1,3 @@
-import json
 import os
 from ctypes import windll
 
@@ -14,12 +13,13 @@ def set_color(theme, color):
         'basic': {
             'bg': '#001242',
             'green': '#77AB7D',
-            'entrycolor': '#000022',
+            'darkbg': '#000022',
             'text2': 'white',
             'text': '#DC2A58',
             'buttonactive': '#001242',
             'onactivebutton': '#050B1C',
-            'entrytext': 'white'
+            'entrytext': 'white',
+            'error': 'red'
                   }
     }
     return themes[theme][color]
