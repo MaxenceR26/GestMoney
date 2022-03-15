@@ -42,7 +42,7 @@ class BaseFrame(tk.Frame):
 
     def __init__(self, window):
         self.window = window
-        super().__init__(window, bg=self.set_color('bg'))
+        super().__init__(window, bg=self.set_color('fourthbg'))
 
         # Affichage de la titlebar
         self.title_bar()

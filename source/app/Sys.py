@@ -18,8 +18,10 @@ def set_color(theme, color):
             'text': '#DC2A58',
             'buttonactive': '#001242',
             'onactivebutton': '#050B1C',
+            'fourthbg': '#050B1C',
             'entrytext': 'white',
-            'error': 'red'
+            'error': 'red',
+            'tertiarybg': '#2D4481'
                   }
     }
     return themes[theme][color]

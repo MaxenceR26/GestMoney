@@ -15,6 +15,13 @@
                 "amount": -10,
                 "date": "02/03/22",
                 "method": "especes"
+            },
+            {
+                "market": "auchan",
+                "buy_type": "carrotte",
+                "amount": -10,
+                "date": "10/10/22",
+                "method": "especes"
             }
         ]
     },
@@ -27,6 +34,13 @@
                 "amount": -5,
                 "date": "02/02/22",
                 "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "pommes",
+                "amount": -10,
+                "date": "15/03/22",
+                "method": "especes"
             }
         ]
     }
