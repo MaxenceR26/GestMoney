@@ -8,6 +8,13 @@
                 "amount": -5,
                 "date": "02/02/22",
                 "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Fraises",
+                "amount": -10,
+                "date": "02/03/22",
+                "method": "especes"
             }
         ]
     },

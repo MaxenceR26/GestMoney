@@ -121,10 +121,7 @@ def get_debit_trace(user):
     with open(r'..\..\data\transactions.json', 'r') as f:
         data = json.load(f)
 
-    return [
-        f"{user_data['amount']}€ | + {user_data['market']} {user_data['buy_type']} {user_data['method']} {user_data['date']}"
-        for user_data in data[user]['debit'] + data[user]['credit']
-    ]
+    return data[user]['debit']
 
 
 def get_number_of_purchase(user):

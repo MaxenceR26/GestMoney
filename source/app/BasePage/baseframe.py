@@ -81,7 +81,7 @@ class BaseFrame(tk.Frame):
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg=self.set_color('text2'),
                                 bg=self.set_color("buttonactive"), bd=0, activeforeground=self.set_color('text2'),
                                 activebackground=self.set_color("onactivebutton"), cursor='hand2',
-                                command=lambda: self.window.switch_frame('basic', 'ConnexionPage', True))
+                                command=lambda: self.window.switch_frame('ConnexionPage', True))
         deco_button.place(x=1048, y=635, width=206, height=49)
 
     def title_bar(self):
