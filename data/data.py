@@ -74,21 +74,10 @@ def change_money(user_id, amount: int):
     dump_users(users)
 
 
-def add_debit(user_id, transaction):
-    data = get_transactions(user_id)
+def add_transaction(user_id, transaction):
+    data = get_transactions()
 
-    data[user_id]['debit'].append(transaction)
-
-    change_money(user_id, transaction['amount'])
-
-    with open(r'..\..\data\transactions.json', 'w') as f:
-        json.dump(data, f, indent=4)
-
-
-def add_credit(user_id, transaction):
-    data = get_transactions(user_id)
-
-    data[user_id]['credit'].append(transaction)
+    data[user_id].append(transaction)
 
     change_money(user_id, transaction['amount'])
 
@@ -96,17 +85,14 @@ def add_credit(user_id, transaction):
         json.dump(data, f, indent=4)
 
 
-def get_transactions(user_id):
+def get_transactions(user_id=None):
     with open(r'..\..\data\transactions.json', 'r') as f:
         data = json.load(f)
 
     if data.get(user_id) is None:
-        data[user_id] = {
-            'credit': [],
-            'debit': []
-        }
+        data[user_id] = []
 
-    return data
+    return data[user_id] if user_id else data
 
 
 def add_debit_trace(user):

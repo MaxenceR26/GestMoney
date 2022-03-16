@@ -2,7 +2,7 @@ import tkinter as tk
 
 from source.app.Sys import set_color
 from source.app.BasePage.baseframe import create_buttons, date_valid, show_error
-from data.data import add_debit
+from data.data import add_transaction
 
 
 class DebitFrame(tk.Frame):
@@ -85,6 +85,7 @@ class DebitFrame(tk.Frame):
         date = self.date.get()
 
         transaction = {
+            'type': 'debit',
             'market': market,
             'buy_type': buy_type,
             'amount': amount,
@@ -105,13 +106,13 @@ class DebitFrame(tk.Frame):
 
         else:
             transaction['amount'] = -int(transaction['amount'])
-            methods_names = ['cb', 'especes', 'cheque']
+            methods_names = ['Carte Bancaire', 'Espèces', 'Chèque']
 
             for var in self.check_vars:
                 if var.get() == 1:
                     transaction['method'] = methods_names[self.check_vars.index(var)]
 
-            add_debit(self.window.user_id, transaction)
+            add_transaction(self.window.user_id, transaction)
 
             self.window.switch_frame('BasePage')
 

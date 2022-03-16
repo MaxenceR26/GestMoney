@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from data.data import add_credit
+from data.data import add_transaction
 from source.app.Sys import set_color
 from source.app.BasePage.baseframe import create_buttons, date_valid, show_error
 
@@ -79,6 +79,7 @@ class CreditFrame(tk.Frame):
         date = self.date.get()
 
         transaction = {
+            'type': 'credit',
             'origin': origin,
             'amount': amount,
             'date': date
@@ -98,13 +99,13 @@ class CreditFrame(tk.Frame):
 
         else:
             transaction['amount'] = int(transaction['amount'])
-            methods_names = ['virement', 'especes', 'cheque']
+            methods_names = ['Virement', 'Espèces', 'Chèque']
 
             for var in self.check_vars:
                 if var.get() == 1:
                     transaction['method'] = methods_names[self.check_vars.index(var)]
 
-            add_credit(self.window.user_id, transaction)
+            add_transaction(self.window.user_id, transaction)
 
             self.window.switch_frame('BasePage')
 

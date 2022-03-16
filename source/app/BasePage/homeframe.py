@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from data.data import get_debit_trace
+from data.data import get_transactions
 from source.app.Sys import set_color
 
 
@@ -12,50 +12,49 @@ class HomeFrame(tk.Frame):
         super().__init__(window, width=1023, height=640, bg=self.set_color('fourthbg'))
 
         self.history_canvas = tk.Canvas(self, height=640, width=853, bg=self.set_color('fourthbg'),
-                                        highlightthickness=0)
-        self.history_canvas.create_text(212, 40, text="Historique des transactions",
+                                        highlightthickness=0, bd=0)
+        self.history_canvas.create_text(320, 40, text="Historique des transactions",
                                         font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
 
-        self.title_bar_treeview = tk.Canvas(self, width=690, height=20, bg=self.set_color("bg"), highlightthickness=0)
-        self.title_bar_treeview.create_line(2000, 19, -10, 19, fill="black")
-        self.title_bar_treeview.create_text(87, 10, text="Montant",
+        self.title_treeview = tk.Canvas(self, width=690, height=20, bg=self.set_color("bg"), highlightthickness=0, bd=0)
+        self.title_treeview.create_text(87, 10, text="Montant",
                                         font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.create_text(170, 8, text=" | ",
-                                            font=('Roboto', 13), fill=self.set_color('text2'))
+        self.title_treeview.create_text(170, 8, text=" | ",
+                                        font=('Roboto', 13), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.create_text(260, 10, text="Intitulé",
-                                            font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+        self.title_treeview.create_text(260, 10, text="Objet",
+                                        font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.create_text(353, 8, text=" | ",
-                                            font=('Roboto', 13), fill=self.set_color('text2'))
+        self.title_treeview.create_text(353, 8, text=" | ",
+                                        font=('Roboto', 13), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.create_text(430, 10, text="Type",
-                                            font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+        self.title_treeview.create_text(435, 10, text="Moyen de paiement",
+                                        font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.create_text(518, 8, text=" | ",
-                                            font=('Roboto', 13), fill=self.set_color('text2'))
+        self.title_treeview.create_text(518, 8, text=" | ",
+                                        font=('Roboto', 13), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.create_text(608, 10, text="Date",
-                                            font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+        self.title_treeview.create_text(608, 10, text="Date",
+                                        font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-        self.title_bar_treeview.place(x=292, y=70)
+        self.title_treeview.place(x=292, y=70)
 
         # Création du style
         style = ttk.Style()
         style.theme_use('alt')
         style.configure('Treeview',
-                        background=self.set_color('bg'),
+                        background=self.set_color('tertiarybg'),
                         foreground=self.set_color('text2'),
-                        fieldbackground=self.set_color('bg'),
                         highlightthickness=0, bd=0,
-                        rowheight=50)
+                        font=('Roboto', 10, 'bold'),
+                        rowheight=40)
 
         style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])
-        style.map('Treeview', background=[('selected', self.set_color('darkbg'))],
+        style.map('Treeview', background=[('selected', self.set_color('bg'))],
                   foreground=[('selected', self.set_color('text'))])
 
-        tableau = ttk.Treeview(self.history_canvas, columns=('amount', 'market', 'method', 'date'))
+        tableau = ttk.Treeview(self.history_canvas, columns=('amount', 'object', 'method', 'date'))
 
         tableau.column("#1", width=174, anchor=tk.CENTER, stretch=tk.NO)
         tableau.column("#2", width=174, anchor=tk.CENTER, stretch=tk.NO)
@@ -63,32 +62,28 @@ class HomeFrame(tk.Frame):
         tableau.column("#4", width=174, anchor=tk.CENTER, stretch=tk.NO)
 
         tableau.heading('amount', text='Montant')
-        tableau.heading('market', text='Intitulé')
-        tableau.heading('method', text='Type')
+        tableau.heading('object', text='Objet')
+        tableau.heading('method', text='Moyen de paiement')
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        try:
-            data_debit = get_debit_trace(self.window.user_id)
-            tableau.tag_configure('oddrow', background=self.set_color("tertiarybg"))
-            tableau.tag_configure('evenrow', background=self.set_color("bg"))
+        transacs = get_transactions(self.window.user_id)
 
-            self.count = 0
+        for transac in transacs:
 
-            for i in range(len(data_debit)):
-                data = data_debit[i]
-                if self.count % 2 == 0:
-                    tableau.insert(parent='', index='end', iid=i, text='Market',
-                                   values=(data['amount'], data['market'], data['method'], data['date']),
-                                   tags=('oddrow'))
-                else:
-                    tableau.insert(parent='', index='end', iid=i, text='Market',
-                                   values=(data['amount'], data['market'], data['method'], data['date']),
-                                   tags=('evenrow'))
-                self.count += 1
-                tableau.place(x=35, y=70, width=690, height=500)
-        except KeyError as e:
-            tableau.place(x=35, y=70, width=690, height=500)
+            if transac['type'] == 'credit':
+                tableau.insert(parent='', index='end', iid=transacs.index(transac), text='Market',
+                               values=(f"{transac['amount']}€", transac['origin'], transac['method'], transac['date']))
+
+            else:
+                tableau.insert(parent='', index='end', iid=transacs.index(transac), text='Market',
+                               values=(f"{transac['amount']}€", f"{transac['market']}-{transac['buy_type']}",
+                                       transac['method'], transac['date']))
+
+        tableau.place(x=35, y=70, width=690, height=500)
+
+        for i in range(len(transacs)):
+            self.history_canvas.create_line(35, i * 40 + 90, 725, i * 40 + 90, fill='black', width=2)
 
         self.left_widgets()
         self.history_canvas.place(x=257, y=0)
@@ -109,30 +104,32 @@ class HomeFrame(tk.Frame):
         self.magasin_entry.place(x=20, y=195, width=200, height=32)
 
         vir_checkbutton = tk.Checkbutton(self, text='Virement', background=self.set_color('darkbg'),
-                                         foreground=self.set_color('text2'), font=('Roboto', 16),
+                                         foreground=self.set_color('text'), font=('Roboto', 16),
                                          highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                         activeforeground=self.set_color('text2'))
+                                         activeforeground=self.set_color('text'))
         vir_checkbutton.place(x=70, y=250)
 
         espece_checkbutton = tk.Checkbutton(self, text='Espèces', background=self.set_color('darkbg'),
-                                         foreground=self.set_color('text2'), font=('Roboto', 16),
-                                         highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                         activeforeground=self.set_color('text2'))
+                                            foreground=self.set_color('text'), font=('Roboto', 16),
+                                            highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
+                                            activeforeground=self.set_color('text'))
         espece_checkbutton.place(x=70, y=300)
 
         cheque_checkbutton = tk.Checkbutton(self, text='Chèques', background=self.set_color('darkbg'),
-                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            foreground=self.set_color('text'), font=('Roboto', 16),
                                             highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                            activeforeground=self.set_color('text2'))
+                                            activeforeground=self.set_color('text'))
         cheque_checkbutton.place(x=70, y=350)
 
         cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('darkbg'),
-                                            foreground=self.set_color('text2'), font=('Roboto', 16),
-                                            highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                            activeforeground=self.set_color('text2'))
+                                        foreground=self.set_color('text'), font=('Roboto', 16),
+                                        highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
+                                        activeforeground=self.set_color('text'))
         cb_checkbutton.place(x=70, y=400)
 
-        valid_button = tk.Button(self, text="Valider", foreground=self.set_color('text2'), font=('Roboto', 14), background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'), activeforeground=self.set_color('text2'))
+        valid_button = tk.Button(self, text="Valider", foreground=self.set_color('text2'), font=('Roboto', 14),
+                                 background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
+                                 activeforeground=self.set_color('text2'))
         valid_button.place(x=50, y=450, width=150, height=32)
 
         canvas.place(x=0, y=0)
