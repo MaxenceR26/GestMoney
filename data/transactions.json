@@ -1,6 +1,13 @@
 {
     "Admin": {
-        "credit": [],
+        "credit": [
+            {
+                "origin": "Salaire",
+                "amount": 100,
+                "date": "26/12/22",
+                "method": "virement"
+            }
+        ],
         "debit": [
             {
                 "market": "Auchan",
@@ -22,6 +29,83 @@
                 "amount": -10,
                 "date": "10/10/22",
                 "method": "especes"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "Auchan",
+                "buy_type": "Carrotes",
+                "amount": -190,
+                "date": "22/12/22",
+                "method": "cb"
+            },
+            {
+                "market": "auchan",
+                "buy_type": "ac",
+                "amount": -1500,
+                "date": "12/12/12",
+                "method": "cheque"
             }
         ]
     },

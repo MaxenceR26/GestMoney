@@ -3,7 +3,7 @@
         "id": "Admin",
         "email": "admin@gmail.com",
         "mdp": "",
-        "money": 2205,
+        "money": 615,
         "image": "ressource\\img\\profile-base.png"
     },
     "Alban": {
@@ -14,7 +14,7 @@
         "image": "ressource\\img\\profile-base.png"
     },
     "jeanpierre": {
-        "id": "jeanpierre",
+        "id": "Jean",
         "email": "aa@g.com",
         "mdp": "123456",
         "money": 10,
