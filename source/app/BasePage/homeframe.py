@@ -9,50 +9,86 @@ class HomeFrame(tk.Frame):
 
     def __init__(self, window):
         self.window = window
-
         super().__init__(window, width=1023, height=640, bg=self.set_color('fourthbg'))
 
         self.history_canvas = tk.Canvas(self, height=640, width=853, bg=self.set_color('fourthbg'),
                                         highlightthickness=0)
-        self.history_canvas.create_text(426.5, 40, text="Historique des transactions",
-                                        font=('Roboto', 20, 'bold'), fill=self.set_color('text'))
+        self.history_canvas.create_text(212, 40, text="Historique des transactions",
+                                        font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
+
+        self.title_bar_treeview = tk.Canvas(self, width=690, height=20, bg=self.set_color("bg"), highlightthickness=0)
+        self.title_bar_treeview.create_line(2000, 19, -10, 19, fill="black")
+        self.title_bar_treeview.create_text(87, 10, text="Montant",
+                                        font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.create_text(170, 8, text=" | ",
+                                            font=('Roboto', 13), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.create_text(260, 10, text="Intitulé",
+                                            font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.create_text(353, 8, text=" | ",
+                                            font=('Roboto', 13), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.create_text(430, 10, text="Type",
+                                            font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.create_text(518, 8, text=" | ",
+                                            font=('Roboto', 13), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.create_text(608, 10, text="Date",
+                                            font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
+
+        self.title_bar_treeview.place(x=292, y=70)
 
         # Création du style
         style = ttk.Style()
         style.theme_use('alt')
         style.configure('Treeview',
                         background=self.set_color('bg'),
-                        foreground=self.set_color('text'),
+                        foreground=self.set_color('text2'),
                         fieldbackground=self.set_color('bg'),
-                        highlightthickness = 0, bd = 0,
+                        highlightthickness=0, bd=0,
                         rowheight=50)
 
         style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])
-        style.map('Treeview', background=[('selected', self.set_color('darkbg'))], foreground=[('selected', self.set_color('text'))])
+        style.map('Treeview', background=[('selected', self.set_color('darkbg'))],
+                  foreground=[('selected', self.set_color('text'))])
 
-        tableau = ttk.Treeview(self.history_canvas, columns=('amount', 'market', 'date'))
+        tableau = ttk.Treeview(self.history_canvas, columns=('amount', 'market', 'method', 'date'))
+
+        tableau.column("#1", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        tableau.column("#2", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        tableau.column("#3", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        tableau.column("#4", width=174, anchor=tk.CENTER, stretch=tk.NO)
 
         tableau.heading('amount', text='Montant')
-        tableau.heading('market', text='Magasin')
+        tableau.heading('market', text='Intitulé')
+        tableau.heading('method', text='Type')
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        data_debit = get_debit_trace(self.window.user_id)
-        tableau.tag_configure('oddrow', background=self.set_color("tertiarybg"))
-        tableau.tag_configure('evenrow', background=self.set_color("bg"))
+        try:
+            data_debit = get_debit_trace(self.window.user_id)
+            tableau.tag_configure('oddrow', background=self.set_color("tertiarybg"))
+            tableau.tag_configure('evenrow', background=self.set_color("bg"))
 
-        self.count = 0
+            self.count = 0
 
-        for i in range(len(data_debit)):
-            data = data_debit[i]
-            if self.count %2 == 0:
-                tableau.insert(parent='', index='end', iid=i, text='Market', values=(data['amount'], data['market'], data['date']), tags=('oddrow'))
-            else:
-                tableau.insert(parent='', index='end', iid=i, text='Market',
-                               values=(data['amount'], data['market'], data['date']), tags=('evenrow'))
-            self.count += 1
-
-        tableau.place(x=35, y=100, width=690, height=500)
+            for i in range(len(data_debit)):
+                data = data_debit[i]
+                if self.count % 2 == 0:
+                    tableau.insert(parent='', index='end', iid=i, text='Market',
+                                   values=(data['amount'], data['market'], data['method'], data['date']),
+                                   tags=('oddrow'))
+                else:
+                    tableau.insert(parent='', index='end', iid=i, text='Market',
+                                   values=(data['amount'], data['market'], data['method'], data['date']),
+                                   tags=('evenrow'))
+                self.count += 1
+                tableau.place(x=35, y=70, width=690, height=500)
+        except KeyError as e:
+            tableau.place(x=35, y=70, width=690, height=500)
 
         self.left_widgets()
         self.history_canvas.place(x=257, y=0)
@@ -60,19 +96,44 @@ class HomeFrame(tk.Frame):
     def left_widgets(self):
         canvas = tk.Canvas(self, width=257, height=645, bg=self.set_color("darkbg"), highlightthickness=0)
         canvas.create_line(1000, 0, -10, 0, fill="black")
-        canvas.create_line(1000, 520, -10, 520, fill=self.set_color('bg'))
-
         canvas.create_text(128.5, 30, text='Rechercher', font=('Roboto', 17), fill=self.set_color('text2'))
-        canvas.create_text(30, 100, text='Date', font=('Roboto', 17), fill=self.set_color('text2'), anchor='w')
-        canvas.create_text(30, 175, text='Magasin', font=('Roboto', 17), fill=self.set_color('text2'), anchor='w')
+        canvas.create_text(20, 100, text='Date', font=('Roboto', 17), fill=self.set_color('text'), anchor='w')
+        canvas.create_text(20, 175, text='Magasin', font=('Roboto', 17), fill=self.set_color('text'), anchor='w')
 
-        self.date_entry = tk.Entry(self, background=self.set_color('text'), bd=0, font=('Roboto', 15, 'bold'),
+        self.date_entry = tk.Entry(self, background=self.set_color('bg'), bd=0, font=('Roboto', 15, 'bold'),
                                    fg='#FFFFFF', insertbackground=self.set_color('entrytext'))
         self.date_entry.place(x=20, y=120, width=200, height=32)
 
-        self.magasin_entry = tk.Entry(self, background=self.set_color('text'), bd=0, font=('Roboto', 15, 'bold'),
+        self.magasin_entry = tk.Entry(self, background=self.set_color('bg'), bd=0, font=('Roboto', 15, 'bold'),
                                       fg='#FFFFFF', insertbackground=self.set_color('entrytext'))
         self.magasin_entry.place(x=20, y=195, width=200, height=32)
+
+        vir_checkbutton = tk.Checkbutton(self, text='Virement', background=self.set_color('darkbg'),
+                                         foreground=self.set_color('text2'), font=('Roboto', 16),
+                                         highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
+                                         activeforeground=self.set_color('text2'))
+        vir_checkbutton.place(x=70, y=250)
+
+        espece_checkbutton = tk.Checkbutton(self, text='Espèces', background=self.set_color('darkbg'),
+                                         foreground=self.set_color('text2'), font=('Roboto', 16),
+                                         highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
+                                         activeforeground=self.set_color('text2'))
+        espece_checkbutton.place(x=70, y=300)
+
+        cheque_checkbutton = tk.Checkbutton(self, text='Chèques', background=self.set_color('darkbg'),
+                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
+                                            activeforeground=self.set_color('text2'))
+        cheque_checkbutton.place(x=70, y=350)
+
+        cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('darkbg'),
+                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
+                                            activeforeground=self.set_color('text2'))
+        cb_checkbutton.place(x=70, y=400)
+
+        valid_button = tk.Button(self, text="Valider", foreground=self.set_color('text2'), font=('Roboto', 14), background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'), activeforeground=self.set_color('text2'))
+        valid_button.place(x=50, y=450, width=150, height=32)
 
         canvas.place(x=0, y=0)
 
