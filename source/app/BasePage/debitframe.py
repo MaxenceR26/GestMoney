@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from source.app.Sys import set_color
-from source.app.BasePage.baseframe import create_buttons, date_valid, show_error
+from source.app.BasePage.baseframe import create_buttons, date_valid, show_error, create_copyright
 from data.data import add_transaction
 
 
@@ -19,6 +19,8 @@ class DebitFrame(tk.Frame):
 
         self.canvas.create_text(frame_width/2, 50, text="Débiter le compte", font=('Roboto', 30, 'bold'),
                                 fill=self.set_color('text'))
+
+        create_copyright(self, self.canvas)
 
         self.create_inputs()
         self.canvas.pack()

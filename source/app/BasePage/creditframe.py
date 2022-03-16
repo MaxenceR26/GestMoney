@@ -2,7 +2,7 @@ import tkinter as tk
 
 from data.data import add_transaction
 from source.app.Sys import set_color
-from source.app.BasePage.baseframe import create_buttons, date_valid, show_error
+from source.app.BasePage.baseframe import create_buttons, date_valid, show_error, create_copyright
 
 
 class CreditFrame(tk.Frame):
@@ -17,6 +17,8 @@ class CreditFrame(tk.Frame):
         self.canvas = tk.Canvas(self, height=640, width=1023, background=self.set_color('fourthbg'), highlightthickness=0)
         self.canvas.create_text(frame_width/2, 50, text="Créditer le compte", font=('Roboto', 30, 'bold'),
                                 fill=self.set_color('text2'))
+
+        create_copyright(self, self.canvas)
 
         self.create_inputs()
         self.canvas.pack()

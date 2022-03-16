@@ -14,8 +14,16 @@
             "amount": -20,
             "date": "02/02/22",
             "method": "Carte Bancaire"
+        },
+        {
+            "type": "credit",
+            "origin": "Remboursement t\u00e9l\u00e9",
+            "amount": 1000,
+            "date": "02/02/22",
+            "method": "Virement"
         }
     ],
     "Alban": [],
+    "null": [],
     "null": []
 }

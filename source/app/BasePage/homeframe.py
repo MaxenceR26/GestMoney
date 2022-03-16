@@ -11,9 +11,9 @@ class HomeFrame(tk.Frame):
         self.window = window
         super().__init__(window, width=1023, height=640, bg=self.set_color('fourthbg'))
 
-        self.history_canvas = tk.Canvas(self, height=640, width=853, bg=self.set_color('fourthbg'),
+        self.history_canvas = tk.Canvas(self, height=640, width=766, bg=self.set_color('fourthbg'),
                                         highlightthickness=0, bd=0)
-        self.history_canvas.create_text(320, 40, text="Historique des transactions",
+        self.history_canvas.create_text(self.history_canvas.winfo_reqwidth()/2, 40, text="Historique des transactions",
                                         font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
 
         self.title_treeview = tk.Canvas(self, width=690, height=20, bg=self.set_color("bg"), highlightthickness=0, bd=0)
@@ -38,7 +38,7 @@ class HomeFrame(tk.Frame):
         self.title_treeview.create_text(608, 10, text="Date",
                                         font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-        self.title_treeview.place(x=292, y=70)
+        self.title_treeview.place(x=292, y=75)
 
         # Création du style
         style = ttk.Style()
@@ -47,11 +47,11 @@ class HomeFrame(tk.Frame):
                         background=self.set_color('tertiarybg'),
                         foreground=self.set_color('text2'),
                         highlightthickness=0, bd=0,
-                        font=('Roboto', 10, 'bold'),
+                        font=('Roboto', 9, 'bold'),
                         rowheight=40)
 
         style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])
-        style.map('Treeview', background=[('selected', self.set_color('bg'))],
+        style.map('Treeview', background=[('selected', '#172F6E')],
                   foreground=[('selected', self.set_color('text'))])
 
         tableau = ttk.Treeview(self.history_canvas, columns=('amount', 'object', 'method', 'date'))
@@ -80,10 +80,14 @@ class HomeFrame(tk.Frame):
                                values=(f"{transac['amount']}€", f"{transac['market']}-{transac['buy_type']}",
                                        transac['method'], transac['date']))
 
-        tableau.place(x=35, y=70, width=690, height=500)
+        tableau.place(x=35, y=75, width=690, height=500)
 
-        for i in range(len(transacs)):
-            self.history_canvas.create_line(35, i * 40 + 90, 725, i * 40 + 90, fill='black', width=2)
+        for i in range(len(transacs)+1):
+            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+            line.place(x=292, y=i*40+94)
+
+        self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, self.winfo_reqheight() - 15,
+                                        text="© 2022 GestMoney", fill=self.set_color('text2'), font=('Roboto', 10))
 
         self.left_widgets()
         self.history_canvas.place(x=257, y=0)
