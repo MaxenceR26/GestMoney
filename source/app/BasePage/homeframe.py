@@ -9,11 +9,12 @@ class HomeFrame(tk.Frame):
 
     def __init__(self, window):
         self.window = window
+
         super().__init__(window, width=1023, height=640, bg=self.set_color('fourthbg'))
 
         self.history_canvas = tk.Canvas(self, height=640, width=853, bg=self.set_color('fourthbg'),
                                         highlightthickness=0)
-        self.history_canvas.create_text(self.history_canvas.winfo_width()/2, 40, text="Historique des transactions",
+        self.history_canvas.create_text(426.5, 40, text="Historique des transactions",
                                         font=('Roboto', 20, 'bold'), fill=self.set_color('text'))
 
         # Création du style
@@ -36,26 +37,22 @@ class HomeFrame(tk.Frame):
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
+        data_debit = get_debit_trace(self.window.user_id)
+        tableau.tag_configure('oddrow', background=self.set_color("tertiarybg"))
+        tableau.tag_configure('evenrow', background=self.set_color("bg"))
 
+        self.count = 0
 
+        for i in range(len(data_debit)):
+            data = data_debit[i]
+            if self.count %2 == 0:
+                tableau.insert(parent='', index='end', iid=i, text='Market', values=(data['amount'], data['market'], data['date']), tags=('oddrow'))
+            else:
+                tableau.insert(parent='', index='end', iid=i, text='Market',
+                               values=(data['amount'], data['market'], data['date']), tags=('evenrow'))
+            self.count += 1
 
-        try:
-            data_debit = get_debit_trace(self.window.user_id)
-            tableau.tag_configure('oddrow', background=self.set_color("tertiarybg"))
-            tableau.tag_configure('evenrow', background=self.set_color("bg"))
-
-            self.count = 0
-
-            for i in range(len(data_debit)):
-                data = data_debit[i]
-                if self.count %2 == 0:
-                    tableau.insert(parent='', index='end', iid=i, text='Market', values=(data['amount'], data['market'], data['date']), tags=('oddrow'))
-                else:
-                    tableau.insert(parent='', index='end', iid=i, text='Market',
-                                   values=(data['amount'], data['market'], data['date']), tags=('evenrow'))
-                self.count += 1
-        except KeyError as e:
-            tableau.place(x=35, y=100, width=690, height=500)
+        tableau.place(x=35, y=100, width=690, height=500)
 
         self.left_widgets()
         self.history_canvas.place(x=257, y=0)

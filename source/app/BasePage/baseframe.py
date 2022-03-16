@@ -19,6 +19,7 @@ def create_buttons(frame, valid_function):
                                background=frame.set_color('bg'), relief='groove', cursor='hand2', text='Annuler')
     annuler_button.place(x=550, y=440, width=211, height=84)
 
+
 def show_error(frame, text):
     frame.error_canvas.destroy()
     frame.error_canvas = tk.Canvas(frame, height=50, width=frame.window.winfo_width(),
