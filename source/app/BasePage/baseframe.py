@@ -64,19 +64,20 @@ class BaseFrame(tk.Frame):
                                    activeforeground=self.set_color('text2'),
                                    activebackground=self.set_color("onactivebutton"), cursor='hand2',
                                    bg=self.set_color("buttonactive"),
-                                   command=lambda: self.window.switch_frame('HomePage'))
+                                   command=lambda: [self.window.switch_frame('HomePage'), self.change_color_button(accueil_button, debit_button, credit_button)])
         accueil_button.place(x=1048, y=220, width=201, height=33)
 
         credit_button = tk.Button(self, text="Créditer l'argent", font=('Roboto', 14), fg=self.set_color('text2'), bd=0,
                                   activeforeground=self.set_color('text2'), bg=self.set_color("buttonactive"),
                                   activebackground=self.set_color("onactivebutton"), cursor='hand2',
-                                  command=lambda: self.window.switch_frame('CreditPage'))
+                                  command=lambda: [self.window.switch_frame('CreditPage'), self.change_color_button(credit_button, debit_button, accueil_button)])
         credit_button.place(x=1048, y=270, width=201, height=33)
 
         debit_button = tk.Button(self, text="Débiter de l'argent", font=('Roboto', 14), fg=self.set_color('text2'),
                                  bg=self.set_color("buttonactive"), activebackground=self.set_color("onactivebutton"),
                                  bd=0, cursor='hand2', activeforeground=self.set_color('text2'),
-                                 command=lambda: self.window.switch_frame('DebitFrame'))
+                                 command=lambda: [self.window.switch_frame('DebitFrame'),
+                                                  self.change_color_button(debit_button, credit_button, accueil_button)])
         debit_button.place(x=1048, y=320, width=201, height=33)
 
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg=self.set_color('text2'),
@@ -87,7 +88,7 @@ class BaseFrame(tk.Frame):
 
     def title_bar(self):
         title_bar = tk.Canvas(self, width=1700, height=80, bg=self.set_color('darkbg'), highlightthickness=0)
-        title_bar.create_text(200, 40, text="GestMoney", font=('Roboto', 30, 'bold'), fill=self.set_color('text2'))
+        title_bar.create_text(200, 40, text="GestMoney", font=('Roboto', 30, 'bold'), fill=self.set_color('text'))
         title_bar.pack()
 
         imgs = tk.PhotoImage(file=select_image("icon.png")).subsample(7)
@@ -115,3 +116,9 @@ class BaseFrame(tk.Frame):
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
+
+    def change_color_button(self, button, uncolor_button_one=None, uncolor_button_two=None):
+        button.config(bg=self.set_color('fourthbg'))
+        if uncolor_button_one and uncolor_button_two:
+            uncolor_button_one.config(bg=self.set_color('bg'))
+            uncolor_button_two.config(bg=self.set_color('bg'))

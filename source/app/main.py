@@ -90,7 +90,7 @@ class Main(tk.Tk):
         self.title_frame = tk.Frame(self)
         title_bar = tk.Canvas(self.title_frame, width=679, height=47,
                               bg=self.set_color('darkbg'), highlightthickness=0)
-        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
+        title_bar.create_text(135, 22, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color('text'))
         title_bar.pack()
 
         imgs = tk.PhotoImage(file=select_image("icon.png")).subsample(11)

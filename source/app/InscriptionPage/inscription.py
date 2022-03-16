@@ -77,7 +77,7 @@ class InscriptionFrame(tk.Frame):
     def title_bar(self):
         title_bar = tk.Canvas(self, height=52, width=431, background=self.set_color("darkbg"),
                               highlightthickness=0)
-        title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color("text2"))
+        title_bar.create_text(205, 25, text="GestMoney", font=('Roboto', 20, 'bold'), fill=self.set_color("text"))
         title_bar.place(x=0, y=0)
 
         logo = tk.PhotoImage(file=select_image("icon.png")).subsample(11)
@@ -86,11 +86,14 @@ class InscriptionFrame(tk.Frame):
         icon.photo = logo
         icon.place(x=5, y=5)
 
-        quit_button = tk.Button(title_bar, text="X", background=self.set_color("darkbg"), cursor='hand2',
-                                relief='groove', foreground=self.set_color('text'),
-                                activebackground=self.set_color('bg'), activeforeground=self.set_color('text'),
-                                font=self.ROBOTO_14, command=self.window.destroy)
-        quit_button.place(x=385, y=5, height=40, width=40)
+        image = tk.PhotoImage(file=select_image('exit_button.png')).subsample(6)
+        quit_button = tk.Button(self, image=image, background=self.set_color('darkbg'), cursor='hand2',
+                                bd=0, foreground=self.set_color('text'),
+                                activebackground=self.set_color('darkbg'),
+                                activeforeground=self.set_color('text'),
+                                font=('Roboto', 20, 'bold'), command=exit)
+        quit_button.photo = image
+        quit_button.place(x=375, y=1, width=50, height=50)
 
         self.window.apply_drag([title_bar, icon])
 

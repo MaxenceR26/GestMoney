@@ -19,5 +19,12 @@
         "mdp": "123456",
         "money": 10,
         "image": "ressource\\img\\profile-base.png"
+    },
+    "aaaaaaa": {
+        "id": "aaaaaaa",
+        "email": "a@gmail.com",
+        "mdp": "000000",
+        "money": 100,
+        "image": "ressource\\img\\profile-base.png"
     }
 }
