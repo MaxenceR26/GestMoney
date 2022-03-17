@@ -16,14 +16,102 @@
             "method": "Carte Bancaire"
         },
         {
-            "type": "credit",
-            "origin": "Remboursement t\u00e9l\u00e9",
-            "amount": 1000,
+            "type": "debit",
+            "market": "Super U",
+            "buy_type": "Pommes",
+            "amount": -20,
             "date": "02/02/22",
-            "method": "Virement"
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperU4",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperU3",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperU2",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperU1",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu1",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu2",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu3",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu100",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu5",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu6",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "SuperUu7",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
         }
     ],
     "Alban": [],
-    "null": [],
     "null": []
 }

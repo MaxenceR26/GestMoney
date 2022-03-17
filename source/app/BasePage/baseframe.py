@@ -8,16 +8,16 @@ from source.app.Sys import set_color, select_image
 
 def create_buttons(frame, valid_function):
     valid_button = tk.Button(frame, text="Valider", background=frame.set_color('bg'), cursor='hand2',
-                             foreground=frame.set_color('text'), font=('Roboto', 18, 'bold'), relief="groove",
+                             foreground=frame.set_color('green'), font=('Roboto', 18), relief="groove",
                              activebackground=frame.set_color('bg'), activeforeground=frame.set_color('text'),
                              command=valid_function)
-    valid_button.place(x=100, y=440, width=211, height=84)
+    valid_button.place(x=150, y=510, width=256, height=48)
 
     annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'),
                                font=('Roboto', 18, 'bold'), foreground=frame.set_color('error'),
                                activeforeground=frame.set_color('error'), activebackground=frame.set_color('bg'),
                                background=frame.set_color('bg'), relief='groove', cursor='hand2', text='Annuler')
-    annuler_button.place(x=550, y=440, width=211, height=84)
+    annuler_button.place(x=600, y=510, width=256, height=48)
 
 
 def show_error(frame, text):

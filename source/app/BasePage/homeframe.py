@@ -70,6 +70,9 @@ class HomeFrame(tk.Frame):
         transacs = get_transactions(self.window.user_id)
 
         for transac in transacs:
+            for i in range(len(transacs) + 1):
+                line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+                line.place(x=292, y=i * 40 + 94)
 
             if transac['type'] == 'credit':
                 tableau.insert(parent='', index='end', iid=transacs.index(transac), text='Market',
@@ -77,14 +80,11 @@ class HomeFrame(tk.Frame):
 
             else:
                 tableau.insert(parent='', index='end', iid=transacs.index(transac), text='Market',
-                               values=(f"{transac['amount']}€", f"{transac['market']}-{transac['buy_type']}",
+                               values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
                                        transac['method'], transac['date']))
 
         tableau.place(x=35, y=75, width=690, height=500)
 
-        for i in range(len(transacs)+1):
-            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-            line.place(x=292, y=i*40+94)
 
         self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, self.winfo_reqheight() - 15,
                                         text="© 2022 GestMoney", fill=self.set_color('text2'), font=('Roboto', 10))
