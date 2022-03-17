@@ -51,6 +51,7 @@ class BaseFrame(tk.Frame):
         self.window = window
         super().__init__(window, bg=self.set_color('fourthbg'))
 
+
         # Affichage de la titlebar
         self.title_bar()
 
@@ -96,6 +97,8 @@ class BaseFrame(tk.Frame):
                                 activebackground=self.set_color("onactivebutton"), cursor='hand2',
                                 command=lambda: self.window.switch_frame('ConnexionPage', True))
         deco_button.place(x=1048, y=635, width=206, height=49)
+
+        self.change_color_button(accueil_button, debit_button, credit_button)
 
     def title_bar(self):
         title_bar = tk.Canvas(self, width=1700, height=80, bg=self.set_color('darkbg'), highlightthickness=0)

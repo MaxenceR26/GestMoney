@@ -17,7 +17,7 @@
         },
         {
             "type": "debit",
-            "market": "Super U",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -25,7 +25,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperU4",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -33,7 +33,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperU3",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -41,7 +41,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperU2",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -49,7 +49,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperU1",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -57,7 +57,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu1",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -65,7 +65,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu2",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -73,7 +73,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu3",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -81,7 +81,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu100",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -89,7 +89,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu5",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -97,7 +97,7 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu6",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
@@ -105,13 +105,35 @@
         },
         {
             "type": "debit",
-            "market": "SuperUu7",
+            "market": "Auchan",
             "buy_type": "Pommes",
             "amount": -20,
             "date": "02/02/22",
             "method": "Carte Bancaire"
+        },
+        {
+            "type": "debit",
+            "market": "Auchan",
+            "buy_type": "Pommes",
+            "amount": -20,
+            "date": "02/02/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "credit",
+            "origin": "Remboursement t\u00e9l\u00e9",
+            "amount": 1000,
+            "date": "02/02/22",
+            "method": "Virement"
+        },
+        {
+            "type": "debit",
+            "market": "Auchan",
+            "buy_type": "Pommes",
+            "amount": -3,
+            "date": "18/03/22",
+            "method": "Esp\u00e8ces"
         }
     ],
-    "Alban": [],
-    "null": []
+    "Alban": []
 }

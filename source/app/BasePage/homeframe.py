@@ -67,24 +67,37 @@ class HomeFrame(tk.Frame):
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        transacs = get_transactions(self.window.user_id)
+        transacs = sorted(get_transactions(self.window.user_id), key=lambda d: d['date'])[::-1]
 
-        for transac in transacs:
-            for i in range(len(transacs) + 1):
-                line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-                line.place(x=292, y=i * 40 + 94)
+        for index in range(len(transacs)):
+
+            transac = transacs[index]
 
             if transac['type'] == 'credit':
-                tableau.insert(parent='', index='end', iid=transacs.index(transac), text='Market',
+                tableau.insert(parent='', index='end', iid=index, text='Market',
                                values=(f"{transac['amount']}€", transac['origin'], transac['method'], transac['date']))
 
             else:
-                tableau.insert(parent='', index='end', iid=transacs.index(transac), text='Market',
+                tableau.insert(parent='', index='end', iid=index, text='Market',
                                values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
                                        transac['method'], transac['date']))
 
         tableau.place(x=35, y=75, width=690, height=500)
 
+        # Création bande entre chaque ligne et sur les côtés
+
+        for i in range(min(len(transacs), 13)):
+            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+            line.place(x=292, y=i*40+94)
+
+        top = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+        top.place(x=292, y=74)
+
+        left = tk.Canvas(self, width=2, height=500, bg=self.set_color('darkbg'), highlightthickness=0)
+        left.place(x=292, y=74)
+
+        right = tk.Canvas(self, width=2, height=500, bg=self.set_color('darkbg'), highlightthickness=0)
+        right.place(x=982, y=74)
 
         self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, self.winfo_reqheight() - 15,
                                         text="© 2022 GestMoney", fill=self.set_color('text2'), font=('Roboto', 10))
