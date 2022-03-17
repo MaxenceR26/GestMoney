@@ -23,25 +23,25 @@ class InscriptionFrame(tk.Frame):
         self.title_bar()
 
         # Les entrées et leurs noms
-        self.inputs_canvas = tk.Canvas(self, height=421, width=431, background=self.set_color('bg'),
+        self.inputs_canvas = tk.Canvas(self, height=421, width=431, background=self.set_color('fourthbg'),
                                        highlightthickness=0)
         self.inputs_name()
         self.inputs_entry()
 
         # Affichage erreurs
-        self.error_canvas = tk.Canvas(self, height=40, width=431, background=self.set_color('bg'),
+        self.error_canvas = tk.Canvas(self, height=40, width=431, background=self.set_color('fourthbg'),
                                       highlightthickness=0)
 
         # Bouton valider
-        validate = tk.Button(self.inputs_canvas, text='Inscription', bg=self.set_color('darkbg'), fg=self.set_color('text2'),
-                             activebackground=self.set_color('darkbg'), activeforeground=self.set_color('text2'),
+        validate = tk.Button(self.inputs_canvas, text='Inscription', bg=self.set_color('bg'), fg=self.set_color('text2'),
+                             activebackground=self.set_color('bg'), activeforeground=self.set_color('text2'),
                              font=('Roboto', 12), relief='flat', cursor='hand2', bd=0, command=self.create_account)
         validate.place(x=142, y=345, width=150, height=40)
 
         self.inputs_canvas.place(x=0, y=52)
 
         # Copyright
-        copyright_text = tk.Label(self, text="© 2022 GestMoney", background=self.set_color('bg'),
+        copyright_text = tk.Label(self, text="© 2022 GestMoney", background=self.set_color('fourthbg'),
                                   foreground=self.set_color("text2"), font=('Roboto', 10))
         copyright_text.place(x=155, y=450)
 
@@ -53,24 +53,24 @@ class InscriptionFrame(tk.Frame):
                                            fill=self.set_color('text'), anchor='w')
 
     def inputs_entry(self):
-        self.user_id = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
+        self.user_id = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('bg'), font=('Roboto', 12, 'bold'),
                                 fg=self.set_color('text2'), insertbackground=self.set_color('entrytext'))
         self.user_id.place(x=114, y=60, height=29, width=204)
 
-        self.email = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
+        self.email = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('bg'), font=('Roboto', 12, 'bold'),
                               fg=self.set_color('text2'), insertbackground=self.set_color('entrytext'))
         self.email.place(x=114, y=119, height=29, width=204)
 
-        self.mdp = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), fg=self.set_color('text2'),
+        self.mdp = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('bg'), fg=self.set_color('text2'),
                             font=('Roboto', 12, 'bold'), show='*', insertbackground=self.set_color('entrytext'))
         self.mdp.place(x=114, y=178, height=29, width=204)
 
-        self.mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'),
+        self.mdp_confirm = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('bg'),
                                     fg=self.set_color('text2'), font=('Roboto', 12, 'bold'), show='*',
                                     insertbackground=self.set_color('entrytext'))
         self.mdp_confirm.place(x=114, y=237, height=29, width=204)
 
-        self.money = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('darkbg'), font=('Roboto', 12, 'bold'),
+        self.money = tk.Entry(self.inputs_canvas, bd=0, bg=self.set_color('bg'), font=('Roboto', 12, 'bold'),
                               fg=self.set_color('text2'), insertbackground=self.set_color('entrytext'))
         self.money.place(x=114, y=296, height=29, width=204)
 

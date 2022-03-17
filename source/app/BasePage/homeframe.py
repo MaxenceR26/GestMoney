@@ -110,7 +110,7 @@ class HomeFrame(tk.Frame):
         canvas.create_line(1000, 0, -10, 0, fill="black")
         canvas.create_text(128.5, 30, text='Rechercher', font=('Roboto', 17), fill=self.set_color('text2'))
         canvas.create_text(20, 100, text='Date', font=('Roboto', 17), fill=self.set_color('text'), anchor='w')
-        canvas.create_text(20, 175, text='Magasin', font=('Roboto', 17), fill=self.set_color('text'), anchor='w')
+        canvas.create_text(20, 175, text='Objet', font=('Roboto', 17), fill=self.set_color('text'), anchor='w')
 
         self.date_entry = tk.Entry(self, background=self.set_color('bg'), bd=0, font=('Roboto', 15, 'bold'),
                                    fg='#FFFFFF', insertbackground=self.set_color('entrytext'))

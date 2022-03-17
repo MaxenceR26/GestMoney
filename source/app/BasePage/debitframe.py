@@ -11,14 +11,14 @@ class DebitFrame(tk.Frame):
         self.window = window
         frame_width = 1023
         
-        super().__init__(window, width=frame_width, height=640, bg=self.set_color('bg'))
+        super().__init__(window, width=frame_width, height=640, bg=self.set_color('fourthbg'))
         
         self.error_canvas = tk.Canvas()
         
-        self.canvas = tk.Canvas(self, height=640, width=frame_width, background=self.set_color('bg'), highlightthickness=0)
+        self.canvas = tk.Canvas(self, height=640, width=frame_width, background=self.set_color('fourthbg'), highlightthickness=0)
 
-        self.canvas.create_text(frame_width/2, 50, text="Débiter le compte", font=('Roboto', 30, 'bold'),
-                                fill=self.set_color('text'))
+        self.canvas.create_text(frame_width/2, 50, text="Débiter le compte", font=('Roboto', 30),
+                                fill=self.set_color('text2'))
 
         create_copyright(self, self.canvas)
 
@@ -31,22 +31,22 @@ class DebitFrame(tk.Frame):
                                 fill=self.set_color('text'), anchor='w')
         self.canvas.create_text(543, 150, text='Montant', font=('Roboto', 18), fill=self.set_color('text'), anchor='w')
         self.canvas.create_text(543, 270, text='Date', font=('Roboto', 18), fill=self.set_color('text'), anchor='w')
-        self.canvas.create_text(150, 375, text='Moyen de paiement', font=('Roboto', 18),
+        self.canvas.create_text(150, 375, text='Moyen de paiement :', font=('Roboto', 18),
                                 fill=self.set_color('text'), anchor='w')
 
-        self.market = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
+        self.market = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
                                insertbackground=self.set_color('entrytext'))
         self.market.place(x=150, y=170, width=330, height=46)
 
-        self.amount = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
+        self.amount = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
                                insertbackground=self.set_color('entrytext'))
         self.amount.place(x=543, y=170, width=330, height=46)
 
-        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
+        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
                                  insertbackground=self.set_color('entrytext'))
         self.buy_type.place(x=150, y=290, width=330, height=46)
 
-        self.date = tk.Entry(self.canvas, bg=self.set_color('darkbg'), font=('Roboto', 15), fg='white', bd=0,
+        self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
                              insertbackground=self.set_color('entrytext'))
         self.date.place(x=543, y=290, width=330, height=46)
 
@@ -55,24 +55,24 @@ class DebitFrame(tk.Frame):
         especes_var = tk.IntVar()
         self.check_vars = [cb_var, especes_var, cheque_var]
 
-        cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('bg'), variable=cb_var,
-                                        foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
-                                        highlightthickness=0, bd=0, activebackground=self.set_color('bg'),
-                                        activeforeground=self.set_color('text'),
+        cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('fourthbg'), variable=cb_var,
+                                        foreground=self.set_color('text2'), font=('Roboto', 16),
+                                        highlightthickness=0, bd=0, activebackground=self.set_color('fourthbg'),
+                                        activeforeground=self.set_color('text2'),
                                         command=lambda: self.uncheck_buttons(0))
         cb_checkbutton.place(x=410, y=360)
 
-        espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color('bg'), bd=0,
-                                            foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
-                                            activebackground=self.set_color('bg'), highlightthickness=0,
-                                            activeforeground=self.set_color('text'), variable=especes_var,
+        espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color('fourthbg'), bd=0,
+                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            activebackground=self.set_color('fourthbg'), highlightthickness=0,
+                                            activeforeground=self.set_color('text2'), variable=especes_var,
                                             command=lambda: self.uncheck_buttons(1))
         espece_checkbutton.place(x=492, y=360)
 
-        cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=self.set_color('bg'), bd=0,
-                                            foreground=self.set_color('text'), font=('Roboto', 16, 'bold'),
-                                            activebackground=self.set_color('bg'), highlightthickness=0,
-                                            activeforeground=self.set_color('text'), variable=cheque_var,
+        cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=self.set_color('fourthbg'), bd=0,
+                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            activebackground=self.set_color('fourthbg'), highlightthickness=0,
+                                            activeforeground=self.set_color('text2'), variable=cheque_var,
                                             command=lambda: self.uncheck_buttons(2))
         cheque_checkbutton.place(x=615, y=360)
 
