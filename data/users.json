@@ -11,8 +11,13 @@
         "email": "jeandu54@gmail.com",
         "mdp": "000000",
         "money": 1500,
-        "image": [
-            "C:/Users/33662/OneDrive/Bureau/c0164d587fdac02d3cca1d6c8a37fbc7.png"
-        ]
+        "image": "ressource\\img\\profile-base.png"
+    },
+    "Admin": {
+        "id": "Admin",
+        "email": "jeandu54@gmail.com",
+        "mdp": "",
+        "money": 10600,
+        "image": "ressource\\img\\profile-base.png"
     }
 }

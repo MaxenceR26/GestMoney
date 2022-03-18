@@ -1,1 +1,11 @@
-{}
+{
+    "Admin": [
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        }
+    ]
+}

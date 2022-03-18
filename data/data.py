@@ -79,6 +79,9 @@ def change_money(user_id, amount: int):
 def add_transaction(user_id, transaction):
     data = get_transactions()
 
+    if data.get(user_id) == None:
+        data[user_id] = []
+
     data[user_id].append(transaction)
 
     change_money(user_id, transaction['amount'])
@@ -91,8 +94,8 @@ def get_transactions(user_id=None):
     with open(r'..\..\data\transactions.json', 'r') as f:
         data = json.load(f)
 
-    if data.get(user_id) is None:
-        data[user_id] = []
+        if data.get(user_id) is None and user_id is not None:
+            data[user_id] = []
 
     return data[user_id] if user_id else data
 

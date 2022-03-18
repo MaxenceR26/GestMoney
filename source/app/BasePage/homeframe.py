@@ -86,12 +86,15 @@ class HomeFrame(tk.Frame):
 
         # Création bande entre chaque ligne et sur les côtés
 
-        for i in range(min(len(transacs), 13)):
+        for i in range(min(len(transacs), 12)):
             line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
             line.place(x=292, y=i*40+94)
 
         top = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
         top.place(x=292, y=74)
+
+        bottom = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+        bottom.place(x=292, y=574)
 
         left = tk.Canvas(self, width=2, height=500, bg=self.set_color('darkbg'), highlightthickness=0)
         left.place(x=292, y=74)
