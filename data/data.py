@@ -18,8 +18,10 @@ def add_user_in_activity_recent(user):
 def get_recent_user(number):
     with open(r'..\..\data\activity.json', 'r+') as file:
         data = json.load(file)
-
-    return data['activity_recent'][number]
+    try:
+        return data['activity_recent'][number]
+    except IndexError as e:
+        return "Null"
 
 
 def get_all_users():

@@ -56,23 +56,23 @@ class DebitFrame(tk.Frame):
         self.check_vars = [cb_var, especes_var, cheque_var]
 
         cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('fourthbg'), variable=cb_var,
-                                        foreground=self.set_color('text2'), font=('Roboto', 16),
+                                        foreground=self.set_color('text'), font=('Roboto', 16),
                                         highlightthickness=0, bd=0, activebackground=self.set_color('fourthbg'),
-                                        activeforeground=self.set_color('text2'),
+                                        activeforeground=self.set_color('text'),
                                         command=lambda: self.uncheck_buttons(0))
         cb_checkbutton.place(x=410, y=360)
 
         espece_checkbutton = tk.Checkbutton(self, text='Espèce', background=self.set_color('fourthbg'), bd=0,
-                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            foreground=self.set_color('text'), font=('Roboto', 16),
                                             activebackground=self.set_color('fourthbg'), highlightthickness=0,
-                                            activeforeground=self.set_color('text2'), variable=especes_var,
+                                            activeforeground=self.set_color('text'), variable=especes_var,
                                             command=lambda: self.uncheck_buttons(1))
         espece_checkbutton.place(x=492, y=360)
 
         cheque_checkbutton = tk.Checkbutton(self, text='Chèque', background=self.set_color('fourthbg'), bd=0,
-                                            foreground=self.set_color('text2'), font=('Roboto', 16),
+                                            foreground=self.set_color('text'), font=('Roboto', 16),
                                             activebackground=self.set_color('fourthbg'), highlightthickness=0,
-                                            activeforeground=self.set_color('text2'), variable=cheque_var,
+                                            activeforeground=self.set_color('text'), variable=cheque_var,
                                             command=lambda: self.uncheck_buttons(2))
         cheque_checkbutton.place(x=615, y=360)
 
