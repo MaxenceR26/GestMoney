@@ -9,12 +9,16 @@ from source.app.Sys import set_color, select_image
 def create_buttons(frame, valid_function):
     valid_button = tk.Button(frame, text="Valider", background=frame.set_color('bg'), cursor='hand2',
                              foreground=frame.set_color('green'), font=('Roboto', 18), relief="groove",
-                             activebackground=frame.set_color('bg'), activeforeground=frame.set_color('text'),
-                             command=valid_function)
+                             activebackground=frame.set_color('bg'), activeforeground=frame.set_color('green'),
+                             command=valid_function, bd=0)
     valid_button.place(x=150, y=510, width=256, height=48)
 
-    annuler_button = tk.Button(frame, command=lambda: frame.window.switch_frame('HomePage'),
-                               font=('Roboto', 18, 'bold'), foreground=frame.set_color('error'),
+    annuler_button = tk.Button(frame, command=lambda: [
+        frame.window.switch_frame('HomePage'),
+        frame.window.main_frame.change_color_button(frame.window.main_frame.accueil_button,
+                                                    frame.window.main_frame.debit_button,
+                                                    frame.window.main_frame.credit_button)],
+                               bd=0, font=('Roboto', 18, 'bold'), foreground=frame.set_color('error'),
                                activeforeground=frame.set_color('error'), activebackground=frame.set_color('bg'),
                                background=frame.set_color('bg'), relief='groove', cursor='hand2', text='Annuler')
     annuler_button.place(x=600, y=510, width=256, height=48)
@@ -50,7 +54,6 @@ class BaseFrame(tk.Frame):
     def __init__(self, window):
         self.window = window
         super().__init__(window, bg=self.set_color('fourthbg'))
-
 
         # Affichage de la titlebar
         self.title_bar()

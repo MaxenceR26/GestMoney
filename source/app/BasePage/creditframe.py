@@ -14,8 +14,9 @@ class CreditFrame(tk.Frame):
 
         self.error_canvas = tk.Canvas()
 
-        self.canvas = tk.Canvas(self, height=640, width=1023, background=self.set_color('fourthbg'), highlightthickness=0)
-        self.canvas.create_text(frame_width/2, 50, text="Créditer le compte", font=('Roboto', 30),
+        self.canvas = tk.Canvas(self, height=640, width=1023, background=self.set_color('fourthbg'),
+                                highlightthickness=0)
+        self.canvas.create_text(frame_width / 2, 50, text="Créditer le compte", font=('Roboto', 30),
                                 fill=self.set_color('text2'))
 
         create_copyright(self, self.canvas)
@@ -42,7 +43,7 @@ class CreditFrame(tk.Frame):
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
-        self.date.place(x=350, y=240+110, width=330, height=46)
+        self.date.place(x=350, y=240 + 110, width=330, height=46)
 
         cheque_var = tk.IntVar()
         virement_var = tk.IntVar()
@@ -73,7 +74,6 @@ class CreditFrame(tk.Frame):
         self.check_buttons = [vir_checkbutton, espece_checkbutton, cheque_checkbutton]
 
         create_buttons(self, self.valid_credit)
-
 
     def valid_credit(self):
         origin = self.origin.get()
