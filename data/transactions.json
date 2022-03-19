@@ -13,6 +13,14 @@
             "amount": 100,
             "date": "12/12/12",
             "method": "Virement"
+        },
+        {
+            "type": "debit",
+            "market": "Auchan",
+            "buy_type": "Carottes",
+            "amount": -15841,
+            "date": "19/03/22",
+            "method": "Carte Bancaire"
         }
     ],
     "Jean": [

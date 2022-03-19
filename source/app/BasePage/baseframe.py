@@ -76,7 +76,7 @@ class BaseFrame(tk.Frame):
                                    bg=self.set_color("buttonactive"),
                                    command=lambda: [self.window.switch_frame('HomePage'),
                                                     self.change_color_button(self.accueil_button, self.debit_button,
-                                                                             self.credit_button)])
+                                                                             self.credit_button, self.debit_regulier)])
         self.accueil_button.place(x=1048, y=220, width=201, height=33)
 
         self.credit_button = tk.Button(self, text="Créditer l'argent", font=('Roboto', 14), fg=self.set_color('text2'), bd=0,
@@ -84,7 +84,7 @@ class BaseFrame(tk.Frame):
                                   activebackground=self.set_color("onactivebutton"), cursor='hand2',
                                   command=lambda: [self.window.switch_frame('CreditPage'),
                                                    self.change_color_button(self.credit_button, self.debit_button,
-                                                                            self.accueil_button)])
+                                                                            self.accueil_button, self.debit_regulier)])
         self.credit_button.place(x=1048, y=270, width=201, height=33)
 
         self.debit_button = tk.Button(self, text="Débiter de l'argent", font=('Roboto', 14), fg=self.set_color('text2'),
@@ -92,8 +92,17 @@ class BaseFrame(tk.Frame):
                                  bd=0, cursor='hand2', activeforeground=self.set_color('text2'),
                                  command=lambda: [self.window.switch_frame('DebitFrame'),
                                                   self.change_color_button(self.debit_button, self.credit_button,
-                                                                           self.accueil_button)])
+                                                                           self.accueil_button, self.debit_regulier)])
         self.debit_button.place(x=1048, y=320, width=201, height=33)
+
+        self.debit_regulier = tk.Button(self, text="Dépense régulier", font=('Roboto', 14), fg=self.set_color('text2'),
+                                      bg=self.set_color("buttonactive"),
+                                      activebackground=self.set_color("onactivebutton"),
+                                      bd=0, cursor='hand2', activeforeground=self.set_color('text2'),
+                                      command=lambda: [self.window.switch_frame('ReguFrame'),
+                                                       self.change_color_button(self.debit_regulier, self.debit_button, self.credit_button,
+                                                                                self.accueil_button)])
+        self.debit_regulier.place(x=1048, y=370, width=201, height=33)
 
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg=self.set_color('text2'),
                                 bg=self.set_color("buttonactive"), bd=0, activeforeground=self.set_color('text2'),
@@ -134,8 +143,9 @@ class BaseFrame(tk.Frame):
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
 
-    def change_color_button(self, button, uncolor_button_one=None, uncolor_button_two=None):
+    def change_color_button(self, button, uncolor_button_one=None, uncolor_button_two=None, uncolor_button_three=None):
         button.config(bg=self.set_color('fourthbg'))
-        if uncolor_button_one and uncolor_button_two:
+        if uncolor_button_one and uncolor_button_two and uncolor_button_three:
             uncolor_button_one.config(bg=self.set_color('bg'))
             uncolor_button_two.config(bg=self.set_color('bg'))
+            uncolor_button_three.config(bg=self.set_color('bg'))

@@ -1,4 +1,6 @@
 import tkinter as tk
+
+from source.app.BasePage.reguframe import ReguFrame
 from source.app.OnConnexion.connexion import ConnectionFrame
 from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
@@ -84,6 +86,11 @@ class Main(tk.Tk):
         elif frame_name == 'DebitFrame':
             self.active_frame.destroy()
             self.active_frame = DebitFrame(self)
+            self.active_frame.place(x=0, y=80)
+
+        elif frame_name == 'ReguFrame':
+            self.active_frame.destroy()
+            self.active_frame = ReguFrame(self)
             self.active_frame.place(x=0, y=80)
 
     def widget_title_bar(self):
