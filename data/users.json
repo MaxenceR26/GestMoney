@@ -10,14 +10,14 @@
         "id": "Jean",
         "email": "jeandu54@gmail.com",
         "mdp": "000000",
-        "money": 1500,
+        "money": 1490,
         "image": "ressource\\img\\profile-base.png"
     },
     "Admin": {
         "id": "Admin",
         "email": "jeandu54@gmail.com",
         "mdp": "",
-        "money": 10600,
+        "money": 10700,
         "image": "ressource\\img\\profile-base.png"
     }
 }

@@ -11,7 +11,7 @@ def create_buttons(frame, valid_function):
                              foreground=frame.set_color('green'), font=('Roboto', 18), relief="groove",
                              activebackground=frame.set_color('bg'), activeforeground=frame.set_color('green'),
                              command=valid_function, bd=0)
-    valid_button.place(x=150, y=510, width=256, height=48)
+    valid_button.place(x=150, y=530, width=256, height=48)
 
     annuler_button = tk.Button(frame, command=lambda: [
         frame.window.switch_frame('HomePage'),
@@ -21,7 +21,7 @@ def create_buttons(frame, valid_function):
                                bd=0, font=('Roboto', 18, 'bold'), foreground=frame.set_color('error'),
                                activeforeground=frame.set_color('error'), activebackground=frame.set_color('bg'),
                                background=frame.set_color('bg'), relief='groove', cursor='hand2', text='Annuler')
-    annuler_button.place(x=600, y=510, width=256, height=48)
+    annuler_button.place(x=600, y=530, width=256, height=48)
 
 
 def show_error(frame, text):

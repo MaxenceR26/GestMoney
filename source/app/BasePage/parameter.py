@@ -13,7 +13,7 @@ class ParametreWindow(tk.Tk):
         tk.Tk.__init__(self)
 
         self.window = window
-        self.geometry("348x430")
+        self.geometry("348x440")
         self.config(bg=self.set_color('darkbg'))
         self.wm_overrideredirect(True)
         self.iconbitmap(select_image('parametre.ico'))
@@ -57,7 +57,7 @@ class ParametreWindow(tk.Tk):
             image_show = tk.Label(self, text=r"/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
                                   background=self.set_color('darkbg'),
                                   foreground="red", font=('Roboto', 8, 'bold'))
-            image_show.place(x=25, y=138)
+            image_show.place(x=25, y=148)
 
             with open(r'..\..\data\users.json', 'r+') as file:
                 data = json.load(file)
@@ -77,44 +77,44 @@ class ParametreWindow(tk.Tk):
                                 activeforeground=self.set_color('text'), cursor='hand2', command=self.select_files)
         open_button.place(x=self.winfo_width()/2 - 49, y=70, width=98)
 
-        global_canvas.create_text(self.winfo_width() / 2, 110, text="Identifiant",
+        global_canvas.create_text(self.winfo_width() / 2, 120, text="Identifiant",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
         self.id_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
                                  bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.id_entry.insert(0, self.window.user_id)
         self.id_entry.configure(justify='center')
-        self.id_entry.place(x=self.winfo_width()/2 - 102, y=125, width=204, height=25)
+        self.id_entry.place(x=self.winfo_width()/2 - 102, y=135, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 170, text="Email",
+        global_canvas.create_text(self.winfo_width() / 2, 180, text="Email",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
         self.email_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
                                     bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.email_entry.insert(0, self.window.user_email)
         self.email_entry.configure(justify='center')
-        self.email_entry.place(x=self.winfo_width()/2-102, y=185, width=204, height=25)
+        self.email_entry.place(x=self.winfo_width()/2-102, y=195, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 230, text="Mot de passe",
+        global_canvas.create_text(self.winfo_width() / 2, 240, text="Mot de passe",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
         self.mdp_entry = tk.Entry(global_canvas, background=self.set_color('bg'), bd=0,
                                   font=('Roboto', 12), fg='#FFFFFF', show='*')
         self.mdp_entry.configure(justify='center')
-        self.mdp_entry.place(x=self.winfo_width()/2-102, y=245, width=204, height=25)
+        self.mdp_entry.place(x=self.winfo_width()/2-102, y=255, width=204, height=25)
 
         self.change_password = tk.Button(global_canvas, text="Changer le mot de passe",
                                          bg=self.set_color('darkbg'), fg=self.set_color('text'),
                                          activebackground=self.set_color('darkbg'),
                                          activeforeground=self.set_color('text'),
                                          font=('Roboto', 10, 'bold'), bd=0, cursor='hand2')
-        self.change_password.place(x=self.winfo_width()/2 - 78.5, y=275)
+        self.change_password.place(x=self.winfo_width()/2 - 78.5, y=285)
 
         valid_changes = tk.Button(global_canvas, text="Valider les changements", background=self.set_color('bg'),
                                   activebackground=self.set_color('bg'), bd=0,
                                   activeforeground=self.set_color('text2'), foreground=self.set_color('text2'),
                                   cursor='hand2', font=('Roboto', 11), command=self.valid_changes)
-        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=310, width=185, height=40)
+        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=320, width=185, height=40)
 
         # Copyright
         global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
@@ -151,7 +151,7 @@ class ParametreWindow(tk.Tk):
         self.error_canvas.create_text(self.winfo_width() / 2, 0, text=text, font=('Roboto', 9),
                                       fill=self.set_color('error'), anchor='n')
 
-        self.error_canvas.place(x=0, y=145)
+        self.error_canvas.place(x=0, y=140)
 
     def valid_changes(self):
 
