@@ -76,9 +76,9 @@ class BaseFrame(tk.Frame):
                                                          self.change_color_button(self.accueil_button)])
         self.accueil_button.place(x=1048, y=220, width=201, height=33)
 
-        self.credit_button = tk.Button(self, text="Créditer de l'argent", font=('Roboto', 14), fg=self.set_color('text2'), bd=0,
+        self.credit_button = tk.Button(self, text="Créditer de l'argent", font=('Roboto', 14), cursor='hand2', bd=0,
                                        activeforeground=self.set_color('text2'), bg=self.set_color("buttonactive"),
-                                       activebackground=self.set_color("onactivebutton"), cursor='hand2',
+                                       activebackground=self.set_color("onactivebutton"), fg=self.set_color('text2'),
                                        command=lambda: [self.window.switch_frame('CreditPage'),
                                                         self.change_color_button(self.credit_button)])
         self.credit_button.place(x=1048, y=270, width=201, height=33)
