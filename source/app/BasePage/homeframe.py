@@ -1,3 +1,4 @@
+from datetime import datetime
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -67,7 +68,8 @@ class HomeFrame(tk.Frame):
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        transacs = sorted(get_transactions(self.window.user_id), key=lambda d: d['date'])[::-1]
+        transacs = get_transactions(self.window.user_id)
+        transacs = sorted(transacs, key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
 
         for index in range(len(transacs)):
 
