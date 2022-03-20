@@ -6,12 +6,12 @@ from source.app.BasePage.parameter import ParametreWindow
 from source.app.Sys import set_color, select_image
 
 
-def create_buttons(frame, valid_function):
+def create_buttons(frame, valid_function, x_1=150, x_2=600, width=256):
     valid_button = tk.Button(frame, text="Valider", background=frame.set_color('bg'), cursor='hand2',
                              foreground=frame.set_color('green'), font=('Roboto', 18), relief="groove",
                              activebackground=frame.set_color('bg'), activeforeground=frame.set_color('green'),
                              command=valid_function, bd=0)
-    valid_button.place(x=150, y=530, width=256, height=48)
+    valid_button.place(x=x_1, y=530, width=width, height=48)
 
     annuler_button = tk.Button(frame, command=lambda: [
         frame.window.switch_frame('HomePage'),
@@ -19,17 +19,19 @@ def create_buttons(frame, valid_function):
                                bd=0, font=('Roboto', 18, 'bold'), foreground=frame.set_color('error'),
                                activeforeground=frame.set_color('error'), activebackground=frame.set_color('bg'),
                                background=frame.set_color('bg'), relief='groove', cursor='hand2', text='Annuler')
-    annuler_button.place(x=600, y=530, width=256, height=48)
+    annuler_button.place(x=x_2, y=530, width=width, height=48)
 
 
-def show_error(frame, text):
+def show_error(frame, text, x=None):
+    x = frame.winfo_width() / 2 if x is None else x
+
     frame.error_canvas.destroy()
-    frame.error_canvas = tk.Canvas(frame, height=50, width=frame.window.winfo_width(),
+    frame.error_canvas = tk.Canvas(frame, height=26, width=frame.window.winfo_width(),
                                    background=frame.set_color('fourthbg'), highlightthickness=0)
-    frame.error_canvas.create_text(frame.winfo_width() / 2, 25, text=text,
-                                   font=('Roboto', 14), fill=frame.set_color('error'))
+    frame.error_canvas.create_text(x, 0, text=text,
+                                   font=('Roboto', 14), fill=frame.set_color('error'), anchor='n')
 
-    frame.error_canvas.place(x=0, y=80)
+    frame.error_canvas.place(x=0, y=100)
 
 
 def create_copyright(frame, canvas):
