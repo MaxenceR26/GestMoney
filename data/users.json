@@ -19,5 +19,19 @@
         "mdp": "",
         "money": 10615,
         "image": "ressource\\img\\profile-base.png"
+    },
+    "test": {
+        "id": "test",
+        "email": "tes@g.c",
+        "mdp": "000000",
+        "money": 121,
+        "image": "ressource\\img\\profile-base.png"
+    },
+    "Olivier": {
+        "id": "Olivier",
+        "email": "o.remy12@yahoo.fr",
+        "mdp": "000000",
+        "money": 4400,
+        "image": "ressource\\img\\profile-base.png"
     }
 }

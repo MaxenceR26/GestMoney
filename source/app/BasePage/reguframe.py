@@ -15,19 +15,22 @@ class ReguFrame(tk.Frame):
 
         self.canvas = tk.Canvas(self, height=640, width=frame_width, background=self.set_color('fourthbg'),
                                 highlightthickness=0)
-        self.canvas.create_text(215, 50, text="""
-    Créer une
+
+        self.canvas.create_line(550, 1000, 550, -10, fill='white')
+
+        self.canvas.create_text(265, 50, text="""
+Créer une
 dépense régulière
 """, font=('Roboto', 30),
-                                fill=self.set_color('text2'))
+                                fill=self.set_color('text2'), justify="center")
 
-        create_copyright(self, self.canvas)
+
 
         self.create_inputs()
         self.canvas.pack()
 
     def create_inputs(self):
-        x_pos = 50
+        x_pos = 100
         entry_width = 330
         entry_height = 46
 
@@ -50,7 +53,7 @@ dépense régulière
                              bd=0, insertbackground=self.set_color('entrytext'))
         self.date.place(x=x_pos, y=275 + 110, width=entry_width, height=entry_height)
 
-        create_buttons(self, self.valid_debit, 30, 240, 160)
+        create_buttons(self, self.valid_debit, 50, 340, 160)
 
     def valid_debit(self):
         origin = self.origin.get()
