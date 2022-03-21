@@ -36,7 +36,7 @@ def show_error(frame, text, x=None):
 
 def create_copyright(frame, canvas):
     # Copyright
-    canvas.create_text(canvas.winfo_reqwidth() / 2, canvas.winfo_reqheight() - 20,
+    canvas.create_text(canvas.winfo_reqwidth() / 2, canvas.winfo_reqheight() - 12,
                        text="© 2022 GestMoney", fill=frame.set_color('text2'), font=('Roboto', 10))
 
 

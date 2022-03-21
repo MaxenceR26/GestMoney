@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from data.data import get_transactions
+from source.app.BasePage.baseframe import create_copyright
 from source.app.Sys import set_color
 
 
@@ -104,8 +105,7 @@ class HomeFrame(tk.Frame):
         right = tk.Canvas(self, width=2, height=500, bg=self.set_color('darkbg'), highlightthickness=0)
         right.place(x=982, y=74)
 
-        self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, self.winfo_reqheight() - 15,
-                                        text="© 2022 GestMoney", fill=self.set_color('text2'), font=('Roboto', 10))
+        create_copyright(self, self.history_canvas)
 
         self.left_widgets()
         self.history_canvas.place(x=257, y=0)
