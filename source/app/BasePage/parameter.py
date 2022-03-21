@@ -3,6 +3,8 @@ import tkinter as tk
 import cv2
 
 from data.data import select_image_user, get_user, set_user, get_all_users, update_user_id
+from source.app.BasePage.changepassword import ChangePassFrame
+
 from source.app.Sys import set_color, select_image, set_appwindow, center
 
 from tkinter import filedialog as fd, messagebox
@@ -20,6 +22,8 @@ class ParametreWindow(tk.Tk):
         self.title_bar()
         self.title("GestMoney | Paramètre")
 
+
+
         self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.window.user_id)).subsample(9)
 
         self.widgets()
@@ -29,6 +33,8 @@ class ParametreWindow(tk.Tk):
 
         # Affichage erreurs
         self.error_canvas = tk.Canvas(self)
+
+
 
         center(self)
         # Permet de voir l'icon dans notre barre des taches
@@ -107,7 +113,7 @@ class ParametreWindow(tk.Tk):
                                          bg=self.set_color('darkbg'), fg=self.set_color('text'),
                                          activebackground=self.set_color('darkbg'),
                                          activeforeground=self.set_color('text'),
-                                         font=('Roboto', 10, 'bold'), bd=0, cursor='hand2')
+                                         font=('Roboto', 10, 'bold'), bd=0, cursor='hand2', command=lambda: self.switch_frame('ChangePassFrame'))
         self.change_password.place(x=self.winfo_width()/2 - 78.5, y=285)
 
         valid_changes = tk.Button(global_canvas, text="Valider les changements", background=self.set_color('bg'),
@@ -209,3 +215,11 @@ class ParametreWindow(tk.Tk):
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
+
+    def switch_frame(self, frame_name):
+
+        if frame_name == 'ChangePassFrame':
+
+            self.geometry("348x440")
+            self.active_frame = ChangePassFrame(self)
+            self.active_frame.place(x=0, y=80)
