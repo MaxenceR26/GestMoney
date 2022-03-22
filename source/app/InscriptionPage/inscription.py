@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from data.data import add_user_in_activity_recent, get_all_users, dump_users
+from data.data import add_user_in_activity_recent, get_all_users, dump_users, create_user
 from source.app.Sys import set_color, select_image
 
 
@@ -148,6 +148,7 @@ class InscriptionFrame(tk.Frame):
             user['money'] = int(user['money'])
             users[identifiant] = user
             dump_users(users)
+            create_user(user['id'])
 
             self.window.user_email = user['email']
             add_user_in_activity_recent(user['id'])

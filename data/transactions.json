@@ -1,62 +1,12 @@
 {
-    "Admin": [
+    "Alban": [
         {
             "type": "credit",
             "origin": "Salaire",
             "amount": 2000,
-            "date": "02/03/22",
-            "method": "Virement"
-        },
-        {
-            "type": "credit",
-            "origin": "sa",
-            "amount": 100,
-            "date": "12/12/12",
-            "method": "Virement"
-        },
-        {
-            "type": "debit",
-            "market": "Auchan",
-            "buy_type": "Carottes",
-            "amount": -15841,
-            "date": "19/03/22",
-            "method": "Carte Bancaire"
-        }
-    ],
-    "Jean": [
-        {
-            "type": "debit",
-            "market": "Auchan",
-            "buy_type": "cc",
-            "amount": -10,
-            "date": "22/02/22",
-            "method": "Carte Bancaire"
-        }
-    ],
-    "test": [
-        {
-            "type": "credit",
-            "origin": "SA",
-            "amount": 10,
-            "date": "10/10/22",
+            "date": "01/03/22",
             "method": "Virement"
         }
     ],
-    "Olivier": [
-        {
-            "type": "credit",
-            "origin": "Salaire",
-            "amount": 2000,
-            "date": "19/03/22",
-            "method": "Virement"
-        },
-        {
-            "type": "debit",
-            "market": "Auchan",
-            "buy_type": "Carrotes",
-            "amount": -600,
-            "date": "19/03/22",
-            "method": "Esp\u00e8ces"
-        }
-    ]
+    "Admin": []
 }

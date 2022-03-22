@@ -1,18 +1,4 @@
 {
-    "Maxence": {
-        "id": "Maxence",
-        "email": "maxence.remy26@gmail.com",
-        "mdp": "999999",
-        "money": 0,
-        "image": "ressource\\img\\profile-base.png"
-    },
-    "Jean": {
-        "id": "Jean",
-        "email": "jeandu54@gmail.com",
-        "mdp": "000000",
-        "money": 1500,
-        "image": "ressource\\img\\profile-base.png"
-    },
     "Admin": {
         "id": "Admin",
         "email": "jeandu54@gmail.com",
@@ -20,18 +6,11 @@
         "money": 10615,
         "image": "ressource\\img\\profile-base.png"
     },
-    "test": {
-        "id": "test",
-        "email": "tes@g.c",
+    "Alban": {
+        "id": "Alban",
+        "email": "@.",
         "mdp": "000000",
-        "money": 121,
-        "image": "ressource\\img\\profile-base.png"
-    },
-    "Olivier": {
-        "id": "Olivier",
-        "email": "o.remy12@yahoo.fr",
-        "mdp": "000000",
-        "money": 4400,
+        "money": 2300,
         "image": "ressource\\img\\profile-base.png"
     }
 }

@@ -46,6 +46,19 @@ def set_user(user_id, old_id, new_user):
     dump_users(users)
 
 
+def create_user(user_id):
+    files = [r'..\..\data\transactions.json', r'..\..\data\regu_transacs.json']
+
+    for file in files:
+        with open(file, 'r+') as f:
+            data = json.load(f)
+
+        data[user_id] = []
+
+        with open(file, 'w') as f:
+            json.dump(data, f, indent=4)
+
+
 def update_user_id(old_id, new_id):
     with open(r'..\..\data\activity.json', 'r+') as file:
         data = json.load(file)
@@ -79,9 +92,6 @@ def change_money(user_id, amount: int):
 def add_transaction(user_id, transaction):
     data = get_transactions()
 
-    if data.get(user_id) == None:
-        data[user_id] = []
-
     data[user_id].append(transaction)
 
     change_money(user_id, transaction['amount'])
@@ -94,18 +104,7 @@ def get_transactions(user_id=None):
     with open(r'..\..\data\transactions.json', 'r') as f:
         data = json.load(f)
 
-        if data.get(user_id) is None and user_id is not None:
-            data[user_id] = []
-
     return data[user_id] if user_id else data
-
-
-def add_debit_trace(user):
-    with open(r'..\..\data\transactions.json', 'r') as f:
-        data = json.load(f)
-
-    return data[user][0]['amount'], "€", "|", data[user][0]['market'], data[user][0]['buy_type'], data[user][0][
-        'method'], data[user][0]['date']
 
 
 def get_debit_trace(user):
@@ -120,3 +119,17 @@ def get_number_of_purchase(user):
         data = json.load(f)
 
     return len(data[user])
+
+
+def get_regu_debit(user_id=None):
+    with open(r'..\..\data\regu_transacs.json') as f:
+        return json.load(f)[user_id] if user_id else json.load(f)
+
+
+def add_regu_transac(user_id, transaction):
+    data = get_regu_debit()
+
+    data[user_id].append(transaction)
+
+    with open(r'..\..\data\regu_transacs.json', 'w') as f:
+        json.dump(data, f, indent=4)

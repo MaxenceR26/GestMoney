@@ -146,18 +146,18 @@ class ReguFrame(tk.Frame):
         right.place(x=x_pos+width, y=y_pos)
 
     def valid_debit(self):
-        origin = self.origin.get()
+        buy_type = self.origin.get()
         amount = self.amount.get()
         date = self.date.get()
 
-        transaction = {
-            'type': 'credit',
-            'origin': origin,
+        regu_debit = {
+            'type': 'debit',
+            'buy_type': buy_type,
             'amount': amount,
             'date': date
         }
 
-        if '' in transaction.values():
+        if '' in regu_debit.values():
             self.show_error('Veuillez remplir toutes les cases')
 
         elif not amount.isdigit():
@@ -167,7 +167,8 @@ class ReguFrame(tk.Frame):
             self.show_error('Veuillez entrer un jour valide')
 
         else:
-            transaction['amount'] = int(transaction['amount'])
+            regu_debit['amount'] = int(regu_debit['amount'])
+            regu_debit['date'] = int(regu_debit['date'])
 
             self.window.switch_frame('BasePage')
 
