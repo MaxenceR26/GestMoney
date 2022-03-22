@@ -152,7 +152,7 @@ class InscriptionFrame(tk.Frame):
 
             self.window.user_email = user['email']
             add_user_in_activity_recent(user['id'])
-            self.window.switch_frame('ConnexionPage', False)
+            self.window.switch_frame('ConnexionPage')
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)

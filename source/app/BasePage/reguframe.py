@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from datetime import datetime
 
-from data.data import get_transactions
+from data.data import get_regu_debit, add_regu_transac
 from source.app.BasePage.baseframe import create_copyright, create_buttons, show_error
 from source.app.Sys import set_color
 
@@ -28,7 +27,7 @@ class ReguFrame(tk.Frame):
 
         self.canvas.create_line(self.frame_width / 2, 30, self.frame_width / 2, 610, fill='white')
 
-        self.canvas.create_text(self.frame_width / 4, 50, text="Créer une\ndépense régulière", font=('Roboto', 30),
+        self.canvas.create_text(self.frame_width / 4, 70, text="Créer une\ndépense régulière", font=('Roboto', 30),
                                 fill=self.set_color('text2'), justify="center")
 
         entry_width = 330
@@ -36,24 +35,24 @@ class ReguFrame(tk.Frame):
 
         x_pos = self.frame_width / 4 - entry_width / 2
 
-        self.canvas.create_text(x_pos, 145, text='Montant', font=('Roboto', 18),
+        self.canvas.create_text(x_pos, 175, text='Montant', font=('Roboto', 18),
                                 fill=self.set_color('text'), anchor='w')
-        self.canvas.create_text(x_pos, 255, text='Objet', font=('Roboto', 18),
+        self.canvas.create_text(x_pos, 285, text='Objet', font=('Roboto', 18),
                                 fill=self.set_color('text'), anchor='w')
-        self.canvas.create_text(x_pos, 365, text='Jour du prélèvement', font=('Roboto', 18),
+        self.canvas.create_text(x_pos, 395, text='Jour du prélèvement', font=('Roboto', 18),
                                 fill=self.set_color('text'), anchor='w')
 
         self.amount = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
-        self.amount.place(x=x_pos, y=165, width=entry_width, height=entry_height)
+        self.amount.place(x=x_pos, y=195, width=entry_width, height=entry_height)
 
         self.origin = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
-        self.origin.place(x=x_pos, y=275, width=entry_width, height=entry_height)
+        self.origin.place(x=x_pos, y=305, width=entry_width, height=entry_height)
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
-        self.date.place(x=x_pos, y=275 + 110, width=entry_width, height=entry_height)
+        self.date.place(x=x_pos, y=305 + 110, width=entry_width, height=entry_height)
 
         create_buttons(self, self.valid_debit, 50, 301.5, 160)
 
@@ -79,8 +78,11 @@ class ReguFrame(tk.Frame):
 
             self.title_canvas.place(x=x_pos, y=y_pos+1)
 
+        self.canvas.create_text(self.frame_width / 4 * 3, 50, text="Dépenses régulières", font=('Roboto', 30),
+                                fill=self.set_color('text2'), justify="center")
+
         x_pos = self.frame_width / 2 + 50
-        y_pos = 74
+        y_pos = 95
         width = 411
         height = 500
 
@@ -108,8 +110,7 @@ class ReguFrame(tk.Frame):
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        transacs = get_transactions(self.window.user_id)
-        transacs = sorted(transacs, key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+        transacs = get_regu_debit(self.window.user_id)[::-1]
 
         for index in range(len(transacs)):
 
@@ -121,7 +122,7 @@ class ReguFrame(tk.Frame):
 
             else:
                 tableau.insert(parent='', index='end', iid=index, text='Market',
-                               values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}", transac['date']))
+                               values=(f"{transac['amount']}€", f"{transac['buy_type']}", transac['date']))
 
         tableau.place(x=x_pos, y=y_pos+1, width=width, height=height)
 
@@ -131,7 +132,7 @@ class ReguFrame(tk.Frame):
 
         for i in range(min(len(transacs), 12)):
             line = tk.Canvas(self, width=width, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-            line.place(x=x_pos, y=i * 40 + 94)
+            line.place(x=x_pos, y=i * 40 + y_pos+20)
 
         top = tk.Canvas(self, width=width, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
         top.place(x=x_pos, y=y_pos)
@@ -167,13 +168,14 @@ class ReguFrame(tk.Frame):
             self.show_error('Veuillez entrer un jour valide')
 
         else:
-            regu_debit['amount'] = int(regu_debit['amount'])
+            regu_debit['amount'] = -int(regu_debit['amount'])
             regu_debit['date'] = int(regu_debit['date'])
+            add_regu_transac(self.window.user_id, regu_debit)
 
-            self.window.switch_frame('BasePage')
+            self.window.switch_frame('ReguFrame')
 
     def show_error(self, text):
-        show_error(self, text, 215)
+        show_error(self, text, self.frame_width/2, 130)
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)

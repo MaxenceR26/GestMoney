@@ -22,16 +22,16 @@ def create_buttons(frame, valid_function, x_1=150, x_2=600, width=256):
     annuler_button.place(x=x_2, y=530, width=width, height=48)
 
 
-def show_error(frame, text, x=None):
-    x = frame.winfo_width() / 2 if x is None else x
+def show_error(frame, text, width=None, y=95):
+    width = frame.winfo_width() if width is None else width
 
     frame.error_canvas.destroy()
-    frame.error_canvas = tk.Canvas(frame, height=26, width=frame.window.winfo_width(),
+    frame.error_canvas = tk.Canvas(frame, height=26, width=width,
                                    background=frame.set_color('fourthbg'), highlightthickness=0)
-    frame.error_canvas.create_text(x, 0, text=text,
+    frame.error_canvas.create_text(frame.error_canvas.winfo_reqwidth()/2, 0, text=text,
                                    font=('Roboto', 14), fill=frame.set_color('error'), anchor='n')
 
-    frame.error_canvas.place(x=0, y=100)
+    frame.error_canvas.place(x=0, y=y)
 
 
 def create_copyright(frame, canvas):
@@ -103,7 +103,7 @@ class BaseFrame(tk.Frame):
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg=self.set_color('text2'),
                                 bg=self.set_color("buttonactive"), bd=0, activeforeground=self.set_color('text2'),
                                 activebackground=self.set_color("onactivebutton"), cursor='hand2',
-                                command=lambda: self.window.switch_frame('ConnexionPage', True))
+                                command=lambda: self.window.switch_frame('ConnexionPage'))
         deco_button.place(x=1048, y=635, width=206, height=49)
 
         self.change_color_button(self.accueil_button)

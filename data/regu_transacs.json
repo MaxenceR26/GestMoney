@@ -1,4 +1,17 @@
 {
     "Alban": [],
-    "Admin": []
+    "Admin": [
+        {
+            "type": "debit",
+            "buy_type": "Netflix",
+            "amount": -20,
+            "date": 17
+        },
+        {
+            "type": "debit",
+            "buy_type": "Xbox game pass",
+            "amount": -10,
+            "date": 1
+        }
+    ]
 }
