@@ -2,7 +2,8 @@ import tkinter as tk
 from datetime import datetime
 
 from data.data import select_image_user, return_money
-from source.app.BasePage.parameter import ParametreWindow
+
+from source.app.Paramettre.main_parametre import ParametreWindow
 from source.app.Sys import set_color, select_image
 
 
@@ -130,7 +131,7 @@ class BaseFrame(tk.Frame):
         profile_img = tk.PhotoImage(file=select_image_user(self.window.user_id)).subsample(9)
         profile_btn = tk.Button(self, image=profile_img, background=self.set_color('darkbg'), cursor='hand2', bd=0,
                                 activebackground=self.set_color('darkbg'),
-                                command=lambda: ParametreWindow(self.window).update())
+                                command=lambda: ParametreWindow(self.window.user_id, self.window.user_email).update())
         profile_btn.photo = profile_img
         profile_btn.place(x=1110, y=10)
 

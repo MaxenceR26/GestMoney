@@ -10,11 +10,11 @@ from source.app.Sys import set_color, select_image, set_appwindow, center
 from tkinter import filedialog as fd, messagebox
 
 
-class ParametreWindow(tk.Tk):
-    def __init__(self, window):
+class ChangePassword(tk.Tk):
+    def __init__(self):
         tk.Tk.__init__(self)
 
-        self.window = window
+        self.color_theme = 'basic'
         self.geometry("348x440")
         self.config(bg=self.set_color('darkbg'))
         self.wm_overrideredirect(True)
@@ -24,12 +24,8 @@ class ParametreWindow(tk.Tk):
 
 
 
-        self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.window.user_id)).subsample(9)
-
         self.widgets()
-        self.profile = tk.Label(self, image=self.profile_img, background=self.set_color('darkbg'), bd=0)
-        self.profile.photo = self.profile_img
-        self.profile.pack(ipady=10)
+
 
         # Affichage erreurs
         self.error_canvas = tk.Canvas(self)
@@ -40,87 +36,39 @@ class ParametreWindow(tk.Tk):
         # Permet de voir l'icon dans notre barre des taches
         self.after(10, lambda: set_appwindow(self))
 
-    def select_files(self):
-        filetypes = (
-            ('Type', '*.png'),
-        )
-
-        filenames = fd.askopenfilenames(
-            title='GestMoney | Open files',
-            initialdir='/',
-            filetypes=filetypes)
-
-        img = cv2.imread(filenames[0], cv2.IMREAD_UNCHANGED)
-
-        width = img.shape[1]
-        height = img.shape[0]
-
-        if width and height == 500:
-            self.profile_img = tk.PhotoImage(master=self, file=filenames).subsample(9)
-            self.profile.photo = self.profile_img
-            self.profile.configure(image=self.profile_img)
-
-            image_show = tk.Label(self, text=r"/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
-                                  background=self.set_color('darkbg'),
-                                  foreground="red", font=('Roboto', 8, 'bold'))
-            image_show.place(x=25, y=148)
-
-            with open(r'..\..\data\users.json', 'r+') as file:
-                data = json.load(file)
-
-                data[self.window.user_id]["image"] = filenames
-
-            with open(r'..\..\data\users.json', 'w') as file:
-                json.dump(data, file, indent=4)
-        else:
-            messagebox.showerror("GestMoney | Erreur", "S'il vous plait veuillez mettre une image de taille : 500x500")
-
     def widgets(self):
-        global_canvas = tk.Canvas(self, height=self.winfo_height() - 48, width=self.winfo_width(),
+        global_canvas = tk.Canvas(self, height=self.winfo_height() - 45, width=self.winfo_width(),
                                   background=self.set_color('darkbg'), highlightthickness=0)
-        open_button = tk.Button(global_canvas, text="Modifier la photo", background=self.set_color('darkbg'),
-                                foreground=self.set_color('text'), bd=0, activebackground=self.set_color('darkbg'),
-                                activeforeground=self.set_color('text'), cursor='hand2', command=self.select_files)
-        open_button.place(x=self.winfo_width()/2 - 49, y=70, width=98)
 
-        global_canvas.create_text(self.winfo_width() / 2, 120, text="Identifiant",
+        global_canvas.create_text(self.winfo_width() / 2, 78, text="Ancien Mot de passe",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
-        self.id_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
+        self.last_mdp = tk.Entry(global_canvas, background=self.set_color('bg'),
                                  bd=0, font=('Roboto', 12), fg='#FFFFFF')
-        self.id_entry.insert(0, self.window.user_id)
-        self.id_entry.configure(justify='center')
-        self.id_entry.place(x=self.winfo_width()/2 - 102, y=135, width=204, height=25)
+        self.last_mdp.configure(justify='center')
+        self.last_mdp.place(x=self.winfo_width()/2 - 102, y=95, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 180, text="Email",
+        global_canvas.create_text(self.winfo_width() / 2, 140, text="Nouveau Mot de passe",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
-        self.email_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
+        self.new_mdp_first = tk.Entry(global_canvas, background=self.set_color('bg'),
                                     bd=0, font=('Roboto', 12), fg='#FFFFFF')
-        self.email_entry.insert(0, self.window.user_email)
-        self.email_entry.configure(justify='center')
-        self.email_entry.place(x=self.winfo_width()/2-102, y=195, width=204, height=25)
+        self.new_mdp_first.configure(justify='center')
+        self.new_mdp_first.place(x=self.winfo_width()/2-102, y=155, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 240, text="Mot de passe",
+        global_canvas.create_text(self.winfo_width() / 2, 200, text="Confirmations Mot de passe",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
-        self.mdp_entry = tk.Entry(global_canvas, background=self.set_color('bg'), bd=0,
+        self.new_mdp_second = tk.Entry(global_canvas, background=self.set_color('bg'), bd=0,
                                   font=('Roboto', 12), fg='#FFFFFF', show='*')
-        self.mdp_entry.configure(justify='center')
-        self.mdp_entry.place(x=self.winfo_width()/2-102, y=255, width=204, height=25)
-
-        self.change_password = tk.Button(global_canvas, text="Changer le mot de passe",
-                                         bg=self.set_color('darkbg'), fg=self.set_color('text'),
-                                         activebackground=self.set_color('darkbg'),
-                                         activeforeground=self.set_color('text'),
-                                         font=('Roboto', 10, 'bold'), bd=0, cursor='hand2', command=lambda: self.switch_frame('ChangePassFrame'))
-        self.change_password.place(x=self.winfo_width()/2 - 78.5, y=285)
+        self.new_mdp_second.configure(justify='center')
+        self.new_mdp_second.place(x=self.winfo_width()/2-102, y=215, width=204, height=25)
 
         valid_changes = tk.Button(global_canvas, text="Valider les changements", background=self.set_color('bg'),
                                   activebackground=self.set_color('bg'), bd=0,
                                   activeforeground=self.set_color('text2'), foreground=self.set_color('text2'),
                                   cursor='hand2', font=('Roboto', 11), command=self.valid_changes)
-        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=320, width=185, height=40)
+        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=280, width=185, height=40)
 
         # Copyright
         global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
@@ -160,7 +108,8 @@ class ParametreWindow(tk.Tk):
         self.error_canvas.place(x=0, y=140)
 
     def valid_changes(self):
-
+        self.destroy()
+        """
         old_user = get_user(self.window.user_id)
 
         new_id = self.id_entry.get()
@@ -190,9 +139,9 @@ class ParametreWindow(tk.Tk):
         else:
             set_user(new_id, old_user['id'], new_user)
             update_user_id(old_user['id'], new_id)
-            self.window.user_id = new_id
-            self.window.user_email = new_email
-            self.destroy()
+            self.user_id = new_id
+            self.user_email = new_email
+            self.destroy()"""
 
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y
@@ -214,12 +163,7 @@ class ParametreWindow(tk.Tk):
             element.bind('<ButtonRelease-1>', self.mouse_up)
 
     def set_color(self, color):
-        return set_color(self.window.color_theme, color)
+        return set_color(self.color_theme, color)
 
-    def switch_frame(self, frame_name):
-
-        if frame_name == 'ChangePassFrame':
-
-            self.geometry("348x440")
-            self.active_frame = ChangePassFrame(self)
-            self.active_frame.place(x=0, y=80)
+    def update(self):
+        self.mainloop()
