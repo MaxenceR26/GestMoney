@@ -62,19 +62,19 @@ class ReguFrame(tk.Frame):
         def title_treeview():
             self.title_canvas = tk.Canvas(self, width=width, height=20, bg=self.set_color("bg"), highlightthickness=0,
                                           bd=0)
-            self.title_canvas.create_text(width/3, 10, text="Montant",
+            self.title_canvas.create_text(width/6, 10, text="Montant",
                                           font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-            self.title_canvas.create_text(170, 8, text=" | ",
+            self.title_canvas.create_text(width/3, 8, text=" | ",
                                           font=('Roboto', 13), fill=self.set_color('text2'))
 
-            self.title_canvas.create_text(width/3*2, 10, text="Objet",
+            self.title_canvas.create_text(width/2, 10, text="Objet",
                                           font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
-            self.title_canvas.create_text(353, 8, text=" | ",
+            self.title_canvas.create_text(width/1.5, 8, text=" | ",
                                           font=('Roboto', 13), fill=self.set_color('text2'))
 
-            self.title_canvas.create_text(width/3*3, 10, text="Date",
+            self.title_canvas.create_text(width/6*5, 10, text="Date",
                                           font=('Roboto', 13, 'bold'), fill=self.set_color('text2'))
 
             self.title_canvas.place(x=x_pos, y=y_pos+1)
