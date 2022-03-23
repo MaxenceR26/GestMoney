@@ -121,13 +121,13 @@ def get_number_of_purchase(user):
     return len(data[user])
 
 
-def get_regu_debit(user_id=None):
+def get_regu_transacs(user_id=None):
     with open(r'..\..\data\regu_transacs.json') as f:
         return json.load(f)[user_id] if user_id else json.load(f)
 
 
 def add_regu_transac(user_id, transaction):
-    data = get_regu_debit()
+    data = get_regu_transacs()
 
     data[user_id].append(transaction)
 

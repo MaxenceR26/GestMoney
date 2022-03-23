@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from data.data import get_regu_debit, add_regu_transac
+from data.data import get_regu_transacs, add_regu_transac
 from source.app.BasePage.baseframe import create_copyright, create_buttons, show_error
 from source.app.Sys import set_color
 
@@ -110,7 +110,7 @@ class ReguFrame(tk.Frame):
         tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        transacs = get_regu_debit(self.window.user_id)[::-1]
+        transacs = get_regu_transacs(self.window.user_id)[::-1]
 
         for index in range(len(transacs)):
 
