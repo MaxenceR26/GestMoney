@@ -4,7 +4,7 @@ import cv2
 
 from data.data import select_image_user, get_user, set_user, get_all_users, update_user_id
 from source.app.BasePage.changepassword import ChangePassFrame
-from source.app.Paramettre.changepassword import ChangePassword
+from source.app.Parametre.changepassword import ChangePassword
 
 from source.app.Sys import set_color, select_image, set_appwindow, center
 
@@ -12,11 +12,10 @@ from tkinter import filedialog as fd, messagebox
 
 
 class ParametreWindow(tk.Tk):
-    def __init__(self, user_id, user_email):
-        tk.Tk.__init__(self, user_id, user_email)
+    def __init__(self, window):
+        tk.Tk.__init__(self, window.user_id, window.user_email)
 
-        self.user_id = user_id
-        self.user_email = user_email
+        self.window = window
 
         self.color_theme = 'basic'
         self.geometry("348x440")
@@ -28,7 +27,7 @@ class ParametreWindow(tk.Tk):
 
 
 
-        self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.user_id)).subsample(9)
+        self.profile_img = tk.PhotoImage(master=self, file=select_image_user(self.window.user_id)).subsample(9)
 
         self.widgets()
         self.profile = tk.Label(self, image=self.profile_img, background=self.set_color('darkbg'), bd=0)
@@ -92,7 +91,7 @@ class ParametreWindow(tk.Tk):
 
         self.id_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
                                  bd=0, font=('Roboto', 12), fg='#FFFFFF')
-        self.id_entry.insert(0, self.user_id)
+        self.id_entry.insert(0, self.window.user_id)
         self.id_entry.configure(justify='center')
         self.id_entry.place(x=self.winfo_width()/2 - 102, y=135, width=204, height=25)
 
@@ -101,7 +100,7 @@ class ParametreWindow(tk.Tk):
 
         self.email_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
                                     bd=0, font=('Roboto', 12), fg='#FFFFFF')
-        self.email_entry.insert(0, self.user_email)
+        self.email_entry.insert(0, self.window.user_email)
         self.email_entry.configure(justify='center')
         self.email_entry.place(x=self.winfo_width()/2-102, y=195, width=204, height=25)
 
@@ -194,8 +193,8 @@ class ParametreWindow(tk.Tk):
         else:
             set_user(new_id, old_user['id'], new_user)
             update_user_id(old_user['id'], new_id)
-            self.user_id = new_id
-            self.user_email = new_email
+            self.window.user_id = new_id
+            self.window.user_email = new_email
             self.destroy()
 
     def mouse_down(self, event):
@@ -209,7 +208,7 @@ class ParametreWindow(tk.Tk):
         deltay = event.y - self.y
         x0 = self.winfo_x() + deltax
         y0 = self.winfo_y() + deltay
-        self.geometry("+%s+%s" % (x0, y0))
+        self.geometry(f"+{x0}+{y0}")
 
     def apply_drag(self, elements):
         for element in elements:
