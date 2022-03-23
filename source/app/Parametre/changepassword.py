@@ -3,7 +3,6 @@ import tkinter as tk
 import cv2
 
 from data.data import select_image_user, get_user, set_user, get_all_users, update_user_id
-from source.app.BasePage.changepassword import ChangePassFrame
 
 from source.app.Sys import set_color, select_image, set_appwindow, center
 

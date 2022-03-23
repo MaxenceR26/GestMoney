@@ -3,7 +3,6 @@ import tkinter as tk
 import cv2
 
 from data.data import select_image_user, get_user, set_user, get_all_users, update_user_id
-from source.app.BasePage.changepassword import ChangePassFrame
 from source.app.Parametre.changepassword import ChangePassword
 
 from source.app.Sys import set_color, select_image, set_appwindow, center
@@ -63,10 +62,7 @@ class ParametreWindow(tk.Tk):
             self.profile.photo = self.profile_img
             self.profile.configure(image=self.profile_img)
 
-            image_show = tk.Label(self, text=r"/!\ Attention l'image s'actualisera \nau redémarrage de l'application !",
-                                  background=self.set_color('darkbg'),
-                                  foreground="red", font=('Roboto', 8, 'bold'))
-            image_show.place(x=25, y=148)
+            self.show_error("/!\ L'image s'actualisera au redémarrage de l'application !")
 
             with open(r'..\..\data\users.json', 'r+') as file:
                 data = json.load(file)
@@ -79,57 +75,57 @@ class ParametreWindow(tk.Tk):
             messagebox.showerror("GestMoney | Erreur", "S'il vous plait veuillez mettre une image de taille : 500x500")
 
     def widgets(self):
-        global_canvas = tk.Canvas(self, height=self.winfo_height() - 48, width=self.winfo_width(),
+        self.global_canvas = tk.Canvas(self, height=self.winfo_height() - 48, width=self.winfo_width(),
                                   background=self.set_color('darkbg'), highlightthickness=0)
-        open_button = tk.Button(global_canvas, text="Modifier la photo", background=self.set_color('darkbg'),
+        open_button = tk.Button(self.global_canvas, text="Modifier la photo", background=self.set_color('darkbg'),
                                 foreground=self.set_color('text'), bd=0, activebackground=self.set_color('darkbg'),
                                 activeforeground=self.set_color('text'), cursor='hand2', command=self.select_files)
         open_button.place(x=self.winfo_width()/2 - 49, y=70, width=98)
 
-        global_canvas.create_text(self.winfo_width() / 2, 120, text="Identifiant",
+        self.global_canvas.create_text(self.winfo_width() / 2, 120, text="Identifiant",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
-        self.id_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
+        self.id_entry = tk.Entry(self.global_canvas, background=self.set_color('bg'),
                                  bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.id_entry.insert(0, self.window.user_id)
         self.id_entry.configure(justify='center')
         self.id_entry.place(x=self.winfo_width()/2 - 102, y=135, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 180, text="Email",
+        self.global_canvas.create_text(self.winfo_width() / 2, 180, text="Email",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
-        self.email_entry = tk.Entry(global_canvas, background=self.set_color('bg'),
+        self.email_entry = tk.Entry(self.global_canvas, background=self.set_color('bg'),
                                     bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.email_entry.insert(0, self.window.user_email)
         self.email_entry.configure(justify='center')
         self.email_entry.place(x=self.winfo_width()/2-102, y=195, width=204, height=25)
 
-        global_canvas.create_text(self.winfo_width() / 2, 240, text="Mot de passe",
+        self.global_canvas.create_text(self.winfo_width() / 2, 240, text="Mot de passe",
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
-        self.mdp_entry = tk.Entry(global_canvas, background=self.set_color('bg'), bd=0,
+        self.mdp_entry = tk.Entry(self.global_canvas, background=self.set_color('bg'), bd=0,
                                   font=('Roboto', 12), fg='#FFFFFF', show='*')
         self.mdp_entry.configure(justify='center')
         self.mdp_entry.place(x=self.winfo_width()/2-102, y=255, width=204, height=25)
 
-        self.change_password = tk.Button(global_canvas, text="Changer le mot de passe",
+        self.change_password = tk.Button(self.global_canvas, text="Changer le mot de passe",
                                          bg=self.set_color('darkbg'), fg=self.set_color('text'),
                                          activebackground=self.set_color('darkbg'),
                                          activeforeground=self.set_color('text'),
                                          font=('Roboto', 10, 'bold'), bd=0, cursor='hand2', command=lambda: [self.destroy(), ChangePassword()])
         self.change_password.place(x=self.winfo_width()/2 - 78.5, y=285)
 
-        valid_changes = tk.Button(global_canvas, text="Valider les changements", background=self.set_color('bg'),
+        valid_changes = tk.Button(self.global_canvas, text="Valider les changements", background=self.set_color('bg'),
                                   activebackground=self.set_color('bg'), bd=0,
                                   activeforeground=self.set_color('text2'), foreground=self.set_color('text2'),
                                   cursor='hand2', font=('Roboto', 11), command=self.valid_changes)
         valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=320, width=185, height=40)
 
         # Copyright
-        global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
+        self.global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",
                                   fill=self.set_color('text2'), font=('Roboto', 10))
 
-        global_canvas.place(x=0, y=48)
+        self.global_canvas.place(x=0, y=48)
 
     def title_bar(self):
         title_bar = tk.Canvas(self, width=500, height=48, bg=self.set_color('bg'), highlightthickness=0)
