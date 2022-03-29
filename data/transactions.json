@@ -8,5 +8,21 @@
             "method": "Virement"
         }
     ],
-    "Admin": []
+    "Admin": [
+        {
+            "type": "debit",
+            "market": "Auchan",
+            "buy_type": "Pommes",
+            "amount": -5,
+            "date": "20/03/22",
+            "method": "Carte Bancaire"
+        },
+        {
+            "type": "regu_debit",
+            "buy_type": "Netflix",
+            "amount": -10,
+            "date": "29/03/22",
+            "method": "Paiement r\u00e9gulier"
+        }
+    ]
 }

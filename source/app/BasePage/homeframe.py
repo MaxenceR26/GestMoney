@@ -80,10 +80,14 @@ class HomeFrame(tk.Frame):
                 tableau.insert(parent='', index='end', iid=index, text='Market',
                                values=(f"{transac['amount']}€", transac['origin'], transac['method'], transac['date']))
 
-            else:
+            elif transac['type'] == 'debit':
                 tableau.insert(parent='', index='end', iid=index, text='Market',
                                values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
                                        transac['method'], transac['date']))
+
+            elif transac['type'] == 'regu_debit':
+                tableau.insert(parent='', index='end', iid=index, text='Market',
+                               values=(f"{transac['amount']}€", transac['buy_type'], transac['method'], transac['date']))
 
         tableau.place(x=35, y=75, width=690, height=500)
 

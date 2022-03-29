@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import datetime
 
 from data.data import get_regu_transacs, add_regu_transac
 from source.app.BasePage.baseframe import create_copyright, create_buttons, show_error
@@ -152,10 +153,11 @@ class ReguFrame(tk.Frame):
         date = self.date.get()
 
         regu_debit = {
-            'type': 'debit',
+            'type': 'regu_debit',
             'buy_type': buy_type,
             'amount': amount,
-            'date': date
+            'date': date,
+            'creation_date': datetime.datetime.strftime(datetime.date.today(), '%d/%m/%y')
         }
 
         if '' in regu_debit.values():

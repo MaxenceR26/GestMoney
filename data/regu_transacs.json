@@ -2,16 +2,11 @@
     "Alban": [],
     "Admin": [
         {
-            "type": "debit",
+            "type": "regu_debit",
             "buy_type": "Netflix",
-            "amount": -20,
-            "date": 17
-        },
-        {
-            "type": "debit",
-            "buy_type": "Xbox game pass",
             "amount": -10,
-            "date": 1
+            "date": 29,
+            "creation_date": "29/03/22"
         }
     ]
 }
