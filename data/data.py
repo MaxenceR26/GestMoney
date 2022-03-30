@@ -133,3 +133,8 @@ def add_regu_transac(user_id, transaction):
 
     with open(r'..\..\data\regu_transacs.json', 'w') as f:
         json.dump(data, f, indent=4)
+
+
+def get_user_selection(user, choice):
+    users = get_all_users()
+    return users[user][choice]

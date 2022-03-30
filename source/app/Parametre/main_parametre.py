@@ -3,7 +3,6 @@ import tkinter as tk
 import cv2
 
 from data.data import select_image_user, get_user, set_user, get_all_users, update_user_id
-from source.app.Parametre.changepassword import ChangePassword
 
 from source.app.Sys import set_color, select_image, set_appwindow, center
 
@@ -108,18 +107,11 @@ class ParametreWindow(tk.Tk):
         self.mdp_entry.configure(justify='center')
         self.mdp_entry.place(x=self.winfo_width()/2-102, y=255, width=204, height=25)
 
-        self.change_password = tk.Button(self.global_canvas, text="Changer le mot de passe",
-                                         bg=self.set_color('darkbg'), fg=self.set_color('text'),
-                                         activebackground=self.set_color('darkbg'),
-                                         activeforeground=self.set_color('text'),
-                                         font=('Roboto', 10, 'bold'), bd=0, cursor='hand2', command=lambda: [self.destroy(), ChangePassword()])
-        self.change_password.place(x=self.winfo_width()/2 - 78.5, y=285)
-
         valid_changes = tk.Button(self.global_canvas, text="Valider les changements", background=self.set_color('bg'),
                                   activebackground=self.set_color('bg'), bd=0,
                                   activeforeground=self.set_color('text2'), foreground=self.set_color('text2'),
                                   cursor='hand2', font=('Roboto', 11), command=self.valid_changes)
-        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=320, width=185, height=40)
+        valid_changes.place(x=self.winfo_width() / 2 - 92.5, y=310, width=185, height=40)
 
         # Copyright
         self.global_canvas.create_text(self.winfo_width() / 2, self.winfo_height() - 60, text="© 2022 GestMoney",

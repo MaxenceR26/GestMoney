@@ -6,23 +6,204 @@
             "amount": 2000,
             "date": "01/03/22",
             "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "03/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "01/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "03/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "01/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "03/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "03/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "01/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "01/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "01/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "03/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "01/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": "02/03/22",
+            "method": "Virement"
         }
     ],
     "Admin": [
-        {
-            "type": "debit",
-            "market": "Auchan",
-            "buy_type": "Pommes",
-            "amount": -5,
-            "date": "20/03/22",
-            "method": "Carte Bancaire"
-        },
         {
             "type": "regu_debit",
             "buy_type": "Netflix",
             "amount": -10,
             "date": "29/03/22",
             "method": "Paiement r\u00e9gulier"
+        },
+        {
+            "type": "regu_debit",
+            "buy_type": "Microsoft",
+            "amount": -200,
+            "date": "30/03/22",
+            "method": "Paiement r\u00e9gulier"
+        },
+        {
+            "type": "credit",
+            "origin": "saleauirrbnb",
+            "amount": 100,
+            "date": "30/03/22",
+            "method": "Virement"
         }
     ]
 }

@@ -7,6 +7,13 @@
             "amount": -10,
             "date": 29,
             "creation_date": "29/03/22"
+        },
+        {
+            "type": "regu_debit",
+            "buy_type": "Microsoft",
+            "amount": -200,
+            "date": 30,
+            "creation_date": "29/03/22"
         }
     ]
 }
