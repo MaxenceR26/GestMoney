@@ -200,6 +200,7 @@ class HomeFrame(tk.Frame):
 
         elif not query and not objet:
             print("Entre un texte")
+
         elif query and objet:
             selections.extend(
                 child[-1]
@@ -212,7 +213,7 @@ class HomeFrame(tk.Frame):
                 child[-1]
                 for child in self.tableau.get_children()
                 if query.lower() in self.tableau.item(child)['values']
-            )s
+            )
 
         else:
             for child in self.tableau.get_children():

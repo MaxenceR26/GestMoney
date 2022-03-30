@@ -4,9 +4,7 @@
         "email": "jeandu54@gmail.com",
         "mdp": "",
         "money": 10505,
-        "image": [
-            "C:/Users/33662/OneDrive/Bureau/500x500.png"
-        ]
+        "image": "ressource\\img\\profile-base.png"
     },
     "Alban": {
         "id": "Alban",
