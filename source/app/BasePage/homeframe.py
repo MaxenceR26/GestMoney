@@ -212,7 +212,7 @@ class HomeFrame(tk.Frame):
                 child[-1]
                 for child in self.tableau.get_children()
                 if query.lower() in self.tableau.item(child)['values']
-            )
+            )s
 
         else:
             for child in self.tableau.get_children():
