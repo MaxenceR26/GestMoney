@@ -7,7 +7,7 @@ from source.app.BasePage.baseframe import create_copyright, create_buttons, show
 from source.app.Sys import set_color
 
 
-class ReguFrame(tk.Frame):
+class ReguDebit(tk.Frame):
     def __init__(self, window):
         self.window = window
         self.frame_width = 1023
@@ -47,9 +47,9 @@ class ReguFrame(tk.Frame):
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.amount.place(x=x_pos, y=195, width=entry_width, height=entry_height)
 
-        self.origin = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
-                               bd=0, insertbackground=self.set_color('entrytext'))
-        self.origin.place(x=x_pos, y=305, width=entry_width, height=entry_height)
+        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
+                                 bd=0, insertbackground=self.set_color('entrytext'))
+        self.buy_type.place(x=x_pos, y=305, width=entry_width, height=entry_height)
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
@@ -106,22 +106,15 @@ class ReguFrame(tk.Frame):
         tableau.column("#2", width=width//3, anchor=tk.CENTER, stretch=tk.NO)
         tableau.column("#3", width=width//3, anchor=tk.CENTER, stretch=tk.NO)
 
-        tableau.heading('amount', text='Montant')
-        tableau.heading('object', text='Objet')
-        tableau.heading('date', text='Date')
         tableau['show'] = 'headings'
 
-        transacs = get_regu_transacs(self.window.user_id)[::-1]
+        transacs = [transac for transac in get_regu_transacs(self.window.user_id) if transac['type'] == 'debit'][::-1]
 
         for index in range(len(transacs)):
 
             transac = transacs[index]
 
-            if transac['type'] == 'credit':
-                tableau.insert(parent='', index='end', iid=index, text='Market',
-                               values=(f"{transac['amount']}€", transac['origin'], transac['date']))
-
-            else:
+            if transac['type'] == 'debit':
                 tableau.insert(parent='', index='end', iid=index, text='Market',
                                values=(f"{transac['amount']}€", f"{transac['buy_type']}", transac['date']))
 
@@ -148,12 +141,12 @@ class ReguFrame(tk.Frame):
         right.place(x=x_pos+width, y=y_pos)
 
     def valid_debit(self):
-        buy_type = self.origin.get()
+        buy_type = self.buy_type.get()
         amount = self.amount.get()
         date = self.date.get()
 
         regu_debit = {
-            'type': 'regu_debit',
+            'type': 'debit',
             'buy_type': buy_type,
             'amount': amount,
             'date': date,
@@ -174,7 +167,8 @@ class ReguFrame(tk.Frame):
             regu_debit['date'] = int(regu_debit['date'])
             add_regu_transac(self.window.user_id, regu_debit)
 
-            self.window.switch_frame('ReguFrame')
+            self.window.regu_transacs()
+            self.window.switch_frame('ReguDebit')
 
     def show_error(self, text):
         show_error(self, text, self.frame_width/2, 130)

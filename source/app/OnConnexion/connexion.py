@@ -1,10 +1,7 @@
 import json
 import tkinter as tk
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
-from data.data import add_user_in_activity_recent, get_recent_user, select_image_user, get_regu_transacs, \
-    add_transaction, get_transactions
+from data.data import add_user_in_activity_recent, get_recent_user, select_image_user
 from source.app.Sys import set_color
 
 
@@ -161,7 +158,7 @@ pour t’aider !
                 self.window.user_email = user['email']
                 self.window.user_id = user['id']
                 add_user_in_activity_recent(user['id'])
-                self.regu_transacs()
+                self.window.regu_transacs()
                 self.window.switch_frame('BasePage')
                 return
 
@@ -178,24 +175,3 @@ pour t’aider !
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
-
-    def regu_transacs(self):
-        for transac in get_regu_transacs(self.window.user_id):
-            if transac['type'] == 'regu_debit':
-                transac['method'] = 'Paiement régulier'
-
-            old_transac = transac
-
-            for i in range(1):
-                transac = old_transac
-                today = datetime.today()
-
-                transac_date = today.replace(day=transac['date'])
-                transac_date -= relativedelta(months=i)
-
-                if datetime.strptime(transac['creation_date'], '%d/%m/%y') <= transac_date <= today:
-                    transac['date'] = datetime.strftime(transac_date, '%d/%m/%y')
-                    del transac['creation_date']
-
-                    if transac not in get_transactions(self.window.user_id):
-                        add_transaction(self.window.user_id, transac)

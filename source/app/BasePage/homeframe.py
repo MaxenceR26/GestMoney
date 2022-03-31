@@ -87,10 +87,10 @@ class HomeFrame(tk.Frame):
 
             transac = transacs[index]
 
-            if transac['type'] == 'credit':
+            if transac['type'] in ['credit', 'regu_credit']:
                 self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(
-                                    f"{transac['amount']}€", transac['origin'], transac['method'], transac['date']))
+                                    values=(f"{transac['amount']}€", transac['origin'],
+                                            transac['method'], transac['date']))
 
             elif transac['type'] == 'debit':
                 self.tableau.insert(parent='', index='end', iid=index, text='Market',
@@ -99,8 +99,8 @@ class HomeFrame(tk.Frame):
 
             elif transac['type'] == 'regu_debit':
                 self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(
-                                    f"{transac['amount']}€", transac['buy_type'], transac['method'], transac['date']))
+                                    values=(f"{transac['amount']}€", transac['buy_type'],
+                                            transac['method'], transac['date']))
 
         self.tableau.place(x=35, y=75, width=690, height=500)
 

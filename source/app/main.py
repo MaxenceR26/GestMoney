@@ -1,6 +1,11 @@
 import tkinter as tk
+from datetime import datetime
 
-from source.app.BasePage.reguframe import ReguFrame
+from dateutil.relativedelta import relativedelta
+
+from data.data import get_transactions, add_transaction, change_money, get_regu_transacs
+from source.app.BasePage.regudebit import ReguDebit
+from source.app.BasePage.regucredit import ReguCredit
 from source.app.OnConnexion.connexion import ConnectionFrame
 from Sys import select_image, set_color, center, set_appwindow
 from InscriptionPage.inscription import InscriptionFrame
@@ -84,9 +89,14 @@ class Main(tk.Tk):
             self.active_frame = DebitFrame(self)
             self.active_frame.place(x=0, y=80)
 
-        elif frame_name == 'ReguFrame':
+        elif frame_name == 'ReguDebit':
             self.active_frame.destroy()
-            self.active_frame = ReguFrame(self)
+            self.active_frame = ReguDebit(self)
+            self.active_frame.place(x=0, y=80)
+
+        elif frame_name == 'ReguCredit':
+            self.active_frame.destroy()
+            self.active_frame = ReguCredit(self)
             self.active_frame.place(x=0, y=80)
 
     def widget_title_bar(self):
@@ -114,6 +124,35 @@ class Main(tk.Tk):
 
         self.apply_drag([title_bar, icon])
 
+    def regu_transacs(self):
+        for transac in get_regu_transacs(self.user_id):
+
+            if transac['type'] == 'debit':
+                transac['method'] = 'Paiement régulier'
+
+            elif transac['type'] == 'credit':
+                transac['method'] = 'Crédit régulier'
+
+            old_transac = transac.copy()
+
+            for i in range(12):
+                transac = old_transac.copy()
+                today = datetime.now()
+                today = today.replace(hour=0, minute=0, second=0, microsecond=0)
+
+                transac_date = today.replace(day=transac['date'], hour=0, minute=0, second=0, microsecond=0)
+                transac_date -= relativedelta(months=i)
+
+                if datetime.strptime(transac['creation_date'], '%d/%m/%y') <= transac_date <= today:
+                    transac['date'] = datetime.strftime(transac_date, '%d/%m/%y')
+                    transac['type'] = f"regu_{transac['type']}"
+                    del transac['creation_date']
+
+                    if transac not in get_transactions(self.user_id):
+                        add_transaction(self.user_id, transac)
+
+                        change_money(self.user_id, transac['amount'])
+
     def mouse_down(self, event):
         self.x, self.y = event.x, event.y
 
@@ -125,7 +164,7 @@ class Main(tk.Tk):
         deltay = event.y - self.y
         x0 = self.winfo_x() + deltax
         y0 = self.winfo_y() + deltay
-        self.geometry("+%s+%s" % (x0, y0))
+        self.geometry(f"+{x0}+{y0}")
 
     def apply_drag(self, elements):
         for element in elements:

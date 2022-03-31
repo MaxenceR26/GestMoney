@@ -97,9 +97,18 @@ class BaseFrame(tk.Frame):
                                         bg=self.set_color("buttonactive"),
                                         activebackground=self.set_color("onactivebutton"),
                                         bd=0, cursor='hand2', activeforeground=self.set_color('text2'),
-                                        command=lambda: [self.window.switch_frame('ReguFrame'),
+                                        command=lambda: [self.window.switch_frame('ReguDebit'),
                                                          self.change_color_button(self.debit_regulier)])
         self.debit_regulier.place(x=1048, y=370, width=201, height=33)
+
+        self.credit_regulier = tk.Button(self, text="Crédit régulier", font=('Roboto', 14), cursor='hand2',
+                                         bg=self.set_color("buttonactive"), fg=self.set_color('text2'), bd=0,
+                                         activebackground=self.set_color("onactivebutton"),
+                                         activeforeground=self.set_color('text2'),
+                                         command=lambda: [self.window.switch_frame('ReguCredit'),
+                                                          self.change_color_button(self.credit_regulier)])
+
+        self.credit_regulier.place(x=1048, y=420, width=201, height=33)
 
         deco_button = tk.Button(self, text="Déconnexion", font=('Roboto', 14), fg=self.set_color('text2'),
                                 bg=self.set_color("buttonactive"), bd=0, activeforeground=self.set_color('text2'),
@@ -143,6 +152,7 @@ class BaseFrame(tk.Frame):
     def change_color_button(self, active_button):
         active_button.config(bg=self.set_color('fourthbg'))
 
-        for button in [self.credit_button, self.accueil_button, self.debit_button, self.debit_regulier]:
+        for button in [self.credit_button, self.accueil_button, self.debit_button,
+                       self.debit_regulier, self.credit_regulier]:
             if button != active_button:
                 button.config(bg=self.set_color('bg'))

@@ -2,18 +2,25 @@
     "Alban": [],
     "Admin": [
         {
-            "type": "regu_debit",
+            "type": "debit",
             "buy_type": "Netflix",
             "amount": -10,
             "date": 29,
-            "creation_date": "29/03/22"
+            "creation_date": "29/01/22"
         },
         {
-            "type": "regu_debit",
+            "type": "debit",
             "buy_type": "Microsoft",
             "amount": -200,
             "date": 30,
             "creation_date": "29/03/22"
+        },
+        {
+            "type": "credit",
+            "origin": "Salaire",
+            "amount": 2000,
+            "date": 31,
+            "creation_date": "31/03/22"
         }
     ]
 }
