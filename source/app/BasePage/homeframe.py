@@ -23,6 +23,10 @@ class HomeFrame(tk.Frame):
         self.window = window
         super().__init__(window, width=1023, height=640, bg=self.set_color('fourthbg'))
 
+        self.user_transacs = get_transactions(self.window.user_id)
+        self.user_transacs = sorted(self.user_transacs,
+                                    key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+
         self.history_canvas = tk.Canvas(self, height=640, width=766, bg=self.set_color('fourthbg'),
                                         highlightthickness=0, bd=0)
         self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, 40,
@@ -80,12 +84,12 @@ class HomeFrame(tk.Frame):
         self.tableau.heading('date', text='Date')
         self.tableau['show'] = 'headings'
 
-        transacs = get_transactions(self.window.user_id)
-        transacs = sorted(transacs, key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+        self.user_transacs = get_transactions(self.window.user_id)
+        self.user_transacs = sorted(self.user_transacs, key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
 
-        for index in range(len(transacs)):
+        for index in range(len(self.user_transacs)):
 
-            transac = transacs[index]
+            transac = self.user_transacs[index]
 
             if transac['type'] in ['credit', 'regu_credit']:
                 self.tableau.insert(parent='', index='end', iid=index, text='Market',
@@ -106,9 +110,12 @@ class HomeFrame(tk.Frame):
 
         # Création bande entre chaque ligne et sur les côtés
 
-        for i in range(min(len(transacs), 12)):
+        self.tab_lines = []
+
+        for i in range(min(len(self.user_transacs), 12)):
             line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
             line.place(x=292, y=i * 40 + 94)
+            self.tab_lines.append(line)
 
         top = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
         top.place(x=292, y=74)
@@ -181,8 +188,14 @@ class HomeFrame(tk.Frame):
         valid_button = tk.Button(self, text="Valider", foreground=self.set_color('text2'), font=('Roboto', 14),
                                  background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
                                  activeforeground=self.set_color('text2'),
-                                 command=lambda: self.search())
+                                 command=self.search)
         valid_button.place(x=50, y=450, width=150, height=32)
+
+        reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 14),
+                                 background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
+                                 activeforeground=self.set_color('text2'), command=lambda: self.set_page(1))
+
+        reset_button.place(x=50, y=500, width=150, height=32)
 
         canvas.place(x=0, y=0)
 
@@ -232,3 +245,35 @@ class HomeFrame(tk.Frame):
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
+
+    def set_page(self, page):
+        self.tableau.delete(*self.tableau.get_children())
+
+        for line in self.tab_lines:
+            line.destroy()
+
+        for index in range(page*12, min((page + 1) * 12, len(self.user_transacs))):
+
+            transac = self.user_transacs[index]
+
+            if transac['type'] in ['credit', 'regu_credit']:
+                self.tableau.insert(parent='', index='end', iid=index, text='Market',
+                                    values=(f"{transac['amount']}€", transac['origin'],
+                                            transac['method'], transac['date']))
+
+            elif transac['type'] == 'debit':
+                self.tableau.insert(parent='', index='end', iid=index, text='Market',
+                                    values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
+                                            transac['method'], transac['date']))
+
+            elif transac['type'] == 'regu_debit':
+                self.tableau.insert(parent='', index='end', iid=index, text='Market',
+                                    values=(f"{transac['amount']}€", transac['buy_type'],
+                                            transac['method'], transac['date']))
+
+        self.tab_lines = []
+
+        for i in range(min(len(self.user_transacs[page*12:]), 12)):
+            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+            line.place(x=292, y=i * 40 + 94)
+            self.tab_lines.append(line)
