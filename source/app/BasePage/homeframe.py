@@ -23,12 +23,6 @@ class HomeFrame(tk.Frame):
         self.window = window
         super().__init__(window, width=1023, height=640, bg=self.set_color('fourthbg'))
 
-        self.user_transacs = get_transactions(self.window.user_id)
-        self.user_transacs = sorted(self.user_transacs,
-                                    key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
-        self.tab_page = 0
-        self.tab_lines = []
-
         self.history_canvas = tk.Canvas(self, height=640, width=766, bg=self.set_color('fourthbg'),
                                         highlightthickness=0, bd=0)
         self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, 40,
@@ -86,9 +80,35 @@ class HomeFrame(tk.Frame):
         self.tableau.heading('date', text='Date')
         self.tableau['show'] = 'headings'
 
-        self.set_page(self.tab_page)
+        transacs = get_transactions(self.window.user_id)
+        transacs = sorted(transacs, key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+
+        for index in range(len(transacs)):
+
+            transac = transacs[index]
+
+            if transac['type'] in ['credit', 'regu_credit']:
+                self.tableau.insert(parent='', index='end', iid=index, text='Market',
+                                    values=(f"{transac['amount']}€", transac['origin'],
+                                            transac['method'], transac['date']))
+
+            elif transac['type'] == 'debit':
+                self.tableau.insert(parent='', index='end', iid=index, text='Market',
+                                    values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
+                                            transac['method'], transac['date']))
+
+            elif transac['type'] == 'regu_debit':
+                self.tableau.insert(parent='', index='end', iid=index, text='Market',
+                                    values=(f"{transac['amount']}€", transac['buy_type'],
+                                            transac['method'], transac['date']))
 
         self.tableau.place(x=35, y=75, width=690, height=500)
+
+        # Création bande entre chaque ligne et sur les côtés
+
+        for i in range(min(len(transacs), 12)):
+            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+            line.place(x=292, y=i * 40 + 94)
 
         top = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
         top.place(x=292, y=74)
@@ -131,44 +151,38 @@ class HomeFrame(tk.Frame):
                                               foreground=self.set_color('text'), font=('Roboto', 16),
                                               variable=self.vir_check,
                                               highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                              activeforeground=self.set_color('text'))
+                                              activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(0))
         self.vir_checkbutton.place(x=70, y=250)
 
         self.espece_checkbutton = tk.Checkbutton(self, text='Espèces', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
                                                  variable=self.esp_check,
                                                  highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 activeforeground=self.set_color('text'))
+                                                 activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(1))
         self.espece_checkbutton.place(x=70, y=300)
 
         self.cheque_checkbutton = tk.Checkbutton(self, text='Chèques', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
                                                  variable=self.cheq_check,
                                                  highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 activeforeground=self.set_color('text'))
+                                                 activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(2))
         self.cheque_checkbutton.place(x=70, y=350)
 
         self.cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('darkbg'),
                                              foreground=self.set_color('text'), font=('Roboto', 16),
                                              variable=self.cb_check,
                                              highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                             activeforeground=self.set_color('text'))
+                                             activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(3))
         self.cb_checkbutton.place(x=70, y=400)
 
-        self.listing_of_checkbutton = [self.vir_checkbutton, self.cb_checkbutton, self.espece_checkbutton,
-                                       self.cheque_checkbutton]
+        self.listing_of_checkbutton = [self.vir_checkbutton, self.espece_checkbutton,
+                                       self.cheque_checkbutton, self.cb_checkbutton]
 
         valid_button = tk.Button(self, text="Valider", foreground=self.set_color('text2'), font=('Roboto', 14),
                                  background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
                                  activeforeground=self.set_color('text2'),
-                                 command=self.search)
+                                 command=lambda: self.search())
         valid_button.place(x=50, y=450, width=150, height=32)
-
-        reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 14),
-                                 background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
-                                 activeforeground=self.set_color('text2'), command=lambda: self.set_page(1))
-
-        reset_button.place(x=50, y=500, width=150, height=32)
 
         canvas.place(x=0, y=0)
 
@@ -181,19 +195,38 @@ class HomeFrame(tk.Frame):
             selections.extend(
                 child[-1]
                 for child in self.tableau.get_children()
-                if self.vir_checkbutton in self.tableau.item(child)['values']
+                if "Virement" in self.tableau.item(child)['values']
             )
 
-        elif not query and not objet:
-            print("Entre un texte")
-
-        elif query and objet:
+        elif self.esp_check.get() == 1:
             selections.extend(
                 child[-1]
                 for child in self.tableau.get_children()
-                if objet.lower()
-                and query.lower() in self.tableau.item(child)['values']
+                if "Espèces" in self.tableau.item(child)['values']
             )
+
+        elif self.cheq_check.get() == 1:
+            selections.extend(
+                child[-1]
+                for child in self.tableau.get_children()
+                if "Chèque" in self.tableau.item(child)['values']
+            )
+
+        elif self.cb_check.get() == 1:
+            selections.extend(
+                child[-1]
+                for child in self.tableau.get_children()
+                if "Carte Bancaire" in self.tableau.item(child)['values']
+            )
+
+
+
+        elif not query and not objet:
+            error = tk.Label(self, text="Veuillez entrer un texte !\nOu choisir un élément",
+                             bg=self.set_color('darkbg'), fg='red', font=('Roboto', 13), justify='center')
+            error.place(x=40, y=45)
+            print("Entre un texte")
+
         elif query:
             selections.extend(
                 child[-1]
@@ -202,13 +235,11 @@ class HomeFrame(tk.Frame):
             )
 
         else:
-            for child in self.tableau.get_children():
-                if objet in self.tableau.item(child)['values']:
-                    selections.append(child[-1])
-                else:
-                    print("no")
-
-            print(selections)
+            selections.extend(
+                child[-1]
+                for child in self.tableau.get_children()
+                if objet in self.tableau.item(child)['values']
+            )
 
         # child_id = self.tableau.get_children()[-1]
         # print(child_id[-1])
@@ -216,37 +247,10 @@ class HomeFrame(tk.Frame):
         # self.tableau.focus_get()
         self.tableau.selection_set(selections)
 
+    def uncheck_buttons(self, exception):
+        for button in self.listing_of_checkbutton:
+            if button != self.listing_of_checkbutton[exception]:
+                button.deselect()
+
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
-
-    def set_page(self, page):
-        self.tableau.delete(*self.tableau.get_children())
-
-        for line in self.tab_lines:
-            line.destroy()
-
-        for index in range(page*12, min((page + 1) * 12, len(self.user_transacs))):
-
-            transac = self.user_transacs[index]
-
-            if transac['type'] in ['credit', 'regu_credit']:
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", transac['origin'],
-                                            transac['method'], transac['date']))
-
-            elif transac['type'] == 'debit':
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
-                                            transac['method'], transac['date']))
-
-            elif transac['type'] == 'regu_debit':
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", transac['buy_type'],
-                                            transac['method'], transac['date']))
-
-        self.tab_lines = []
-
-        for i in range(min(len(self.user_transacs[page*12:]), 12)):
-            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-            line.place(x=292, y=i * 40 + 94)
-            self.tab_lines.append(line)
