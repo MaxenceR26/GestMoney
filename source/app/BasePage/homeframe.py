@@ -26,6 +26,8 @@ class HomeFrame(tk.Frame):
         self.user_transacs = get_transactions(self.window.user_id)
         self.user_transacs = sorted(self.user_transacs,
                                     key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+        self.tab_page = 0
+        self.tab_lines = []
 
         self.history_canvas = tk.Canvas(self, height=640, width=766, bg=self.set_color('fourthbg'),
                                         highlightthickness=0, bd=0)
@@ -84,38 +86,9 @@ class HomeFrame(tk.Frame):
         self.tableau.heading('date', text='Date')
         self.tableau['show'] = 'headings'
 
-        self.user_transacs = get_transactions(self.window.user_id)
-        self.user_transacs = sorted(self.user_transacs, key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
-
-        for index in range(len(self.user_transacs)):
-
-            transac = self.user_transacs[index]
-
-            if transac['type'] in ['credit', 'regu_credit']:
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", transac['origin'],
-                                            transac['method'], transac['date']))
-
-            elif transac['type'] == 'debit':
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
-                                            transac['method'], transac['date']))
-
-            elif transac['type'] == 'regu_debit':
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", transac['buy_type'],
-                                            transac['method'], transac['date']))
+        self.set_page(self.tab_page)
 
         self.tableau.place(x=35, y=75, width=690, height=500)
-
-        # Création bande entre chaque ligne et sur les côtés
-
-        self.tab_lines = []
-
-        for i in range(min(len(self.user_transacs), 12)):
-            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-            line.place(x=292, y=i * 40 + 94)
-            self.tab_lines.append(line)
 
         top = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
         top.place(x=292, y=74)
