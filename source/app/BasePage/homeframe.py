@@ -166,7 +166,7 @@ class HomeFrame(tk.Frame):
 
         reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 14),
                                  background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
-                                 activeforeground=self.set_color('text2'), command=lambda: self.set_page(1))
+                                 activeforeground=self.set_color('text2'), command=lambda: self.set_page(2))
 
         reset_button.place(x=50, y=500, width=150, height=32)
 
@@ -220,6 +220,8 @@ class HomeFrame(tk.Frame):
         return set_color(self.window.color_theme, color)
 
     def set_page(self, page):
+        page -= 1
+
         self.tableau.delete(*self.tableau.get_children())
 
         for line in self.tab_lines:
