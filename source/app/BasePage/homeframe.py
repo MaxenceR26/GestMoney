@@ -131,32 +131,32 @@ class HomeFrame(tk.Frame):
                                               foreground=self.set_color('text'), font=('Roboto', 16),
                                               variable=self.vir_check,
                                               highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                              activeforeground=self.set_color('text'))
+                                              activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(0))
         self.vir_checkbutton.place(x=70, y=250)
 
         self.espece_checkbutton = tk.Checkbutton(self, text='Espèces', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
                                                  variable=self.esp_check,
                                                  highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 activeforeground=self.set_color('text'))
+                                                 activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(1))
         self.espece_checkbutton.place(x=70, y=300)
 
         self.cheque_checkbutton = tk.Checkbutton(self, text='Chèques', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
                                                  variable=self.cheq_check,
                                                  highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 activeforeground=self.set_color('text'))
+                                                 activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(2))
         self.cheque_checkbutton.place(x=70, y=350)
 
         self.cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('darkbg'),
                                              foreground=self.set_color('text'), font=('Roboto', 16),
                                              variable=self.cb_check,
                                              highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                             activeforeground=self.set_color('text'))
+                                             activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(3))
         self.cb_checkbutton.place(x=70, y=400)
 
-        self.listing_of_checkbutton = [self.vir_checkbutton, self.cb_checkbutton, self.espece_checkbutton,
-                                       self.cheque_checkbutton]
+        self.listing_of_checkbutton = [self.vir_checkbutton, self.espece_checkbutton,
+                                       self.cheque_checkbutton, self.cb_checkbutton]
 
         valid_button = tk.Button(self, text="Valider", foreground=self.set_color('text2'), font=('Roboto', 14),
                                  background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
@@ -181,19 +181,38 @@ class HomeFrame(tk.Frame):
             selections.extend(
                 child[-1]
                 for child in self.tableau.get_children()
-                if self.vir_checkbutton in self.tableau.item(child)['values']
+                if "Virement" in self.tableau.item(child)['values']
             )
 
-        elif not query and not objet:
-            print("Entre un texte")
-
-        elif query and objet:
+        elif self.esp_check.get() == 1:
             selections.extend(
                 child[-1]
                 for child in self.tableau.get_children()
-                if objet.lower()
-                and query.lower() in self.tableau.item(child)['values']
+                if "Espèces" in self.tableau.item(child)['values']
             )
+
+        elif self.cheq_check.get() == 1:
+            selections.extend(
+                child[-1]
+                for child in self.tableau.get_children()
+                if "Chèque" in self.tableau.item(child)['values']
+            )
+
+        elif self.cb_check.get() == 1:
+            selections.extend(
+                child[-1]
+                for child in self.tableau.get_children()
+                if "Carte Bancaire" in self.tableau.item(child)['values']
+            )
+
+
+
+        elif not query and not objet:
+            error = tk.Label(self, text="Veuillez entrer un texte !\nOu choisir un élément",
+                             bg=self.set_color('darkbg'), fg='red', font=('Roboto', 13), justify='center')
+            error.place(x=40, y=45)
+            print("Entre un texte")
+
         elif query:
             selections.extend(
                 child[-1]
@@ -202,19 +221,22 @@ class HomeFrame(tk.Frame):
             )
 
         else:
-            for child in self.tableau.get_children():
-                if objet in self.tableau.item(child)['values']:
-                    selections.append(child[-1])
-                else:
-                    print("no")
-
-            print(selections)
+            selections.extend(
+                child[-1]
+                for child in self.tableau.get_children()
+                if objet in self.tableau.item(child)['values']
+            )
 
         # child_id = self.tableau.get_children()[-1]
         # print(child_id[-1])
         # print(selections)
         # self.tableau.focus_get()
         self.tableau.selection_set(selections)
+
+    def uncheck_buttons(self, exception):
+        for button in self.listing_of_checkbutton:
+            if button != self.listing_of_checkbutton[exception]:
+                button.deselect()
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
