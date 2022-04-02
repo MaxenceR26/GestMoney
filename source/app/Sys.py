@@ -21,7 +21,8 @@ def set_color(theme, color):
             'fourthbg': '#050B1C',
             'entrytext': 'white',
             'error': 'red',
-            'tertiarybg': '#2D4481'
+            'tertiarybg': '#2D4481',
+            'copyright': '#C6CACB'
                   }
     }
     return themes[theme][color]

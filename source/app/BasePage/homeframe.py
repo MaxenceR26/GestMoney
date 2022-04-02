@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 
 from data.data import get_transactions
 from source.app.BasePage.baseframe import create_copyright
-from source.app.Sys import set_color
+from source.app.Sys import set_color, select_image
 
 """
 12 = Nombre de pages 
@@ -26,14 +26,17 @@ class HomeFrame(tk.Frame):
         self.user_transacs = get_transactions(self.window.user_id)
         self.user_transacs = sorted(self.user_transacs,
                                     key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
-        self.tab_page = 0
+
+        self.tab_page = 1
+        self.page_var = tk.StringVar()
+        self.page_var.set('1')
         self.tab_lines = []
 
-        self.history_canvas = tk.Canvas(self, height=640, width=766, bg=self.set_color('fourthbg'),
-                                        highlightthickness=0, bd=0)
-        self.history_canvas.create_text(self.history_canvas.winfo_reqwidth() / 2, 40,
-                                        text="Historique des transactions",
-                                        font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
+        self.treeview_canvas = tk.Canvas(self, height=640, width=766, bg=self.set_color('fourthbg'),
+                                         highlightthickness=0, bd=0)
+        self.treeview_canvas.create_text(self.treeview_canvas.winfo_reqwidth() / 2, 40,
+                                         text="Historique des transactions",
+                                         font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
 
         self.title_treeview = tk.Canvas(self, width=690, height=20, bg=self.set_color("bg"), highlightthickness=0, bd=0)
         self.title_treeview.create_text(87, 10, text="Montant",
@@ -73,22 +76,18 @@ class HomeFrame(tk.Frame):
         style.map('Treeview', background=[('selected', '#172F6E')],
                   foreground=[('selected', self.set_color('text'))])
 
-        self.tableau = ttk.Treeview(self.history_canvas, columns=('amount', 'object', 'method', 'date'))
+        self.treeview = ttk.Treeview(self.treeview_canvas, columns=('amount', 'object', 'method', 'date'))
 
-        self.tableau.column("#1", width=174, anchor=tk.CENTER, stretch=tk.NO)
-        self.tableau.column("#2", width=174, anchor=tk.CENTER, stretch=tk.NO)
-        self.tableau.column("#3", width=174, anchor=tk.CENTER, stretch=tk.NO)
-        self.tableau.column("#4", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        self.treeview.column("#1", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        self.treeview.column("#2", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        self.treeview.column("#3", width=174, anchor=tk.CENTER, stretch=tk.NO)
+        self.treeview.column("#4", width=174, anchor=tk.CENTER, stretch=tk.NO)
 
-        self.tableau.heading('amount', text='Montant')
-        self.tableau.heading('object', text='Objet')
-        self.tableau.heading('method', text='Moyen de paiement')
-        self.tableau.heading('date', text='Date')
-        self.tableau['show'] = 'headings'
+        self.treeview['show'] = 'headings'
 
         self.set_page(self.tab_page)
 
-        self.tableau.place(x=35, y=75, width=690, height=500)
+        self.treeview.place(x=35, y=75, width=690, height=500)
 
         top = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
         top.place(x=292, y=74)
@@ -102,10 +101,11 @@ class HomeFrame(tk.Frame):
         right = tk.Canvas(self, width=2, height=500, bg=self.set_color('darkbg'), highlightthickness=0)
         right.place(x=982, y=74)
 
-        create_copyright(self, self.history_canvas)
+        create_copyright(self, self.treeview_canvas)
 
         self.left_widgets()
-        self.history_canvas.place(x=257, y=0)
+        self.page_buttons()
+        self.treeview_canvas.place(x=257, y=0)
 
     def left_widgets(self):
         canvas = tk.Canvas(self, width=257, height=645, bg=self.set_color("darkbg"), highlightthickness=0)
@@ -129,30 +129,30 @@ class HomeFrame(tk.Frame):
 
         self.vir_checkbutton = tk.Checkbutton(self, text='Virement', background=self.set_color('darkbg'),
                                               foreground=self.set_color('text'), font=('Roboto', 16),
-                                              variable=self.vir_check,
+                                              variable=self.vir_check, activeforeground=self.set_color('text'),
                                               highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                              activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(0))
+                                              command=lambda: self.uncheck_buttons(0))
         self.vir_checkbutton.place(x=70, y=250)
 
         self.espece_checkbutton = tk.Checkbutton(self, text='Espèces', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
-                                                 variable=self.esp_check,
+                                                 variable=self.esp_check, activeforeground=self.set_color('text'),
                                                  highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(1))
+                                                 command=lambda: self.uncheck_buttons(1))
         self.espece_checkbutton.place(x=70, y=300)
 
         self.cheque_checkbutton = tk.Checkbutton(self, text='Chèques', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
-                                                 variable=self.cheq_check,
+                                                 variable=self.cheq_check, activeforeground=self.set_color('text'),
                                                  highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(2))
+                                                 command=lambda: self.uncheck_buttons(2))
         self.cheque_checkbutton.place(x=70, y=350)
 
         self.cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('darkbg'),
                                              foreground=self.set_color('text'), font=('Roboto', 16),
-                                             variable=self.cb_check,
+                                             variable=self.cb_check, activeforeground=self.set_color('text'),
                                              highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                             activeforeground=self.set_color('text'), command=lambda: self.uncheck_buttons(3))
+                                             command=lambda: self.uncheck_buttons(3))
         self.cb_checkbutton.place(x=70, y=400)
 
         self.listing_of_checkbutton = [self.vir_checkbutton, self.espece_checkbutton,
@@ -166,7 +166,7 @@ class HomeFrame(tk.Frame):
 
         reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 14),
                                  background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
-                                 activeforeground=self.set_color('text2'), command=lambda: self.set_page(2))
+                                 activeforeground=self.set_color('text2'), command=lambda: self.reset())
 
         reset_button.place(x=50, y=500, width=150, height=32)
 
@@ -180,32 +180,30 @@ class HomeFrame(tk.Frame):
         if self.vir_check.get() == 1:
             selections.extend(
                 child[-1]
-                for child in self.tableau.get_children()
-                if "Virement" in self.tableau.item(child)['values']
+                for child in self.treeview.get_children()
+                if "Virement" in self.treeview.item(child)['values']
             )
 
         elif self.esp_check.get() == 1:
             selections.extend(
                 child[-1]
-                for child in self.tableau.get_children()
-                if "Espèces" in self.tableau.item(child)['values']
+                for child in self.treeview.get_children()
+                if "Espèces" in self.treeview.item(child)['values']
             )
 
         elif self.cheq_check.get() == 1:
             selections.extend(
                 child[-1]
-                for child in self.tableau.get_children()
-                if "Chèque" in self.tableau.item(child)['values']
+                for child in self.treeview.get_children()
+                if "Chèque" in self.treeview.item(child)['values']
             )
 
         elif self.cb_check.get() == 1:
             selections.extend(
                 child[-1]
-                for child in self.tableau.get_children()
-                if "Carte Bancaire" in self.tableau.item(child)['values']
+                for child in self.treeview.get_children()
+                if "Carte Bancaire" in self.treeview.item(child)['values']
             )
-
-
 
         elif not query and not objet:
             error = tk.Label(self, text="Veuillez entrer un texte !\nOu choisir un élément",
@@ -216,61 +214,95 @@ class HomeFrame(tk.Frame):
         elif query:
             selections.extend(
                 child[-1]
-                for child in self.tableau.get_children()
-                if query.lower() in self.tableau.item(child)['values']
+                for child in self.treeview.get_children()
+                if query.lower() in self.treeview.item(child)['values']
             )
 
         else:
             selections.extend(
                 child[-1]
-                for child in self.tableau.get_children()
-                if objet in self.tableau.item(child)['values']
+                for child in self.treeview.get_children()
+                if objet in self.treeview.item(child)['values']
             )
 
         # child_id = self.tableau.get_children()[-1]
         # print(child_id[-1])
         # print(selections)
         # self.tableau.focus_get()
-        self.tableau.selection_set(selections)
+        self.treeview.selection_set(selections)
 
     def uncheck_buttons(self, exception):
         for button in self.listing_of_checkbutton:
             if button != self.listing_of_checkbutton[exception]:
                 button.deselect()
 
+    def reset(self):
+        self.user_transacs = get_transactions(self.window.user_id)
+        self.user_transacs = sorted(self.user_transacs,
+                                    key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+
+        self.set_page(0)
+
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
 
     def set_page(self, page):
-        page -= 1
+        if 0 < page <= len(self.user_transacs)/12 + 1:
+            self.tab_page = page
+            self.page_var.set(str(page))
 
-        self.tableau.delete(*self.tableau.get_children())
+            page -= 1
 
-        for line in self.tab_lines:
-            line.destroy()
+            self.treeview.delete(*self.treeview.get_children())
 
-        for index in range(page*12, min((page + 1) * 12, len(self.user_transacs))):
+            for line in self.tab_lines:
+                line.destroy()
 
-            transac = self.user_transacs[index]
+            for index in range(page*12, min((page + 1) * 12, len(self.user_transacs))):
 
-            if transac['type'] in ['credit', 'regu_credit']:
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", transac['origin'],
-                                            transac['method'], transac['date']))
+                transac = self.user_transacs[index]
 
-            elif transac['type'] == 'debit':
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
-                                            transac['method'], transac['date']))
+                if transac['type'] in ['credit', 'regu_credit']:
+                    self.treeview.insert(parent='', index='end', iid=index, text='Market',
+                                         values=(f"{transac['amount']}€", transac['origin'],
+                                                 transac['method'], transac['date']))
 
-            elif transac['type'] == 'regu_debit':
-                self.tableau.insert(parent='', index='end', iid=index, text='Market',
-                                    values=(f"{transac['amount']}€", transac['buy_type'],
-                                            transac['method'], transac['date']))
+                elif transac['type'] == 'debit':
+                    self.treeview.insert(parent='', index='end', iid=index, text='Market',
+                                         values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
+                                                 transac['method'], transac['date']))
 
-        self.tab_lines = []
+                elif transac['type'] == 'regu_debit':
+                    self.treeview.insert(parent='', index='end', iid=index, text='Market',
+                                         values=(f"{transac['amount']}€", transac['buy_type'],
+                                                 transac['method'], transac['date']))
 
-        for i in range(min(len(self.user_transacs[page*12:]), 12)):
-            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-            line.place(x=292, y=i * 40 + 94)
-            self.tab_lines.append(line)
+            self.tab_lines = []
+
+            for i in range(min(len(self.user_transacs[page*12:]), 12)):
+                line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+                line.place(x=292, y=i * 40 + 94)
+                self.tab_lines.append(line)
+
+    def page_buttons(self):
+        previous_image = tk.PhotoImage(file=select_image('page_précédente.png')).subsample(5)
+        previous_button = tk.Button(self.treeview_canvas, image=previous_image, background=self.set_color("darkbg"),
+                                    bd=0, cursor='hand2', activebackground=self.set_color("fourthbg"), relief='groove',
+                                    command=lambda: self.set_page(self.tab_page - 1))
+        previous_button.photo = previous_image
+        previous_button.place(x=self.treeview_canvas.winfo_reqwidth() / 2 - 320, y=self.winfo_reqheight() - 55,
+                              width=225, height=38)
+
+        next_image = tk.PhotoImage(file=select_image('page_suivante.png')).subsample(5)
+        next_button = tk.Button(self.treeview_canvas, image=next_image, background=self.set_color("darkbg"),
+                                bd=0, cursor='hand2', activebackground=self.set_color("fourthbg"), relief='groove',
+                                command=lambda: self.set_page(self.tab_page + 1))
+        next_button.photo = next_image
+        next_button.place(x=self.treeview_canvas.winfo_reqwidth() / 2 + 115, y=self.winfo_reqheight() - 55,
+                          width=197, height=38)
+
+        page_number = tk.Label(self.treeview_canvas, bg=self.set_color('fourthbg'), fg=self.set_color('text'),
+                               textvariable=self.page_var, font=('Roboto', 16, 'bold'))
+
+        page_number.place(x=self.treeview_canvas.winfo_reqwidth() / 2 - 20, y=self.winfo_reqheight() - 60,
+                          width=40, height=40)
