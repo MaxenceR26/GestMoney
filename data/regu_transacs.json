@@ -1,12 +1,1 @@
-{
-    "Alban": [],
-    "Admin": [
-        {
-            "type": "debit",
-            "objet": "Netflix",
-            "amount": -10,
-            "date": 29,
-            "creation_date": "29/01/22"
-        }
-    ]
-}
+{}

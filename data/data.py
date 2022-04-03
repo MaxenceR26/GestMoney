@@ -20,7 +20,7 @@ def get_recent_user(number):
         data = json.load(file)
     try:
         return data['activity_recent'][number]
-    except IndexError as e:
+    except KeyError as e:
         return "Null"
 
 

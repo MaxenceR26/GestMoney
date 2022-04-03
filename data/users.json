@@ -1,16 +1,1 @@
-{
-    "Admin": {
-        "id": "Admin",
-        "email": "jeandu54@gmail.com",
-        "mdp": "",
-        "money": 17275,
-        "image": "ressource\\img\\profile-base.png"
-    },
-    "Alban": {
-        "id": "Alban",
-        "email": "alban@gmail.com",
-        "mdp": "000000",
-        "money": 2300,
-        "image": "ressource\\img\\profile-base.png"
-    }
-}
+{}
