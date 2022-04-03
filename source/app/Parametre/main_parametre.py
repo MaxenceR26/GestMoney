@@ -82,7 +82,7 @@ class ParametreWindow(tk.Tk):
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
         self.id_entry = tk.Entry(self.global_canvas, background=self.set_color('bg'),
-                                 bd=0, font=('Roboto', 12), fg=self.set_color('text2'), cursor=self.set_color('text2'))
+                                 bd=0, font=('Roboto', 12), fg=self.set_color('text2'))
         self.id_entry.insert(0, self.window.user_id)
         self.id_entry.configure(justify='center')
         self.id_entry.place(x=self.winfo_width()/2 - 102, y=135, width=204, height=25)
@@ -91,7 +91,7 @@ class ParametreWindow(tk.Tk):
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
         self.email_entry = tk.Entry(self.global_canvas, background=self.set_color('bg'),
-                                    bd=0, font=('Roboto', 12), fg='#FFFFFF', cursor=self.set_color('text2'))
+                                    bd=0, font=('Roboto', 12), fg='#FFFFFF')
         self.email_entry.insert(0, self.window.user_email)
         self.email_entry.configure(justify='center')
         self.email_entry.place(x=self.winfo_width()/2-102, y=195, width=204, height=25)
@@ -100,7 +100,7 @@ class ParametreWindow(tk.Tk):
                                   fill=self.set_color('text'), font=('Roboto', 12))
 
         self.mdp_entry = tk.Entry(self.global_canvas, background=self.set_color('bg'), bd=0,
-                                  font=('Roboto', 12), fg='#FFFFFF', show='*', cursor=self.set_color('text2'))
+                                  font=('Roboto', 12), fg='#FFFFFF', show='*')
         self.mdp_entry.configure(justify='center')
         self.mdp_entry.place(x=self.winfo_width()/2-102, y=255, width=204, height=25)
 
