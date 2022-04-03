@@ -42,9 +42,9 @@ class DebitFrame(tk.Frame):
                                insertbackground=self.set_color('entrytext'))
         self.amount.place(x=543, y=170, width=330, height=46)
 
-        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
+        self.objet = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
                                  insertbackground=self.set_color('entrytext'))
-        self.buy_type.place(x=150, y=290, width=330, height=46)
+        self.objet.place(x=150, y=290, width=330, height=46)
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white', bd=0,
                              insertbackground=self.set_color('entrytext'))
@@ -82,14 +82,14 @@ class DebitFrame(tk.Frame):
 
     def valid_debit(self):
         market = self.market.get()
-        buy_type = self.buy_type.get()
+        objet = self.objet.get()
         amount = self.amount.get()
         date = self.date.get()
 
         transaction = {
             'type': 'debit',
             'market': market,
-            'buy_type': buy_type,
+            'objet': objet,
             'amount': amount,
             'date': date
         }

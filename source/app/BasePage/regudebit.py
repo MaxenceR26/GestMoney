@@ -47,9 +47,9 @@ class ReguDebit(tk.Frame):
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.amount.place(x=x_pos, y=195, width=entry_width, height=entry_height)
 
-        self.buy_type = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
+        self.objet = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                                  bd=0, insertbackground=self.set_color('entrytext'))
-        self.buy_type.place(x=x_pos, y=305, width=entry_width, height=entry_height)
+        self.objet.place(x=x_pos, y=305, width=entry_width, height=entry_height)
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
@@ -116,7 +116,7 @@ class ReguDebit(tk.Frame):
 
             if transac['type'] == 'debit':
                 tableau.insert(parent='', index='end', iid=index, text='Market',
-                               values=(f"{transac['amount']}€", f"{transac['buy_type']}", transac['date']))
+                               values=(f"{transac['amount']}€", f"{transac['objet']}", transac['date']))
 
         tableau.place(x=x_pos, y=y_pos+1, width=width, height=height)
 
@@ -141,13 +141,13 @@ class ReguDebit(tk.Frame):
         right.place(x=x_pos+width, y=y_pos)
 
     def valid_debit(self):
-        buy_type = self.buy_type.get()
+        objet = self.objet.get()
         amount = self.amount.get()
         date = self.date.get()
 
         regu_debit = {
             'type': 'debit',
-            'buy_type': buy_type,
+            'objet': objet,
             'amount': amount,
             'date': date,
             'creation_date': datetime.datetime.strftime(datetime.date.today(), '%d/%m/%y')

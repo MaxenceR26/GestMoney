@@ -47,9 +47,9 @@ class ReguCredit(tk.Frame):
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.amount.place(x=x_pos, y=195, width=entry_width, height=entry_height)
 
-        self.origin = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
+        self.objet = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
-        self.origin.place(x=x_pos, y=305, width=entry_width, height=entry_height)
+        self.objet.place(x=x_pos, y=305, width=entry_width, height=entry_height)
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
@@ -100,7 +100,7 @@ class ReguCredit(tk.Frame):
         style.map('Treeview', background=[('selected', '#172F6E')],
                   foreground=[('selected', self.set_color('text'))])
 
-        tableau = ttk.Treeview(self.canvas, columns=('amount', 'origin', 'date'))
+        tableau = ttk.Treeview(self.canvas, columns=('amount', 'objet', 'date'))
 
         tableau.column("#1", width=width//3, anchor=tk.CENTER, stretch=tk.NO)
         tableau.column("#2", width=width//3, anchor=tk.CENTER, stretch=tk.NO)
@@ -115,7 +115,7 @@ class ReguCredit(tk.Frame):
 
             if transac['type'] == 'credit':
                 tableau.insert(parent='', index='end', iid=index, text='Market',
-                               values=(f"{transac['amount']}€", transac['origin'], transac['date']))
+                               values=(f"{transac['amount']}€", transac['objet'], transac['date']))
 
         tableau.place(x=x_pos, y=y_pos+1, width=width, height=height)
 
@@ -140,13 +140,13 @@ class ReguCredit(tk.Frame):
         right.place(x=x_pos+width, y=y_pos)
 
     def valid_debit(self):
-        origin = self.origin.get()
+        objet = self.objet.get()
         amount = self.amount.get()
         date = self.date.get()
 
         regu_credit = {
             'type': 'credit',
-            'origin': origin,
+            'objet': objet,
             'amount': amount,
             'date': date,
             'creation_date': datetime.datetime.strftime(datetime.date.today(), '%d/%m/%y')

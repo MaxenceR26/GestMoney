@@ -37,9 +37,9 @@ class CreditFrame(tk.Frame):
                                bd=0, insertbackground=self.set_color('entrytext'))
         self.amount.place(x=350, y=165, width=330, height=46)
 
-        self.origin = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
+        self.objet = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                                bd=0, insertbackground=self.set_color('entrytext'))
-        self.origin.place(x=350, y=275, width=330, height=46)
+        self.objet.place(x=350, y=275, width=330, height=46)
 
         self.date = tk.Entry(self.canvas, bg=self.set_color('bg'), font=('Roboto', 15), fg='white',
                              bd=0, insertbackground=self.set_color('entrytext'))
@@ -76,13 +76,13 @@ class CreditFrame(tk.Frame):
         create_buttons(self, self.valid_credit)
 
     def valid_credit(self):
-        origin = self.origin.get()
+        objet = self.objet.get()
         amount = self.amount.get()
         date = self.date.get()
 
         transaction = {
             'type': 'credit',
-            'origin': origin,
+            'objet': objet,
             'amount': amount,
             'date': date
         }

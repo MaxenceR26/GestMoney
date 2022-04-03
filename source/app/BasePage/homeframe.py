@@ -27,6 +27,8 @@ class HomeFrame(tk.Frame):
         self.user_transacs = sorted(self.user_transacs,
                                     key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
 
+        self.treeview_transacs = self.user_transacs.copy()
+
         self.tab_page = 1
         self.page_var = tk.StringVar()
         self.page_var.set('1')
@@ -173,63 +175,51 @@ class HomeFrame(tk.Frame):
         canvas.place(x=0, y=0)
 
     def search(self):
-        query = self.date_entry.get()
-        objet = self.magasin_entry.get()
-        selections = []
+        date = self.date_entry.get()
+        objet = self.magasin_entry.get().lower()
+
+        self.treeview_transacs = []
+
+        pay_methods = []
 
         if self.vir_check.get() == 1:
-            selections.extend(
-                child[-1]
-                for child in self.treeview.get_children()
-                if "Virement" in self.treeview.item(child)['values']
-            )
+            pay_methods.append('Virement')
 
-        elif self.esp_check.get() == 1:
-            selections.extend(
-                child[-1]
-                for child in self.treeview.get_children()
-                if "Espèces" in self.treeview.item(child)['values']
-            )
+        if self.esp_check.get() == 1:
+            pay_methods.append('Espèces')
 
-        elif self.cheq_check.get() == 1:
-            selections.extend(
-                child[-1]
-                for child in self.treeview.get_children()
-                if "Chèque" in self.treeview.item(child)['values']
-            )
+        if self.cheq_check.get() == 1:
+            pay_methods.append('Chèque')
 
-        elif self.cb_check.get() == 1:
-            selections.extend(
-                child[-1]
-                for child in self.treeview.get_children()
-                if "Carte Bancaire" in self.treeview.item(child)['values']
-            )
+        if self.cb_check.get() == 1:
+            pay_methods.append('Carte Bancaire')
 
-        elif not query and not objet:
-            error = tk.Label(self, text="Veuillez entrer un texte !\nOu choisir un élément",
+        if not date and not objet and not pay_methods:
+            error = tk.Label(self, text="Veuillez entrer un critère !\nOu choisir un mode de paiement",
                              bg=self.set_color('darkbg'), fg='red', font=('Roboto', 13), justify='center')
             error.place(x=40, y=45)
-            print("Entre un texte")
 
-        elif query:
-            selections.extend(
-                child[-1]
-                for child in self.treeview.get_children()
-                if query.lower() in self.treeview.item(child)['values']
-            )
+        elif date:
+            self.treeview_transacs = [transac for transac in self.user_transacs if transac['date'] == date]
 
-        else:
-            selections.extend(
-                child[-1]
-                for child in self.treeview.get_children()
-                if objet in self.treeview.item(child)['values']
-            )
+            if pay_methods:
+                self.treeview_transacs = [transac for transac in self.treeview_transacs
+                                          if transac['method'] in pay_methods]
 
-        # child_id = self.tableau.get_children()[-1]
-        # print(child_id[-1])
-        # print(selections)
-        # self.tableau.focus_get()
-        self.treeview.selection_set(selections)
+            if objet:
+                self.treeview_transacs = [transac for transac in self.treeview_transacs
+                                          if objet in [transac['objet'].lower(), transac.get('market')]]
+
+        elif objet:
+            self.treeview_transacs = [transac for transac in self.user_transacs
+                                      if objet in [transac['objet'].lower(), transac.get('market')]]
+
+            if pay_methods:
+                self.treeview_transacs = [transac for transac in self.treeview_transacs
+                                          if transac['method'] in pay_methods]
+
+        self.set_page(1)
+        print(len(self.treeview_transacs))
 
     def uncheck_buttons(self, exception):
         for button in self.listing_of_checkbutton:
@@ -237,52 +227,47 @@ class HomeFrame(tk.Frame):
                 button.deselect()
 
     def reset(self):
-        self.user_transacs = get_transactions(self.window.user_id)
-        self.user_transacs = sorted(self.user_transacs,
-                                    key=lambda x: datetime.strptime(x['date'], "%d/%m/%y").strftime("%y-%m-%d"))[::-1]
+        self.treeview_transacs = self.user_transacs.copy()
 
-        self.set_page(0)
+        self.set_page(1)
 
     def set_color(self, color):
         return set_color(self.window.color_theme, color)
 
     def set_page(self, page):
-        if 0 < page <= len(self.user_transacs)/12 + 1:
-            self.tab_page = page
-            self.page_var.set(str(page))
+        if not 0 < page < len(self.treeview_transacs) / 12 + 1:
+            return
 
-            page -= 1
+        self.tab_page = page
+        self.page_var.set(str(page))
 
-            self.treeview.delete(*self.treeview.get_children())
+        page -= 1
 
-            for line in self.tab_lines:
-                line.destroy()
+        self.treeview.delete(*self.treeview.get_children())
 
-            for index in range(page*12, min((page + 1) * 12, len(self.user_transacs))):
+        for line in self.tab_lines:
+            line.destroy()
 
-                transac = self.user_transacs[index]
+        for index in range(page*12, min((page + 1) * 12, len(self.treeview_transacs))):
 
-                if transac['type'] in ['credit', 'regu_credit']:
-                    self.treeview.insert(parent='', index='end', iid=index, text='Market',
-                                         values=(f"{transac['amount']}€", transac['origin'],
-                                                 transac['method'], transac['date']))
+            transac = self.treeview_transacs[index]
 
-                elif transac['type'] == 'debit':
-                    self.treeview.insert(parent='', index='end', iid=index, text='Market',
-                                         values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
-                                                 transac['method'], transac['date']))
+            if transac['type'] in ['credit', 'regu_credit', 'regu_debit']:
+                self.treeview.insert(parent='', index='end', iid=index, text='Market',
+                                     values=(f"{transac['amount']}€", transac['objet'],
+                                             transac['method'], transac['date']))
 
-                elif transac['type'] == 'regu_debit':
-                    self.treeview.insert(parent='', index='end', iid=index, text='Market',
-                                         values=(f"{transac['amount']}€", transac['buy_type'],
-                                                 transac['method'], transac['date']))
+            elif transac['type'] == 'debit':
+                self.treeview.insert(parent='', index='end', iid=index, text='Market',
+                                     values=(f"{transac['amount']}€", f"{transac['market']} / {transac['objet']}",
+                                             transac['method'], transac['date']))
 
-            self.tab_lines = []
+        self.tab_lines = []
 
-            for i in range(min(len(self.user_transacs[page*12:]), 12)):
-                line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
-                line.place(x=292, y=i * 40 + 94)
-                self.tab_lines.append(line)
+        for i in range(min(len(self.treeview_transacs[page*12:]), 12)):
+            line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
+            line.place(x=292, y=i * 40 + 94)
+            self.tab_lines.append(line)
 
     def page_buttons(self):
         previous_image = tk.PhotoImage(file=select_image('page_précédente.png')).subsample(5)
