@@ -7,11 +7,11 @@ from data.data import get_transactions, add_transaction, change_money, get_regu_
 from source.app.BasePage.regudebit import ReguDebit
 from source.app.BasePage.regucredit import ReguCredit
 from source.app.OnConnexion.connexion import ConnectionFrame
-from Sys import select_image, set_color, center, set_appwindow
-from InscriptionPage.inscription import InscriptionFrame
-from BasePage.baseframe import BaseFrame
-from BasePage.creditframe import CreditFrame
-from BasePage.homeframe import HomeFrame
+from source.app.Sys import select_image, set_color, center, set_appwindow
+from source.app.InscriptionPage.inscription import InscriptionFrame
+from source.app.BasePage.baseframe import BaseFrame
+from source.app.BasePage.creditframe import CreditFrame
+from source.app.BasePage.homeframe import HomeFrame
 from source.app.BasePage.debitframe import DebitFrame
 
 

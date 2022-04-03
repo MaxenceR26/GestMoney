@@ -132,29 +132,25 @@ class HomeFrame(tk.Frame):
         self.vir_checkbutton = tk.Checkbutton(self, text='Virement', background=self.set_color('darkbg'),
                                               foreground=self.set_color('text'), font=('Roboto', 16),
                                               variable=self.vir_check, activeforeground=self.set_color('text'),
-                                              highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                              command=lambda: self.uncheck_buttons(0))
+                                              highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'))
         self.vir_checkbutton.place(x=70, y=250)
 
         self.espece_checkbutton = tk.Checkbutton(self, text='Espèces', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
                                                  variable=self.esp_check, activeforeground=self.set_color('text'),
-                                                 highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 command=lambda: self.uncheck_buttons(1))
+                                                 highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'))
         self.espece_checkbutton.place(x=70, y=300)
 
         self.cheque_checkbutton = tk.Checkbutton(self, text='Chèques', background=self.set_color('darkbg'),
                                                  foreground=self.set_color('text'), font=('Roboto', 16),
                                                  variable=self.cheq_check, activeforeground=self.set_color('text'),
-                                                 highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                                 command=lambda: self.uncheck_buttons(2))
+                                                 highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'))
         self.cheque_checkbutton.place(x=70, y=350)
 
         self.cb_checkbutton = tk.Checkbutton(self, text='CB', background=self.set_color('darkbg'),
                                              foreground=self.set_color('text'), font=('Roboto', 16),
                                              variable=self.cb_check, activeforeground=self.set_color('text'),
-                                             highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'),
-                                             command=lambda: self.uncheck_buttons(3))
+                                             highlightthickness=0, bd=0, activebackground=self.set_color('darkbg'))
         self.cb_checkbutton.place(x=70, y=400)
 
         self.listing_of_checkbutton = [self.vir_checkbutton, self.espece_checkbutton,
@@ -219,15 +215,15 @@ class HomeFrame(tk.Frame):
                                           if transac['method'] in pay_methods]
 
         self.set_page(1)
-        print(len(self.treeview_transacs))
-
-    def uncheck_buttons(self, exception):
-        for button in self.listing_of_checkbutton:
-            if button != self.listing_of_checkbutton[exception]:
-                button.deselect()
 
     def reset(self):
         self.treeview_transacs = self.user_transacs.copy()
+
+        for button in self.listing_of_checkbutton:
+            button.deselect()
+
+        for entry in [self.date_entry, self.magasin_entry]:
+            entry.delete(0, 10000000)
 
         self.set_page(1)
 

@@ -111,7 +111,7 @@ class InscriptionFrame(tk.Frame):
         mdp = self.mdp.get()
         mdp_confirm = self.mdp_confirm.get()
         money = self.money.get()
-        image = "ressource\\img\\profile-base.png"
+        image = "source\\app\\ressource\\img\\profile-base.png"
 
         user = {
             'id': identifiant,

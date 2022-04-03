@@ -2,7 +2,7 @@ import json
 
 
 def add_user_in_activity_recent(user):
-    with open(r'..\..\data\activity.json', 'r+') as file:
+    with open(r'data\activity.json', 'r+') as file:
         data = json.load(file)
 
         if user not in data['activity_recent']:
@@ -11,26 +11,26 @@ def add_user_in_activity_recent(user):
             x = data['activity_recent']
             x.remove(x[-1])
 
-    with open(r'..\..\data\activity.json', 'w') as file:
+    with open(r'data\activity.json', 'w') as file:
         json.dump(data, file, indent=4)
 
 
 def get_recent_user(number):
-    with open(r'..\..\data\activity.json', 'r+') as file:
+    with open(r'data\activity.json', 'r+') as file:
         data = json.load(file)
     try:
         return data['activity_recent'][number]
-    except KeyError as e:
+    except [KeyError, IndexError] as e:
         return "Null"
 
 
 def get_all_users():
-    with open(r'..\..\data\users.json', 'r') as f:
+    with open(r'data\users.json', 'r') as f:
         return json.load(f)
 
 
 def dump_users(users):
-    with open(r'..\..\data\users.json', 'w') as file:
+    with open(r'data\users.json', 'w') as file:
         json.dump(users, file, indent=4)
 
 
@@ -47,7 +47,7 @@ def set_user(user_id, old_id, new_user):
 
 
 def create_user(user_id):
-    files = [r'..\..\data\transactions.json', r'..\..\data\regu_transacs.json']
+    files = [r'data\transactions.json', r'data\regu_transacs.json']
 
     for file in files:
         with open(file, 'r+') as f:
@@ -60,11 +60,11 @@ def create_user(user_id):
 
 
 def update_user_id(old_id, new_id):
-    with open(r'..\..\data\activity.json', 'r+') as file:
+    with open(r'data\activity.json', 'r+') as file:
         data = json.load(file)
         data['activity_recent'][data['activity_recent'].index(old_id)] = new_id
 
-    with open(r'..\..\data\activity.json', 'w') as file:
+    with open(r'data\activity.json', 'w') as file:
         json.dump(data, file, indent=4)
 
 
@@ -74,13 +74,13 @@ def return_money(user):
 
 
 def select_image_user(name):
-    with open(r'..\..\data\users.json', 'r') as f:
+    with open(r'data\users.json', 'r') as f:
         data = json.load(f)
 
     try:
         return data[name]['image']
     except KeyError:
-        return "ressource\\img\\profile-base.png"
+        return "source\\app\\ressource\\img\\profile-base.png"
 
 
 def change_money(user_id, amount: int):
@@ -96,33 +96,33 @@ def add_transaction(user_id, transaction):
 
     change_money(user_id, transaction['amount'])
 
-    with open(r'..\..\data\transactions.json', 'w') as f:
+    with open(r'data\transactions.json', 'w') as f:
         json.dump(data, f, indent=4)
 
 
 def get_transactions(user_id=None):
-    with open(r'..\..\data\transactions.json', 'r') as f:
+    with open(r'data\transactions.json', 'r') as f:
         data = json.load(f)
 
     return data[user_id] if user_id else data
 
 
 def get_debit_trace(user):
-    with open(r'..\..\data\transactions.json', 'r') as f:
+    with open(r'data\transactions.json', 'r') as f:
         data = json.load(f)
 
     return data[user]['debit']
 
 
 def get_number_of_purchase(user):
-    with open(r'..\..\data\transactions.json', 'r') as f:
+    with open(r'data\transactions.json', 'r') as f:
         data = json.load(f)
 
     return len(data[user])
 
 
 def get_regu_transacs(user_id=None):
-    with open(r'..\..\data\regu_transacs.json') as f:
+    with open(r'data\regu_transacs.json') as f:
         return json.load(f)[user_id] if user_id else json.load(f)
 
 
@@ -131,7 +131,7 @@ def add_regu_transac(user_id, transaction):
 
     data[user_id].append(transaction)
 
-    with open(r'..\..\data\regu_transacs.json', 'w') as f:
+    with open(r'data\regu_transacs.json', 'w') as f:
         json.dump(data, f, indent=4)
 
 

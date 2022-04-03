@@ -150,7 +150,7 @@ pour t’aider !
         entry_id = self.identifiant_entry.get()
         mdp = self.motdepasse_entry.get()
 
-        with open(r'..\..\data\users.json', 'r') as f:
+        with open(r'data\users.json', 'r') as f:
             users = json.load(f)
 
         for user in users.values():
