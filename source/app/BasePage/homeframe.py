@@ -164,11 +164,11 @@ class HomeFrame(tk.Frame):
                                  command=self.search)
         valid_button.place(x=50, y=450, width=150, height=32)
 
-        reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 14),
-                                 background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
+        reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 11),
+                                 background=self.set_color('darkbg'), bd=0, activebackground=self.set_color('darkbg'),
                                  activeforeground=self.set_color('text2'), command=lambda: self.reset())
 
-        reset_button.place(x=50, y=500, width=150, height=32)
+        reset_button.place(x=53, y=485, width=150, height=32)
 
         canvas.place(x=0, y=0)
 
@@ -229,7 +229,23 @@ class HomeFrame(tk.Frame):
         # print(child_id[-1])
         # print(selections)
         # self.tableau.focus_get()
-        self.treeview.selection_set(selections)
+        # self.dico = {selections}
+
+        new_transac = []
+
+        print(self.user_transacs)
+
+        for k in self.user_transacs:
+            if k == objet:
+                new_transac.append(k)
+
+        self.user_transacs = new_transac
+
+        self.set_page(0)
+
+
+
+
 
     def uncheck_buttons(self, exception):
         for button in self.listing_of_checkbutton:
@@ -247,7 +263,7 @@ class HomeFrame(tk.Frame):
         return set_color(self.window.color_theme, color)
 
     def set_page(self, page):
-        if 0 < page <= len(self.user_transacs)/12 + 1:
+        if 0 < page <= len(self.user_transacs) / 12 + 1:
             self.tab_page = page
             self.page_var.set(str(page))
 
@@ -258,7 +274,7 @@ class HomeFrame(tk.Frame):
             for line in self.tab_lines:
                 line.destroy()
 
-            for index in range(page*12, min((page + 1) * 12, len(self.user_transacs))):
+            for index in range(page * 12, min((page + 1) * 12, len(self.user_transacs))):
 
                 transac = self.user_transacs[index]
 
@@ -269,8 +285,9 @@ class HomeFrame(tk.Frame):
 
                 elif transac['type'] == 'debit':
                     self.treeview.insert(parent='', index='end', iid=index, text='Market',
-                                         values=(f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
-                                                 transac['method'], transac['date']))
+                                         values=(
+                                             f"{transac['amount']}€", f"{transac['market']} / {transac['buy_type']}",
+                                             transac['method'], transac['date']))
 
                 elif transac['type'] == 'regu_debit':
                     self.treeview.insert(parent='', index='end', iid=index, text='Market',
@@ -279,22 +296,22 @@ class HomeFrame(tk.Frame):
 
             self.tab_lines = []
 
-            for i in range(min(len(self.user_transacs[page*12:]), 12)):
+            for i in range(min(len(self.user_transacs[page * 12:]), 12)):
                 line = tk.Canvas(self, width=690, height=2, bg=self.set_color('darkbg'), highlightthickness=0)
                 line.place(x=292, y=i * 40 + 94)
                 self.tab_lines.append(line)
 
     def page_buttons(self):
-        previous_image = tk.PhotoImage(file=select_image('page_précédente.png')).subsample(5)
-        previous_button = tk.Button(self.treeview_canvas, image=previous_image, background=self.set_color("darkbg"),
+        previous_image = tk.PhotoImage(file=select_image('page_précédente.png')).subsample(6)
+        previous_button = tk.Button(self.treeview_canvas, image=previous_image, background=self.set_color("fourthbg"),
                                     bd=0, cursor='hand2', activebackground=self.set_color("fourthbg"), relief='groove',
                                     command=lambda: self.set_page(self.tab_page - 1))
         previous_button.photo = previous_image
         previous_button.place(x=self.treeview_canvas.winfo_reqwidth() / 2 - 320, y=self.winfo_reqheight() - 55,
                               width=225, height=38)
 
-        next_image = tk.PhotoImage(file=select_image('page_suivante.png')).subsample(5)
-        next_button = tk.Button(self.treeview_canvas, image=next_image, background=self.set_color("darkbg"),
+        next_image = tk.PhotoImage(file=select_image('page_suivante.png')).subsample(6)
+        next_button = tk.Button(self.treeview_canvas, image=next_image, background=self.set_color("fourthbg"),
                                 bd=0, cursor='hand2', activebackground=self.set_color("fourthbg"), relief='groove',
                                 command=lambda: self.set_page(self.tab_page + 1))
         next_button.photo = next_image

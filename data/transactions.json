@@ -288,6 +288,13 @@
             "amount": -10,
             "date": "29/01/22",
             "method": "Paiement r\u00e9gulier"
+        },
+        {
+            "type": "credit",
+            "origin": "aa",
+            "amount": 100,
+            "date": "02/04/22",
+            "method": "Virement"
         }
     ]
 }
