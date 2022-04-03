@@ -166,11 +166,11 @@ class HomeFrame(tk.Frame):
                                  command=self.search)
         valid_button.place(x=50, y=450, width=150, height=32)
 
-        reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 14),
-                                 background=self.set_color('bg'), bd=0, activebackground=self.set_color('bg'),
+        reset_button = tk.Button(self, text="Réinitialiser", foreground=self.set_color('text2'), font=('Roboto', 11),
+                                 background=self.set_color('darkbg'), bd=0, activebackground=self.set_color('darkbg'),
                                  activeforeground=self.set_color('text2'), command=lambda: self.reset())
 
-        reset_button.place(x=50, y=500, width=150, height=32)
+        reset_button.place(x=53, y=485, width=150, height=32)
 
         canvas.place(x=0, y=0)
 
@@ -270,16 +270,16 @@ class HomeFrame(tk.Frame):
             self.tab_lines.append(line)
 
     def page_buttons(self):
-        previous_image = tk.PhotoImage(file=select_image('page_précédente.png')).subsample(5)
-        previous_button = tk.Button(self.treeview_canvas, image=previous_image, background=self.set_color("darkbg"),
+        previous_image = tk.PhotoImage(file=select_image('page_précédente.png')).subsample(6)
+        previous_button = tk.Button(self.treeview_canvas, image=previous_image, background=self.set_color("fourthbg"),
                                     bd=0, cursor='hand2', activebackground=self.set_color("fourthbg"), relief='groove',
                                     command=lambda: self.set_page(self.tab_page - 1))
         previous_button.photo = previous_image
         previous_button.place(x=self.treeview_canvas.winfo_reqwidth() / 2 - 320, y=self.winfo_reqheight() - 55,
                               width=225, height=38)
 
-        next_image = tk.PhotoImage(file=select_image('page_suivante.png')).subsample(5)
-        next_button = tk.Button(self.treeview_canvas, image=next_image, background=self.set_color("darkbg"),
+        next_image = tk.PhotoImage(file=select_image('page_suivante.png')).subsample(6)
+        next_button = tk.Button(self.treeview_canvas, image=next_image, background=self.set_color("fourthbg"),
                                 bd=0, cursor='hand2', activebackground=self.set_color("fourthbg"), relief='groove',
                                 command=lambda: self.set_page(self.tab_page + 1))
         next_button.photo = next_image
