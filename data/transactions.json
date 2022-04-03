@@ -1,12 +1,2 @@
 {
-    "Alban": [
-        {
-            "type": "debit",
-            "market": "Auchan",
-            "objet": "Pommes",
-            "amount": -5,
-            "date": "03/02/22",
-            "method": "Carte Bancaire"
-        }
-    ]
 }
