@@ -13,4 +13,18 @@ En effet **GestMoney** contient un site internet !
 
 > http://www.gestmoney.cf
 
-<img src="">
+## Comment l'utiliser ?
+
+C'est tout simple, il suffit de vous sur le site internet puis de télécharger l'application !
+
+Rien de plus  simple !
+
+## Images
+
+<img src="image/i1.png">
+<img src="image/i2.png">
+
+**Cordialement Kijusu, Banban**
+
+Merci à RedsTom pour le design de la maquette de notre application !
+Son github : https://github.com/RedsTom
