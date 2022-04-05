@@ -1,4 +1,4 @@
 cd ..
-venv\Scripts\python.exe init.py
+Python310\python.exe init.py
 
 pause
