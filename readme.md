@@ -17,7 +17,7 @@ En effet **GestMoney** contient un site internet !
 
 C'est tout simple, il suffit de vous sur le site internet puis de télécharger l'application !
 
-Rien de plus  simple !
+Rien de plus simple !
 
 ## Images
 
