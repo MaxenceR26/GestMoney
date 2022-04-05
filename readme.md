@@ -22,7 +22,7 @@ Rien de plus  simple !
 ## Images
 
 <img src="image/i1.png" alt="">
-<img src="image/i2.png">
+<img src="image/i2.png" alt="">
 
 **Cordialement Kijusu, Banban**
 
