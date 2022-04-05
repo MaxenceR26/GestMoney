@@ -14,7 +14,7 @@ class InscriptionFrame(tk.Frame):
         self.window = window
 
         # Config Window
-        self.config(background=self.set_color('bg'))
+        self.config(background=self.set_color('fourthbg'))
 
         self.x, self.y = None, None
 
@@ -99,7 +99,7 @@ class InscriptionFrame(tk.Frame):
 
     def show_error(self, text):
         self.error_canvas.destroy()
-        self.error_canvas = tk.Canvas(self, height=40, width=431, background=self.set_color('bg'),
+        self.error_canvas = tk.Canvas(self, height=40, width=431, background=self.set_color('fourthbg'),
                                       highlightthickness=0)
         self.error_canvas.create_text(215, 20, text=text, font=('Roboto', 12), fill=self.set_color('error'))
 
