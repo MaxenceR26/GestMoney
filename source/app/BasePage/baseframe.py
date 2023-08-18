@@ -61,15 +61,22 @@ class BaseFrame(tk.Frame):
 
         self.right_widgets()
 
+    def moneyData(self, canvas, color):
+        canvas.create_text(128.5, 50, text="Argent", font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
+        canvas.create_text(128.5, 90, text=f"{return_money(self.window.user_id)}€",
+                           font=('Roboto', 14), fill=color)
+        canvas.pack(side=tk.RIGHT)
     def right_widgets(self):
         canvas = tk.Canvas(self, width=257, height=645, bg=self.set_color("darkbg"), highlightthickness=0)
         canvas.create_line(1000, 0, -10, 0, fill="black")
         canvas.create_line(210, 120, 40, 120, fill=self.set_color("buttonactive"), width=2)
 
-        canvas.create_text(128.5, 50, text="Argent", font=('Roboto', 20, 'bold'), fill=self.set_color('text2'))
-        canvas.create_text(128.5, 90, text=f"{return_money(self.window.user_id)}€",
-                           font=('Roboto', 14), fill=self.set_color('text2'))
-        canvas.pack(side=tk.RIGHT)
+        if return_money(self.window.user_id) <= 10:
+            self.moneyData(canvas, self.set_color('error'))
+        elif return_money(self.window.user_id) <= 50:
+            self.moneyData(canvas, self.set_color('orange'))
+        else:
+            self.moneyData(canvas, self.set_color('text2'))
 
         self.accueil_button = tk.Button(self, text="Accueil", font=('Roboto', 14), fg=self.set_color('text2'), bd=0,
                                         activeforeground=self.set_color('text2'),
