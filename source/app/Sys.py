@@ -20,7 +20,8 @@ def set_color(theme, color):
             'entrytext': 'white',
             'error': 'red',
             'tertiarybg': '#2D4481',
-            'copyright': '#C6CACB'
+            'copyright': '#C6CACB',
+            'orange' : '#F3A730'
                   }
     }
     return themes[theme][color]
